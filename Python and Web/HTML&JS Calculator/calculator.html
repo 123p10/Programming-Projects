@@ -1,0 +1,166 @@
+<body background="https://i.imgur.com/Wmb6V1n.gif">
+<p>Owens Amazing Calculator-</p>
+<button type = "button" onClick = "one()">1</button>
+<button type = "button" onClick = "two()">2</button>
+<button type = "button" onClick = "three()">3</button>
+<button type = "button" style="visibility:hidden">+</button>
+<button type = "button" onClick = "add()">+</button>
+<button type = "button" onClick = "subtract()">-</button>
+
+<br/>
+<button type = "button" onClick = "four()">4</button>
+<button type = "button" onClick = "five()">5</button>
+<button type = "button" onClick = "six()">6</button>
+<button type = "button" style="visibility:hidden">+</button>
+<button type = "button" onClick = "multiply()">x</button>
+<button type = "button" onClick = "divide()">÷</button>
+
+<br/>
+<button type = "button" onClick = "seven()">7</button>
+<button type = "button" onClick = "eight()">8</button>
+<button type = "button" onClick = "nine()">9</button>
+<button type = "button" style="visibility:hidden">+</button>
+<button type = "button" onClick = "equals()">=</button>
+
+<br/>
+<button type = "button" style="visibility:hidden">3</button>
+
+<button type = "button" onClick = "zero()">0</button><br/>
+
+
+
+
+<br/>
+<button type = "button" onClick = "clr()">Clear</button><br/>
+<button type = "button" onClick = "wipe()">Wipe History</button>
+
+<p id="p1"></p>
+<p id="history"></p>
+
+
+
+
+
+
+
+<script>
+	var a = null;
+	var b = null;
+	var x = null;
+	var func = null;
+	var num;
+	function add(){
+		func = "+";
+		document.getElementById("p1").innerHTML += func;
+
+	}
+	function subtract(){
+		func = "-";
+		document.getElementById("p1").innerHTML += func;
+
+	}
+	
+	function multiply(){
+		func = "*";
+		document.getElementById("p1").innerHTML += func;
+
+	}
+	function divide(){
+		func = "/";
+		document.getElementById("p1").innerHTML += func;
+
+	}
+	/*function exponent(){
+		func = "^";
+		document.getElementById("p1").innerHTML += func;
+
+	}*/
+	
+	function equals(){
+		x = eval(document.getElementById("p1").innerHTML);
+		document.getElementById("p1").innerHTML += " = " + x;
+		newLine();
+
+
+	}
+	
+
+	function one(){
+		set(1);
+
+	}
+	function two(){
+		set(2);
+
+	}
+	function three(){
+		set(3);
+	}
+	function four(){
+		set(4);
+	}
+	function five(){
+		set(5);
+	}
+	function six(){
+		set(6);
+	}
+	function seven(){
+		set(7);
+	}
+	function eight(){
+		set(8);
+	}
+	function nine(){
+		set(9);
+	}
+	function zero(){
+		set(0);
+	}
+	
+	function set(num){
+		//alert(num);
+		if(func != null){
+
+			b = num;
+				document.getElementById("p1").innerHTML += String(b);
+			}
+			
+			else{
+				if(a == null){
+					a = num;
+					document.getElementById("p1").innerHTML = String(a);
+				}
+					
+				else{
+					a = num;
+					document.getElementById("p1").innerHTML += String(a);
+
+				}
+			}
+	}
+	
+	function clr(){
+		a = null;
+		b = null;
+		x = null;
+		func = null;
+		document.getElementById("p1").innerHTML = "";
+
+	}
+	function newLine(){
+	    var px = document.createElement("P");
+		var t = document.createTextNode(document.getElementById("p1").innerHTML);
+		px.appendChild(t);
+		document.getElementById("history").insertBefore(px,document.getElementById("history").firstChild);
+		clr();
+	}
+	function wipe(){
+		document.getElementById("history").innerHTML = "";
+		clr();
+	}
+	
+	
+	
+</script>
+</body>

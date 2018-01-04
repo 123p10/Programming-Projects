@@ -1,0 +1,64 @@
+
+<html>
+<title>Register</title>
+<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1,maximum-scale=1, user-scalable=no,target-densityDpi=device-dpi">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+  <head>
+    <style>
+      #userinput{
+        height:30px;
+        width:290px;
+        position:relative;
+        top:-5px;
+      }
+      #passinput{
+        height:30px;
+        width:300px;
+        position: relative;
+        top:-5px;
+      }
+      #LoginBtn{
+        height:15%;
+        width:25%;
+        font-size:10px;
+        background-color:#d6d6d6;
+        border-radius: 20px;
+      }
+      #Incorrect{
+        color:red;
+      }
+
+
+
+
+    </style>
+  </head>
+
+  <div class="w3-container w3-card" style="background-color: white;">
+    <h1>Register</h1>
+  </div>
+  <br><br>
+  <body style="background-color: #274472;">
+    <div style="background-color: white;text-align: center;height:50%;position: relative;width:100%;">
+      <br>
+      <br>
+      <br>
+      <%= form_tag({controller: "register", action: "register"},method: "POST") do %>
+        <%= label_tag(:usertag, "Username:")%>
+        <%= text_field_tag(:userinput) %>
+        <br>
+        <br>
+        <%= label_tag(:passtag, "Password:")%>
+        <%= password_field_tag (:passinput)  %>
+        <br>
+        <%= submit_tag("Register",:id =>"Register") %>
+      <% end %> 
+      <span id="LoginLink"><%= link_to "Login",:controller => :login,:action => :index%></span>
+      <br>
+      <%if params[:error] == "exists" %>
+        <span id="Incorrect">That Account already exists</span>
+      <%end%> 
+    </div>
+  </body>
+</html>
+

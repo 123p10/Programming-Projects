@@ -1,0 +1,19 @@
+<h1>Welcome#index</h1>
+<h2>
+Hello 
+
+<% if(params.has_key?(:id) && params.has_key?(:random))%>
+	<%= "your name is : #{params[:random]}" %><br/>
+<%end%>
+</h2>
+
+<p>Find me in app/views/welcome/index.html.erb</p>
+
+
+
+
+<%= "Count to 10"%>
+<br>
+<%11.times do |i|%>
+	<%= i%>
+<%end%>

@@ -1,0 +1,33 @@
+<html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+
+<meta name="viewport" content="width=device-width,height=device-height, initial-scale=0.5,maximum-scale=0.5, user-scalable=no,target-densityDpi=device-dpi">
+<header>
+	<div class="w3-container w3-card" style="background-color: white;">
+	  <button  class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+	  <span style="font-size: 250%;"><%=@name%></span>
+	  <span style="font-size: 150%;float:right;line-height: 70%;"><!--TODO FIND A WAY TO ACCESS VAR FROM ANOTHER CONTROLLER--><%=@user%><br><%=button_to "Log Out", :controller => :home,:action => :logout  %></span>
+	</div>
+
+	<nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar" style="background-color: white;">
+		<div class="w3-container w3-theme-d2">
+		  <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
+		  <br>
+		  <div class="w3-padding w3-center">
+		    <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
+		  </div>
+		</div>
+		<%= link_to "Chat",{controller: "home",action: "gotochat"},class: "w3-bar-item w3-button" %>
+	</nav>
+	<script>
+		closeSidebar();
+		function openSidebar() {
+		    document.getElementById("mySidebar").style.display = "block";
+
+		}
+		function closeSidebar() {
+		    document.getElementById("mySidebar").style.display = "none";
+		}
+	</script>
+</header>
+</html>

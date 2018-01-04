@@ -1,0 +1,64 @@
+
+<html>
+<title>Login</title>
+<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1,maximum-scale=1, user-scalable=no,target-densityDpi=device-dpi">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+	<head>
+		<style>
+			#userinput{
+				height:30px;
+				width:290px;
+				position:relative;
+				top:-5px;
+			}
+			#passinput{
+				height:30px;
+				width:300px;
+				position: relative;
+				top:-5px;
+			}
+			#LoginBtn{
+				height:15%;
+				width:25%;
+				font-size:10px;
+				background-color:#d6d6d6;
+				border-radius: 20px;
+			}
+			#Incorrect{
+				color:red;
+			}
+
+
+
+
+		</style>
+		<div class="w3-container w3-card" style="background-color: white;">
+	 	 <span style="font-size:30px;">Login</span>
+		</div>
+	</head>
+
+	<br><br>
+	<body style="background-color: #274472;">
+		<div style="background-color: white;text-align: center;height:50%;position: relative;width:100%;">
+			<br>
+			<br>
+			<br>
+			<%= form_tag({controller: "login", action: "verify"},method: "POST") do %>
+			  <%= label_tag(:usertag, "Username:")%>
+			  <%= text_field_tag(:userinput) %>
+			  <br>
+			  <br>
+			  <%= label_tag(:passtag, "Password:")%>
+			  <%= password_field_tag (:passinput)  %>
+			  <br>
+			  <%= submit_tag("Login",:id =>"LoginBtn") %>
+			<% end %> 
+			<span id="RegisterLink"><%= link_to "Register",:controller => :register,:action => :index%></span>
+			<br>
+			<%if params[:error] == "Incorrect" %>
+				<span id="Incorrect">Incorrect Username or Password</span>
+			<%end%>	
+		</div>
+	</body>
+</html>
+
