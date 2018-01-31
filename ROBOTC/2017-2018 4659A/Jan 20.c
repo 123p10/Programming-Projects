@@ -1,5 +1,5 @@
+#pragma config(Sensor, in8,    cb,             sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  Lift,           sensorQuadEncoder)
-#pragma config(Sensor, dgtl3,  cBar,           sensorRotation)
 #pragma config(Motor,  port1,           claw,          tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           RDB,           tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port3,           RDF,           tmotorVex393_MC29, openLoop)
@@ -23,27 +23,31 @@ void setLiftSpeed(int speed);
 void setMogo(int speed);
 void setcBarSpeed(int speed);
 void setClaw(int speed);
+void chBar(int des);
+//void chainBar(int pos);
+void macro(int n);
 
 void pre_auton()
 {
   bStopTasksBetweenModes = true;
+	SensorValue[cBar] = 0;
+	SensorValue[Lift] = 0;
 
 }
-
-task autonomous()
-{
-}
-
+task autonomous(){}
 task usercontrol()
 {
-	SensorValue[Lift] = 0;
 	int lAim = 0;
 	int lkP = 2;
-	int cAim = 0;
-	int ckP = 2;
+	int des = 650;
+	float ckP = -0.11;
+	float ckI = -0;
+	float ckD = -0.31;
+	int integral = 0;
+	int e = des - SensorValue[cb];
+	int el = 0;
   while (true)
   {
-
 		//Drive Code
   	if(abs(vexRT[Ch3]) > 15){
   		setLDrive(vexRT[Ch3]);
@@ -89,7 +93,7 @@ task usercontrol()
 
 
 	//Chain Bar Code
-  	if(vexRT[Btn6U]){
+  	/*if(vexRT[Btn6U]){
   		setcBarSpeed(127);
   		cAim = SensorValue[cBar];
   	}
@@ -108,7 +112,7 @@ task usercontrol()
   	if(vexRT[Btn7D]){
   		int error = 400;
   		setcBarSpeed(error * ckP);
-  	}
+  	}*/
 
   	//Claw Code
 		if(vexRT[Btn7L]){
@@ -119,13 +123,25 @@ task usercontrol()
   	}
   	else{
   		setClaw(0);
-  	}
-
-
-
-		wait1Msec(15);
+ 		}
+ 		if(vexRT[Btn6U]){
+ 			setcBarSpeed(-127);
+ 		}
+ 		else if(vexRT[Btn6D]){
+ 			setcBarSpeed(127);
+ 		}
+ 		else{
+ 			setcBarSpeed(0);
+ 		}
+	/*	e = des - SensorValue[cb];
+		int derivative = e - el;
+		integral += e;
+		wait1Msec(10);
+		el = e;
+		motor[cBar] = (ckP * e) + (ckI * integral) + (ckD * derivative);(*/
   }
 }
+
 
 void setMogo(int speed){
 	motor[mogo] = speed;
@@ -149,3 +165,35 @@ void setcBarSpeed(int speed){
 void setClaw(int speed){
 	motor[claw] = speed;
 }
+void chBar(int des){
+	float ckP = -0.11;
+	float ckI = 0.0005;
+	float ckD = -0.25;
+	int integral = 0;
+	int e = des - SensorValue[cb];
+	int el = 0;
+//	motor[claw] = -50;
+	while(1){
+		e = des - SensorValue[cb];
+		int derivative = e - el;
+		integral += e;
+		wait1Msec(30);
+		el = e;
+		motor[cBar] = (ckP * e) + (ckI * integral) + (ckD * derivative);
+
+	}
+}
+/*
+void chainBar(int pos){
+	int kP = -2;
+	while(1){
+
+		sensorC = SensorValue[cb];
+		int error = SensorValue[cb] - pos;
+		int final = error*kP + 25;
+		motor[cBar] = final;
+		errorOut = error;
+		finalOut = final;
+		wait1Msec(30);
+	}
+}*/
