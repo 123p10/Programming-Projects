@@ -25,8 +25,29 @@ void setcBarSpeed(int speed);
 void setClaw(int speed);
 void chBar(int des);
 //void chainBar(int pos);
+bool hold = false;
 void macro(int n);
 
+	//Drive slew buffer
+	const int SIZE = 10; //If updating SIZE, add or remove 0s from arrays below
+	int oldL[SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int oldR[SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int sumL = 0, sumR = 0;
+
+  //Higher control drive mapping
+  int driveMap[128] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+											 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+											22,23,24,25,26,27,28,28,29,29,
+											30,30,31,31,32,32,33,33,34,34,
+											35,35,36,36,37,37,38,38,39,39,
+											40,40,41,41,42,42,43,43,44,44,
+											45,45,46,46,47,47,48,48,49,49,
+											50,50,51,51,52,52,53,53,54,54,
+											55,55,56,56,57,57,58,58,59,59,
+											60,60,61,62,63,64,65,66,67,68,
+											69,70,71,72,73,74,75,76,77,78,
+											79,80,81,82,83,84,85,86,87,88,
+											89,90,91,92,94,96,127,127};
 void pre_auton()
 {
   bStopTasksBetweenModes = true;
@@ -39,15 +60,36 @@ task usercontrol()
 {
 	int lAim = 0;
 	int lkP = 2;
-	int des = 650;
-	float ckP = -0.11;
-	float ckI = -0;
-	float ckD = -0.31;
-	int integral = 0;
-	int e = des - SensorValue[cb];
-	int el = 0;
+
+
   while (true)
   {
+
+		oldL[9] = driveMap[abs(vexRT[Ch3])] * sgn(vexRT[Ch3]);
+		oldR[9] = driveMap[abs(vexRT[Ch2])] * sgn(vexRT[Ch2]);
+
+		//Reset sums
+		sumL = 0;
+		sumR = 0;
+
+		//Sum up the previous 10 drive commands
+		for(int i = 0; i < SIZE - 1; i++){
+			sumL += oldL[i];
+			sumR += oldR[i];
+
+			oldL[i] = oldL[i + 1];
+			oldR[i] = oldR[i + 1];
+		}
+
+		sumL += oldL[9];
+		sumR += oldR[9];
+
+		//Drive motors receive moving average
+		motor[LDF]  = sumL / SIZE;
+	  motor[LDB]   = sumL / SIZE;
+	  motor[RDF] = sumR / SIZE;
+	  motor[RDB]  = sumR / SIZE;
+/*
 		//Drive Code
   	if(abs(vexRT[Ch3]) > 15){
   		setLDrive(vexRT[Ch3]);
@@ -61,7 +103,7 @@ task usercontrol()
   	}
   	else{
   		setRDrive(0);
-  	}
+  	}*/
 
 
 		//Lift Code
@@ -121,9 +163,20 @@ task usercontrol()
   	else if(vexRT[Btn7R]){
   		setClaw(-127);
   	}
-  	else{
-  		setClaw(0);
+  	else if(hold){
+  		setClaw(20);
  		}
+ 		else if(!hold){
+ 			setClaw(0);
+ 		}
+ 		if(vexRT[Btn7U]){
+ 			hold = true;
+ 		}
+ 		if(vexRT[Btn7D]){
+ 			hold = false;
+ 		}
+
+
  		if(vexRT[Btn6U]){
  			setcBarSpeed(-127);
  		}
