@@ -26,6 +26,7 @@ void setClaw(int speed);
 void chBar(int des);
 //void chainBar(int pos);
 bool hold = false;
+
 void macro(int n);
 
 	//Drive slew buffer
@@ -158,23 +159,18 @@ task usercontrol()
 
   	//Claw Code
 		if(vexRT[Btn7L]){
-  		setClaw(127);
+  		setClaw(80);
+  		hold = false;
   	}
   	else if(vexRT[Btn7R]){
-  		setClaw(-127);
+  		setClaw(-80);
+  		hold = true;
   	}
-  	else if(hold){
-  		setClaw(20);
- 		}
- 		else if(!hold){
- 			setClaw(0);
- 		}
- 		if(vexRT[Btn7U]){
- 			hold = true;
- 		}
- 		if(vexRT[Btn7D]){
- 			hold = false;
- 		}
+  	else {
+  		setClaw(0);
+  	}
+
+
 
 
  		if(vexRT[Btn6U]){
