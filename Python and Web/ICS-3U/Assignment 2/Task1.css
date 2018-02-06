@@ -1,0 +1,24 @@
+body{
+	background-color:#c6c6c6;
+}
+h2{
+	text-decoration: underline;
+}
+font{
+	line-height: 75px;
+	text-align: center;
+	font-size: 30px;
+}
+table{
+	background-color: black;
+}
+th{
+	font-size: 10px;
+	color: gray;
+}
+tr{
+	font-size: 20px;
+}
+img{
+   border-radius: 50%;
+}
