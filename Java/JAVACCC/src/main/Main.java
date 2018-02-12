@@ -1,5 +1,6 @@
 package main;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +97,7 @@ public class Main {
 				System.out.println("4.2007 Federal Voting Age");
 				System.out.println("5.2015 Zero it Out");
 				System.out.println("6.2014 Party Invitation");
+				System.out.println("7.2005 Snow Calls");
 
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
@@ -117,6 +119,10 @@ public class Main {
 				if(selection == 6){
 					partyInvitation();
 				}
+				if(selection == 7) {
+					snowCalls();
+				}
+
 			}
 			if(level == 2){
 				System.out.println(" ");
@@ -124,7 +130,7 @@ public class Main {
 				System.out.println("2. TopYodeller");
 				System.out.println("3. Boxes");
 				System.out.println("4. Attack of the CipherTexts");
-
+				System.out.println("5. High Tide, Low Tide");
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
 				if(selection == 1){
@@ -138,6 +144,9 @@ public class Main {
 				}
 				if(selection == 4){
 					cipher();
+				}
+				if(selection == 5) {
+					tide();
 				}
 			}
 			if(level == 3){
@@ -980,7 +989,54 @@ public class Main {
 		
 		
 	}
+	static void tide() {
+		System.out.println("Input: ");
+		Scanner s = new Scanner(System.in);
+		int length = s.nextInt();
+		int measured[] = new int[length];
+		int high[] = new int[length/2];
+		int low[] = new int[length/2];
+		int t[] = new int[length];
+		for(int i = 0;i < length;i++) {
+			measured[i] = s.nextInt();
+		}
+		Arrays.sort(measured);
+		System.out.println(Arrays.toString(measured));
 
+
+		for(int i = 0;i < length/2;i++) {
+			low[i] = measured[i];
+		}
+		int increm = 0;
+		for(int i = length/2;i < length;i++) {
+			high[increm] = measured[i];
+			increm++;
+		}
+		int i1 = 0;
+		int i2 = 0;
+		for(int i = 0;i < length/2;i++) {
+			t[i] = low[length/2-i-1];
+		}
+		for(int i = 0;i < length;i++) {
+			if(i%2 == 0) {
+				System.out.print(t[i1] + " ");
+				i1++;
+			}
+			else {
+				System.out.print(high[i2] + " ");
+				i2++;
+			}
+				
+		}
+	}
+	static void snowCalls() {
+		Scanner in = new Scanner(System.in);
+		int length = in.nextInt();
+		String[] input = new String[length];
+		for(int i = 0;i < length;i++) {
+			input[i] = in.nextLine();
+		}
+	}
 	//Sorting
 	static void slowSort(){
 		long mill;
