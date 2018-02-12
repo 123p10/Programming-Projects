@@ -1,0 +1,33 @@
+div#title{
+	text-align: center;
+	color: blue;
+	font-size: 24px;
+	text-decoration: line-through;
+	
+}
+div#pt2{
+	text-align: left;
+	color: red;
+}
+div#pt3{
+	text-align:right;
+	color: #00FF00;
+}
+.bu{
+	font-weight: bold;
+	text-decoration: underline;
+}
+.red{
+	color:red;
+}
+.pink{
+	color: #fc0ace;
+	font-style: italic;
+}
+.green{
+	color:#00b050;
+	text-decoration:underline;
+}
+.center{
+	padding-left:40%;
+}
