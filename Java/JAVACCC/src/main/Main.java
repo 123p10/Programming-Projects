@@ -131,6 +131,7 @@ public class Main {
 				System.out.println("3. Boxes");
 				System.out.println("4. Attack of the CipherTexts");
 				System.out.println("5. High Tide, Low Tide");
+				System.out.println("6. Aromatic Numbers");
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
 				if(selection == 1){
@@ -147,6 +148,9 @@ public class Main {
 				}
 				if(selection == 5) {
 					tide();
+				}
+				if(selection == 6) {
+					aromaticNumbers();
 				}
 			}
 			if(level == 3){
@@ -1033,10 +1037,136 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		int length = in.nextInt();
 		String[] input = new String[length];
+		String[] output = new String[length];
+		Scanner il = new Scanner(System.in);
+
 		for(int i = 0;i < length;i++) {
-			input[i] = in.nextLine();
+			input[i] = il.nextLine();
+		//	char[] temp = new char[input[i].length()];
+			output[i] = "";
+			int index = 0;
+			int hyp = 0;
+			for(int j = 0;j < input[i].length();j++) {
+				if(index == 3 && hyp < 2) {
+					output[i] += '-';
+					index = 0;
+					hyp++;
+				}
+				if(Character.isDigit(input[i].charAt(j))) {
+					output[i] += input[i].charAt(j);
+					index++;
+				}
+				else if(input[i].charAt(j) == 'A' || input[i].charAt(j) == 'B' || input[i].charAt(j) == 'C') {
+					output[i] += '2';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'D' || input[i].charAt(j) == 'E' || input[i].charAt(j) == 'F') {
+					output[i] += '3';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'G' || input[i].charAt(j) == 'H' || input[i].charAt(j) == 'I') {
+					output[i] += '4';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'J' || input[i].charAt(j) == 'K' || input[i].charAt(j) == 'L') {
+					output[i] += '5';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'M' || input[i].charAt(j) == 'N' || input[i].charAt(j) == 'O') {
+					output[i] += '6';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'P' || input[i].charAt(j) == 'Q' || input[i].charAt(j) == 'R' || input[i].charAt(j) == 'S') {
+					output[i] += '7';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'T' || input[i].charAt(j) == 'U' || input[i].charAt(j) == 'V') {
+					output[i] += '8';
+					index++;
+				}
+				else if(input[i].charAt(j) == 'W' || input[i].charAt(j) == 'X' || input[i].charAt(j) == 'Y' || input[i].charAt(j) == 'Z') {
+					output[i] += '9';
+					index++;
+				}
+				else if(input[i].charAt(j) == '-') {
+					//Do Nothing
+				}
+				if(output[i].length() == 12) {
+					break;
+				}
+
+			}
+		}
+		for(int i = 0; i < length;i++) {
+			System.out.println(output[i]);
 		}
 	}
+	static void aromaticNumbers() {
+		Scanner s = new Scanner(System.in);
+		String input = s.nextLine();
+		int total = 0;
+		for(int i = 0;i < input.length();i+=2) {
+			int num = input.charAt(i) - '0';
+			char div = input.charAt(i+1);
+			int d = 0;
+			if(div == 'I') {
+				d = 1;
+			}
+			if(div == 'V') {
+				d = 5;
+			}
+			if(div == 'X') {
+				d = 10;
+			}
+			if(div == 'L') {
+				d = 50;
+			}
+			if(div == 'C') {
+				d = 100;
+			}
+			if(div == 'D') {
+				d = 500;
+			}
+			if(div == 'M') {
+				d = 1000;
+			}
+			char a = 'a';
+			if(i + 3 < input.length()) {
+				 a = input.charAt(i+3);
+			}
+			int o = 0;
+			if(a == 'I') {
+				o = 1;
+			}
+			if(a == 'V') {
+				o = 5;
+			}
+			if(a == 'X') {
+				o = 10;
+			}
+			if(a == 'L') {
+				o = 50;
+			}
+			if(a == 'C') {
+				o = 100;
+			}
+			if(a == 'D') {
+				o = 500;
+			}
+			if(a == 'M') {
+				o = 1000;
+			}
+			if(o > d) {
+				total -= d * num;
+			}
+			else {
+				total += d * num;
+			}
+		}
+		System.out.println(total);
+	}
+	
+	
 	//Sorting
 	static void slowSort(){
 		long mill;
