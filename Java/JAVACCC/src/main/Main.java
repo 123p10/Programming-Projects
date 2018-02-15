@@ -132,6 +132,7 @@ public class Main {
 				System.out.println("4. Attack of the CipherTexts");
 				System.out.println("5. High Tide, Low Tide");
 				System.out.println("6. Aromatic Numbers");
+				System.out.println("7. Multiple Choice");
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
 				if(selection == 1){
@@ -152,10 +153,14 @@ public class Main {
 				if(selection == 6) {
 					aromaticNumbers();
 				}
+				if(selection == 7) {
+					multipleChoice();
+				}
 			}
 			if(level == 3){
 				System.out.println(" ");
 				System.out.println("1. Friends");
+
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
 				if(selection == 1){
@@ -164,11 +169,11 @@ public class Main {
 			}
 			if(level == 4){
 				System.out.println(" ");
-				System.out.println(" ");
+				System.out.println("1. Blood Distribution");
 				Scanner sc = new Scanner(System.in);
 				selection = sc.nextInt();
 				if(selection == 1){
-				//	substrings();
+					bloodDistribution();
 				}
 			}
 			if(level == 5){
@@ -315,9 +320,6 @@ public class Main {
 						i = f + n;
 						n = f;
 						f = i;
-				//		f = oi;
-				//		oi = i;
-					//	System.out.print(i);
 						if(i % 2 == 0) {
 							total += i;
 						}
@@ -1165,8 +1167,30 @@ public class Main {
 		}
 		System.out.println(total);
 	}
-	
-	
+	static void multipleChoice() {
+		Scanner s = new Scanner(System.in);
+		int num = s.nextInt();
+		String[] input = new String[num];
+		String[] answers = new String[num];
+		int score = 0;
+		for(int i = 0;i < num;i++) {
+			input[i] = s.next();
+		}
+		for(int i = 0;i < num;i++) {
+			answers[i] = s.next();
+		}
+		for(int i = 0;i < num;i++) {
+			if(input[i].equals( answers[i])) {
+				score++;
+			}
+		}
+		System.out.println(score);
+	}
+	static void bloodDistribution() {
+		Scanner s = new Scanner(System.in);
+		int[] donors = new int[8];
+		int[] ppl = new int[8];
+	}
 	//Sorting
 	static void slowSort(){
 		long mill;
