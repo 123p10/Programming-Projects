@@ -15,8 +15,5 @@ public class BandBooster {
 	public String toString() {
 		return name + ": " + boxesSold + " boxes";
 	}
-	public String ret() {
-		;
-	}
 	
 }

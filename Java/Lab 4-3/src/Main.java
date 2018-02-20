@@ -11,10 +11,13 @@ public class Main {
 			System.out.println("Enter the number of boxes sold by " + b1.getName() + " this week: ");
 			b1.updateSales(s.nextInt());
 		}
-		System.out.println();
-		System.out.println("Enter the number of boxes sold by " + b2.getName() + " this week: ");
-		b2.updateSales(s.nextInt());
-	//	System.out.println(b1.);
+		System.out.println(b1);
+		for(int i = 0;i < 3;i++) {
+			System.out.println("Enter the number of boxes sold by " + b2.getName() + " this week: ");
+			b2.updateSales(s.nextInt());
+		}
+		System.out.println(b2);
 	}
+	
 	
 }
