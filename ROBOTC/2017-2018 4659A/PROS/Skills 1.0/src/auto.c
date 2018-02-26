@@ -35,6 +35,11 @@ void autonomous() {
 
 void drive(int d,int speed){
   //Adjustables
+  /*
+  TBH Fuck Integral
+  Just tune kP till its p good
+  Then tune kD
+  */
   float kP = 1;
   float kI = 0;
   float kD = 0;
@@ -50,18 +55,24 @@ void drive(int d,int speed){
   int error = errorL - errorR;
   int left,right;
 
-  while(eD > 10){
-    eD = (errorL + errorR)/2;
-    error = errorL - errorR;
 
-    integral += error;
-    derivative = error - previous_error;
-    previous_error = error;
-    calc = error * kP + kI * integral + kD * derivative;
+  if(d > 0){
+    while(eD > 10){
+      eD = (errorL + errorR)/2;
+      error = errorL - errorR;
 
-    left = speed + calc;
-    right = speed - calc;
-    setDrive(left,right);
-    delay(50);
+      integral += error;
+      derivative = error - previous_error;
+      previous_error = error;
+      calc = error * kP + kI * integral + kD * derivative;
+
+      left = speed + calc;
+      right = speed - calc;
+      setDrive(left,right);
+      delay(50);
+    }
+  }
+  else{
+    
   }
 }
