@@ -14,8 +14,10 @@
 	}
 	echo "<br>";
 	for($i = 0;$i < 6;$i++){
-		$a = array('A','B','C','D','E','F','G','H','I','J','K', 'L','M','N','O','P','Q','R','S','T','U','V','W','X ','Y','Z');
-		echo "Item: " . $a[$i] . "<br>";
+		#$a = array('A','B','C','D','E','F','G','H','I','J','K', 'L','M','N','O','P','Q','R','S','T','U','V','W','X ','Y','Z');
+		$x = substr("ABCDEFGH ",$i,1);
+		echo "Item: " . $x . " <br>";
+		#echo "Item: " . $a[$i] . "<br>";
 	}
 	echo "<br>";
 ?>
