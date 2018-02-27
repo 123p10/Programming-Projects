@@ -29,8 +29,16 @@
 
  //This File will be used for auton functions
  //Create a new file for each route
-void autonomous() {
 
+void autonomous() {
+  initSensors();
+}
+
+void initSensors(){
+  gyroReset(gyro);
+  encoderReset(driveL);
+  encoderReset(driveR);
+  encoderReset(mogo);
 }
 
 void drive(int d,int speed){

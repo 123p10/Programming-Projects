@@ -118,11 +118,13 @@ void operatorControl();
 #define DRIVE_RIGHT_BOTTOM 4
 #define MOGO_TOP 5
 #define MOGO_BOTTOM 6
+#define GYRO_PORT 7
 
 
 Encoder driveL;
 Encoder driveR;
 Encoder mogo;
+Gyro gyro;
 
 
 
@@ -134,7 +136,7 @@ int joystick(int axis);
 int button(int btnGroup,char dir);
 int inchesToTicks(int inches);
 int cmToTicks(int cm);
-
+void initSensors();
 
 // End C++ export structure
 #ifdef __cplusplus

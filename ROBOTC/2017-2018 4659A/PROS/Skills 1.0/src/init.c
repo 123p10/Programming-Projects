@@ -41,4 +41,5 @@ void initialize() {
   driveL = encoderInit(DRIVE_LEFT_TOP, DRIVE_LEFT_BOTTOM, false);
   driveR = encoderInit(DRIVE_RIGHT_TOP,DRIVE_RIGHT_BOTTOM, false);
   mogo = encoderInit(MOGO_TOP,MOGO_BOTTOM,false);
+  gyro = gyroInit(GYRO_PORT,0);
 }

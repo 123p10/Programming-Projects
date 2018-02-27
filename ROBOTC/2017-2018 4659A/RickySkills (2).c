@@ -124,7 +124,7 @@ bool moveMogoAsync(int pos, float kP)
 
 bool moveDriveAsync(int distance, float distkP)
 {
-	float kP = 3;
+	float kP = 1.5;
 
 	int speed = 0;
 
