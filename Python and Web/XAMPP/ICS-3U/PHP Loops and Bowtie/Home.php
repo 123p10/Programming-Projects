@@ -56,7 +56,7 @@
 				echo " * ";
 			}
 			else{
-				echo " &nbsp;&nbsp; ";
+				echo " &nbsp;&nbsp; "; 
 			}
 		}
 		echo "<br>";
