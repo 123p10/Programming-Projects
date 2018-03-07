@@ -5,11 +5,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import States.MainMenu;
+import States.Test;
+
 public class Game extends StateBasedGame{
 
 	public static final int SPLASHSCREEN = 0;
 	public static final int MAINMENU = 1;
-	public static final int GAME = 2;
+	public static final int TEST = 2;
 	public static final double VERSION = 0.01;
 	public static final int V_HEIGHT = 720;
 	public static final int V_WIDTH = 1280;
@@ -21,6 +24,7 @@ public class Game extends StateBasedGame{
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
 		this.addState(new MainMenu());
+		this.addState(new Test());
 	}
 	public static void main(String[] args) {
         try {
