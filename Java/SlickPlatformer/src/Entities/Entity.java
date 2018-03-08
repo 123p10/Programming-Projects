@@ -61,7 +61,6 @@ public class Entity {
 	public void checkCollision() {
 		for(Wall wall : walls) {
 			if(shape.intersects(wall.getShape())) {
-				System.out.print("shitboi");
 				if(wall.getSide() == 270) {
 					if(velX < 0) {
 						velX = 0;
