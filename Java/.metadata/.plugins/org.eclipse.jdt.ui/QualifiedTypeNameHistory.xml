@@ -3,5 +3,23 @@
     <fullyQualifiedTypeName name="javafx.scene.Camera"/>
     <fullyQualifiedTypeName name="Objects.Bullet"/>
     <fullyQualifiedTypeName name="org.newdawn.slick.geom.Rectangle"/>
+<<<<<<< HEAD
     <fullyQualifiedTypeName name="org.newdawn.slick.GameContainer"/>
+=======
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="Objects.Wall"/>
+    <fullyQualifiedTypeName name="org.newdawn.slick.geom.Shape"/>
+=======
+<fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
+<<<<<<< HEAD
+<fullyQualifiedTypeName name="org.newdawn.slick.state.BasicGameState"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.command.InputProvider"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.Input"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.command.KeyControl"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.GameContainer"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.AppGameContainer"/>
+=======
+>>>>>>> 6dc2836d76b75398bb62cafbc6697cc8ecbe9e3f
+>>>>>>> d579b2e49bd62ffa9bee8b80bbd2fcde3c87a2f2
+>>>>>>> fa767a8b5fc01a91ad9e166188e05c667da0e692
 </qualifiedTypeNameHistroy>
