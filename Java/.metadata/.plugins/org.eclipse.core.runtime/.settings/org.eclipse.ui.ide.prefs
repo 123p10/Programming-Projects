@@ -1,7 +1,11 @@
 IMPORT_FILES_AND_FOLDERS_RELATIVE=true
+<<<<<<< HEAD
+IMPORT_FILES_AND_FOLDERS_TYPE=7,1
+=======
 IMPORT_FILES_AND_FOLDERS_TYPE=23,1
+>>>>>>> fa767a8b5fc01a91ad9e166188e05c667da0e692
 PROBLEMS_FILTERS_MIGRATE=true
 eclipse.preferences.version=1
-platformState=1501967324100
+platformState=1515108771178
 quickStart=false
 tipsAndTricks=true

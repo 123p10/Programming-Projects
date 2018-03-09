@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+<<<<<<< HEAD
+	<item value="C:\Users\obrak\Desktop\Programming-Projects\Java\Libraries\LWJGL\lwjgl" key="org.eclipse.jdt.ui.lastextjar"/>
+=======
 	<item value="C:\Users\obrak\Desktop\Programming-Projects\Java\Libraries\Slick\lib" key="org.eclipse.jdt.ui.lastextjar"/>
+>>>>>>> fa767a8b5fc01a91ad9e166188e05c667da0e692
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item value="2" key="layout"/>
 		<item value="true" key="group_libraries"/>
