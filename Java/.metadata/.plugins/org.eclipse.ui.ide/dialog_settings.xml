@@ -1,38 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
-		<item value="C:\Users\obrak\Desktop\Programming-Projects\Java"/>
-	</list>
-<<<<<<< HEAD
-	<section name="CleanDialogSettings">
-		<item value="500" key="DIALOG_WIDTH"/>
-		<item value="false" key="TOGGLE_SELECTED"/>
-		<item value="402" key="DIALOG_HEIGHT"/>
-		<item value="710" key="DIALOG_X_ORIGIN"/>
-		<item value="252" key="DIALOG_Y_ORIGIN"/>
-=======
-<<<<<<< HEAD
-	<section name="CleanDialogSettings">
-		<item value="500" key="DIALOG_WIDTH"/>
-		<item value="false" key="BUILD_ALL"/>
-		<item value="false" key="TOGGLE_SELECTED"/>
-		<item value="465" key="DIALOG_HEIGHT"/>
-		<item value="1190" key="DIALOG_X_ORIGIN"/>
-		<item value="255" key="DIALOG_Y_ORIGIN"/>
-		<item value="true" key="BUILD_NOW"/>
->>>>>>> d579b2e49bd62ffa9bee8b80bbd2fcde3c87a2f2
-	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
 	<section name="ChooseWorkspaceDialogSettings">
-		<item value="658" key="DIALOG_X_ORIGIN"/>
-		<item value="341" key="DIALOG_Y_ORIGIN"/>
+		<item value="202" key="DIALOG_X_ORIGIN"/>
+		<item value="197" key="DIALOG_Y_ORIGIN"/>
 	</section>
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 6dc2836d76b75398bb62cafbc6697cc8ecbe9e3f
->>>>>>> d579b2e49bd62ffa9bee8b80bbd2fcde3c87a2f2
 </section>

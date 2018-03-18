@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<section name="WorkbenchPreferenceDialogSettings">
-		<item value="-75" key="DIALOG_X_ORIGIN"/>
-<<<<<<< HEAD
-		<item value="-84" key="DIALOG_Y_ORIGIN"/>
-=======
-		<item value="-125" key="DIALOG_Y_ORIGIN"/>
->>>>>>> fa767a8b5fc01a91ad9e166188e05c667da0e692
-	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
 		<item value="-1" key="dialogHeight"/>
 		<item value="-1" key="dialogWidth"/>
@@ -18,18 +10,6 @@
 		<list key="orderedProviders">
 		</list>
 		<list key="textArray">
-		</list>
-	</section>
-	<section name="ImportExportAction">
-		<item value="org.eclipse.ui.wizards.import.ZipFile" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
-		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
-			<item value="org.eclipse.ui.Basic"/>
-		</list>
-	</section>
-	<section name="ZipFileImportWizard">
-		<item value="false" key="WizardZipFileResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
-		<list key="WizardZipFileResourceImportPage1.STORE_SOURCE_NAMES_ID">
-			<item value="C:\Users\obrak\Desktop\Programming-Projects\Java\Libraries\Slick\lib\natives-windows.jar"/>
 		</list>
 	</section>
 </section>
