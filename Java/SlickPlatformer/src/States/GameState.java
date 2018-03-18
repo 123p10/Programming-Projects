@@ -68,6 +68,8 @@ public class GameState extends BasicGameState{
 		input(gc);
 		updateEntity(sb);
 		updateProjectiles();
+        System.out.println(gc.getFPS());
+
 	}
 	void input(GameContainer gc) {
 		//Movement
@@ -96,6 +98,9 @@ public class GameState extends BasicGameState{
 		if(!gc.getInput().isMouseButtonDown(gc.getInput().MOUSE_LEFT_BUTTON)) {
 			player.setShoot(false);
 		}
+		if(gc.getInput().isKeyDown(gc.getInput().KEY_E)) {
+			player.setvX(-10);
+		}
 		
 	}
 	void updateProjectiles() {
@@ -107,9 +112,9 @@ public class GameState extends BasicGameState{
 		player.update();
 		for(int e = 0;e < enemies.size();e++) {
 			enemies.get(e).update();
-		//	if(player.getShape().intersects(enemies.get(e).getShape())) {
-				
-			//}
+			if(player.getShape().intersects(enemies.get(e).getShape())) {
+				player.hit(enemies.get(e));
+			}
 			enemies.get(e).chase(player.getX(),player.getY());
 			for(int p = 0;p < player.getBullets().size();p++) {
 				if(player.getBullets().get(p).getShape().intersects(enemies.get(e).getShape())) {

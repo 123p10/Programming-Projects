@@ -38,31 +38,42 @@ public class Player extends Entity{
 		}
 
 	}
+	public void hit(Enemy e) {
+		//e.hitspeed;
+		float angle = (float) Math.toDegrees(Math.atan2(my-Game.V_HEIGHT/2+25, mx-Game.V_WIDTH/2+15));
+		setvX(sp*Math.cos(Math.toRadians(angle)));
+		setvY(sp*Math.sin(Math.toRadians(angle)));
+
+		//	setVX();
+	}
+	
+	
+	
 	public ArrayList<Bullet> getBullets() {
 		return b;
 	}
 	
 	public void moveLeft() {
-		if(velX[9] >= -mspeed) {
-			velX[9] -= 0.75;
+		if(velX[velX.length-1] >= -mspeed) {
+			velX[0] -= 0.75;
 		}
 		moving = true;
 	}
 	public void moveRight() {
-		if(velX[9] <= mspeed) {
-			velX[9] += 0.75;
+		if(velX[velX.length-1] <= mspeed) {
+			velX[0] += 0.75;
 		}
 		moving = true;
 	}
 	public void moveUp() {
-		if(velY[9] >= -mspeed) {
-			velY[9] -= 0.75;
+		if(velY[velY.length-1] >= -mspeed) {
+			velY[0] -= 0.75;
 		}
 		moving = true;
 	}
 	public void moveDown() {
-		if(velY[9] <= mspeed) {
-			velY[9] += 0.75;
+		if(velY[velY.length-1] <= mspeed) {
+			velY[0] += 0.75;
 		}
 		moving = true;
 	}

@@ -10,7 +10,7 @@ import Objects.Wall;
 public class Enemy extends Entity{
 	double speed;
 	Player player;
-	
+	double hitspeed = 4;
 	public Enemy(int xs,int ys,int ws,int hs, ArrayList<Wall> walls) {
 		super(xs, ys, ws, hs, walls);
 		shape = new Rectangle(x-(w/2), y-(h/2), w, h);

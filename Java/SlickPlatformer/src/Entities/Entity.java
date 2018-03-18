@@ -13,8 +13,8 @@ public class Entity {
 	int x,y,w,h;
 	//double velX = 0;
 	//double velY = 0;
-	double[] velX = new double[10];
-	double[] velY = new double[10];
+	double[] velX = new double[50];
+	double[] velY = new double[50];
 	Shape shape;
 	ArrayList<Wall> walls;
 	double mxhp;
@@ -34,8 +34,10 @@ public class Entity {
 	
 	public void update() {
 		checkCollision();
-		x += velX[9];
-		y += velY[9];
+		x += velX[velX.length-1];
+		y += velY[velX.length-1];
+		velX = shiftArray(velX);
+		velY = shiftArray(velY);
 		gBar.setX(x-(w/2));
 		gBar.setY(y+(h/2)+3);
 		rBar.setX(x-(w/2));
@@ -76,23 +78,23 @@ public class Entity {
 		for(Wall wall : walls) {
 			if(shape.intersects(wall.getShape())) {
 				if(wall.getSide() == 270) {
-					if(velX[9] < 0) {
-						velX[9] = 0;
+					if(velX[velX.length-1] < 0) {
+						velX[velX.length-1] = 0;
 					}
 				}
 				else if(wall.getSide() == 90) {
-					if(velX[9] > 0) {
-						velX[9] = 0;
+					if(velX[velX.length-1] > 0) {
+						velX[velX.length-1] = 0;
 					}
 				}
 				else if(wall.getSide() == 180) {
-					if(velY[9] > 0) {
-						velY[9] = 0;
+					if(velY[velY.length-1] > 0) {
+						velY[velY.length-1] = 0;
 					}
 				}
 				else if(wall.getSide() == 0) {
-					if(velY[9] < 0) {
-						velY[9] = 0;
+					if(velY[velY.length-1] < 0) {
+						velY[velY.length-1] = 0;
 					}
 				}
 
@@ -115,10 +117,10 @@ public class Entity {
 	public double[] shiftArray(double[] a) {
 		double[] temp = a;
 		for(int i = 0;i < a.length-1;i++) {
-			temp[i+1] = temp[i];
+			temp[i+1] = a[i];
 		}
-		
-		return null;
+		return temp;
+		//return null;
 	}
 
 }
