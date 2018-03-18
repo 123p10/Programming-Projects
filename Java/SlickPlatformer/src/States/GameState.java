@@ -19,6 +19,8 @@ public class GameState extends BasicGameState{
 	ArrayList<Wall> walls;
 	ShapeRenderer s;
 	ArrayList<Enemy> enemies;
+	boolean moveX = false;
+	boolean moveY = false;
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		s = new ShapeRenderer();
@@ -68,28 +70,36 @@ public class GameState extends BasicGameState{
 		input(gc);
 		updateEntity(sb);
 		updateProjectiles();
-        System.out.println(gc.getFPS());
-
 	}
 	void input(GameContainer gc) {
 		//Movement
 		if(gc.getInput().isKeyDown(gc.getInput().KEY_A)) {
 			player.moveLeft();
+			moveX = true;
 		}
 		else if(gc.getInput().isKeyDown(gc.getInput().KEY_D)) {
 			player.moveRight();
+			moveX = true;
 		}
 		else {
-			player.setvX(0);
+			if(moveX) {
+				player.setvX(0);
+				moveX = false;
+			}
 		}
 		if(gc.getInput().isKeyDown(gc.getInput().KEY_W)) {
 			player.moveUp();
+			moveY = true;
 		}
 		else if(gc.getInput().isKeyDown(gc.getInput().KEY_S)) {
 			player.moveDown();
+			moveY = true;
 		}
 		else {
-			player.setvY(0);
+			if(moveY) {
+				player.setvY(0);
+				moveY = false;
+			}
 		}
 		//Shooting
 		if(gc.getInput().isMouseButtonDown(gc.getInput().MOUSE_LEFT_BUTTON)) {
@@ -114,6 +124,7 @@ public class GameState extends BasicGameState{
 			enemies.get(e).update();
 			if(player.getShape().intersects(enemies.get(e).getShape())) {
 				player.hit(enemies.get(e));
+				enemies.get(e).hit(player);
 			}
 			enemies.get(e).chase(player.getX(),player.getY());
 			for(int p = 0;p < player.getBullets().size();p++) {

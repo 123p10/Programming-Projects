@@ -3,8 +3,15 @@ Java/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging
 Java/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 Java/.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt
 Java/.metadata/version.ini
+Java/.metadata/*
+Java/.metadata/
+Java/.metadata
 *.zip
 *.xmi
 Java/.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt
 Java/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
 Java/.metadata/.mylyn/tasks.xml.zip
+Java/.metadata/.mylyn/.tasks.xml.zip
+Java/.metadata/.mylyn/.tasks.xml.zip
+Java/.metadata/.mylyn/tasks.xml.zip
+Java/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes/properties.index
