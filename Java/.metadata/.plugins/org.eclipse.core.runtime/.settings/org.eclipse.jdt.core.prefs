@@ -1,3 +1,6 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=fa767a8b5fc01a91ad9e166188e05c667da0e692
 eclipse.preferences.version=1
 org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
 org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
@@ -6,8 +9,4 @@ org.eclipse.jdt.core.compiler.compliance=1.8
 org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
 org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
 org.eclipse.jdt.core.compiler.source=1.8
-<<<<<<< HEAD
-org.eclipse.jdt.core.userLibrary.Slick2D=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="/SlickPlatformer/lib/Slick/lib/jinput.jar"/>\r\n\t<archive path\="/SlickPlatformer/lib/Slick/lib/lwjgl_util.jar"/>\r\n\t<archive path\="/SlickPlatformer/lib/Slick/lib/slick.jar"/>\r\n\t<archive path\="/SlickPlatformer/lib/Slick/lib/lwjgl.jar"/>\r\n</userlibrary>\r\n
-=======
-org.eclipse.jdt.core.userLibrary.Slick2D=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/jinput.jar"/>\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/lwjgl.jar"/>\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/lwjgl_util.jar"/>\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/slick.jar"/>\r\n</userlibrary>\r\n
->>>>>>> fa767a8b5fc01a91ad9e166188e05c667da0e692
+org.eclipse.jdt.core.userLibrary.Slick2D=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/jinput.jar"/>\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/lwjgl_util.jar"/>\r\n\t<archive path\="C\:/Users/obrak/Desktop/Programming-Projects/Java/Libraries/Slick/lib/slick.jar"/>\r\n\t<archive path\="/SlickPlatformer/lib/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl.jar"/>\r\n</userlibrary>\r\n
