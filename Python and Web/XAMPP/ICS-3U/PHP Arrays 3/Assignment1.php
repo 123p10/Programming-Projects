@@ -66,3 +66,22 @@ foreach($book as $name=>$num){
 		$count++;
 	}
 ?>
+<h2>Student Array with multiple parameters</h2>
+<?php
+$arr = array(
+	array("Tarj",36,"female",65,9052715432,"70 Mississauga Rd., Mississauga, Ontario, Canada"),
+	array("Nik",15,"male",76,6475433323,"20 Mineola Rd., New York City, United States of America"),
+	array("David",16,"male",85,416543341,"30 Toronto Dr., Toronto, Ontario")
+);
+for($i=0;$i < count($arr);$i++){
+	echo $arr[$i][0] . 
+	" is age " . $arr[$i][1] . 
+	", is a " . $arr[$i][2] . 
+	", has an average of " . $arr[$i][3] .  
+	"%, has a phone number of " . $arr[$i][4] . 
+	" and has an address of " . $arr[$i][5] .
+	"<br>";
+}
+
+?>
+
