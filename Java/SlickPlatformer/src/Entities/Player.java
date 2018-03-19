@@ -21,6 +21,7 @@ public class Player extends Entity{
 		b = new ArrayList<Bullet>();
 		hp = 100;
 		mxhp = 100;
+		hitspeed = 10;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -37,14 +38,6 @@ public class Player extends Entity{
 			shoot = true;
 		}
 
-	}
-	public void hit(Enemy e) {
-		//e.hitspeed;
-		float angle = (float) Math.toDegrees(Math.atan2(my-Game.V_HEIGHT/2+25, mx-Game.V_WIDTH/2+15));
-		setvX(sp*Math.cos(Math.toRadians(angle)));
-		setvY(sp*Math.sin(Math.toRadians(angle)));
-
-		//	setVX();
 	}
 	
 	
@@ -79,6 +72,16 @@ public class Player extends Entity{
 	}
 	public void setShoot(boolean s) {
 		shoot = s;
+	}
+	public void hit(Enemy e) {
+		super.hit(e);
+		hp -= e.getDamage();
+		if(hp <= 0) {
+			die();
+		}
+	}
+	public void die() {
+		System.out.println("dead");
 	}
 	
 	

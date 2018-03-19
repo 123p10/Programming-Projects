@@ -10,5 +10,6 @@ public class BasicEnemy extends Enemy{
 		speed = 3;
 		hp = 100;
 		mxhp = hp;
+		hitspeed = 10;
 	}
 }

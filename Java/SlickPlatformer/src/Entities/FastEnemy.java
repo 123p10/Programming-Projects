@@ -10,6 +10,7 @@ public class FastEnemy extends Enemy{
 		speed = 5;
 		hp = 50;
 		mxhp = hp;
+		hitspeed=  7;
 	}
 
 }

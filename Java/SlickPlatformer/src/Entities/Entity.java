@@ -12,6 +12,7 @@ import Objects.Wall;
 public class Entity {
 	int x,y,w,h;
 	//double velX = 0;
+	double hitspeed = 10;
 	//double velY = 0;
 	double[] velX = new double[50];
 	double[] velY = new double[50];
@@ -44,8 +45,28 @@ public class Entity {
 		rBar.setY(y+(h/2)+3);
 		gBar.setWidth((float) ((hp/mxhp)*w));
 	}
+	public void hit(Entity e) {
+		//e.hitspeed;
+		float angle = (float) Math.toDegrees(Math.atan2(y - e.getY(),x - e.getX()));
+		setvX((int) (e.getHitSpeed()*Math.cos(Math.toRadians(angle))));
+		setvY((int) (e.getHitSpeed()*Math.sin(Math.toRadians(angle))));
+	}
+
+	
 	public void setvX(int xs) {
 		velX[0] = xs;
+	}
+	public void setOvX(int xs) {
+		velX[0] = xs;
+		for(int i = 0;i < velX.length;i++) {
+			velX[i] = xs;
+		}
+	}
+	public void setOvY(int ys) {
+		velY[0] = ys;
+		for(int i = 0;i < velY.length;i++) {
+			velY[i] = ys;
+		}
 	}
 	public void setvY(int ys) {
 		velY[0] = ys;
@@ -74,6 +95,10 @@ public class Entity {
 	public int getH() {
 		return h;
 	}
+	public double getHitSpeed() {
+		return hitspeed;
+	}
+
 	public void checkCollision() {
 		for(Wall wall : walls) {
 			if(shape.intersects(wall.getShape())) {
