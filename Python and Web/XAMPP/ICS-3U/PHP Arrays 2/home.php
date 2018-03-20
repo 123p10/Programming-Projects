@@ -11,6 +11,7 @@ else{
 
 $str = "ABCDE";
 $final = "";
+#ABCDE -> BCDEA
 
 #IF left button clicked
 if(isset($_GET['left'])){
@@ -36,9 +37,6 @@ if(isset($_GET['right'])){
 		$final .= $str[$i];
 	}
 }
-
-	
-
 ?>
 <form action='home.php' method='get'>
   <span name="string"><?php echo $final; ?></span><br><br>
