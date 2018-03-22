@@ -29,9 +29,8 @@ public class Test extends GameState{
 		
 		player = new Player(300,500,30,30,walls);
 		enemies.add(new BasicEnemy(100,100,20,20,walls));
-		enemies.add(new BasicEnemy(100,300,20,20,walls));
+			enemies.add(new BasicEnemy(100,300,20,20,walls));
 //		enemies.add(new FastEnemy(300,100,20,20,walls));
 
 	}
-
 }

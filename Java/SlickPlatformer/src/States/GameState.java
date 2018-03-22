@@ -21,6 +21,7 @@ public class GameState extends BasicGameState{
 	ArrayList<Enemy> enemies;
 	boolean moveX = false;
 	boolean moveY = false;
+	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		s = new ShapeRenderer();
@@ -61,7 +62,9 @@ public class GameState extends BasicGameState{
 			g.setColor(g.getColor().green);
 			s.fill(enemies.get(i).getGBar());
 		}
-		g.setColor(g.getColor().black);
+		g.setColor(g.getColor().white);
+		g.drawString("" + player.getWeapon().getCurrClip() + " / " + player.getWeapon().getAmmo(), -100 + player.getX()+Game.V_WIDTH/2, -30+player.getY()+Game.V_HEIGHT/2);
+		//g.drawString("" + player.getWeapon().getAmmo(), -80 + player.getX()+Game.V_WIDTH/2, -30+player.getY()+Game.V_HEIGHT/2);
 		//g.fillRect(player.getX()-(player.getW()/2), player.getY()-(player.getH()/2), player.getW(), player.getH());
 	}
 
@@ -103,7 +106,7 @@ public class GameState extends BasicGameState{
 		}
 		//Shooting
 		if(gc.getInput().isMouseButtonDown(gc.getInput().MOUSE_LEFT_BUTTON)) {
-			player.shoot(gc.getInput().getMouseX(),gc.getInput().getMouseY(),0);
+			player.shoot(gc.getInput().getMouseX(),gc.getInput().getMouseY());
 		}
 		if(!gc.getInput().isMouseButtonDown(gc.getInput().MOUSE_LEFT_BUTTON)) {
 			player.setShoot(false);
@@ -111,7 +114,13 @@ public class GameState extends BasicGameState{
 		if(gc.getInput().isKeyDown(gc.getInput().KEY_E)) {
 			player.setvX(-10);
 		}
-		
+		if(gc.getInput().isKeyDown(gc.getInput().KEY_1)) {
+			player.setWeapon(0);
+		}
+		if(gc.getInput().isKeyDown(gc.getInput().KEY_2)) {
+			player.setWeapon(1);
+		}
+
 	}
 	void updateProjectiles() {
 		for(int i = 0; i < player.getBullets().size();i++) {

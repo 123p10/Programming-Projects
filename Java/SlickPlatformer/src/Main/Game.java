@@ -28,7 +28,7 @@ public class Game extends StateBasedGame{
 	}
 	public static void main(String[] args) {
         try {
-            AppGameContainer app = new AppGameContainer(new Game("Broforce v" + VERSION));
+            AppGameContainer app = new AppGameContainer(new Game("Nik Parhar v" + VERSION));
             app.setDisplayMode(V_WIDTH, V_HEIGHT, false);
             app.setTargetFrameRate(FPS);
             app.setShowFPS(true);

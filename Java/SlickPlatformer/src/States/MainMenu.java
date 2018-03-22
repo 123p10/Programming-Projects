@@ -27,7 +27,7 @@ public class MainMenu extends BasicGameState implements InputProviderListener{
 		g.drawString("Welcome to ", Game.V_WIDTH/2-100, Game.V_HEIGHT/2-100);
 		Font font = new Font("Verdana", Font.BOLD, 45);
 		TrueTypeFont ttf = new TrueTypeFont(font, true);
-		ttf.drawString(Game.V_WIDTH/2-150, Game.V_HEIGHT/2-50, "Broforce");
+		ttf.drawString(Game.V_WIDTH/2-150, Game.V_HEIGHT/2-50, "Nik Parhar");
 	}
 
 	@Override
