@@ -139,6 +139,7 @@ public class GameState extends BasicGameState{
 			for(int p = 0;p < player.getBullets().size();p++) {
 				if(player.getBullets().get(p).getShape().intersects(enemies.get(e).getShape())) {
 					enemies.get(e).damage(player.getBullets().get(p).getDamage());
+
 					if(enemies.get(e).getHP() <= 0) {
 						enemies.remove(e);
 					}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import Objects.Bullet;
 import Objects.Wall;
 
 import Objects.Wall;
@@ -46,11 +47,11 @@ public class Entity {
 		gBar.setWidth((float) ((hp/mxhp)*w));
 	}
 	public void hit(Entity e) {
-		//e.hitspeed;
 		float angle = (float) Math.toDegrees(Math.atan2(y - e.getY(),x - e.getX()));
 		setvX((int) (e.getHitSpeed()*Math.cos(Math.toRadians(angle))));
 		setvY((int) (e.getHitSpeed()*Math.sin(Math.toRadians(angle))));
 	}
+
 
 	
 	public void setvX(int xs) {

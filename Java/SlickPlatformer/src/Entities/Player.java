@@ -32,7 +32,7 @@ public class Player extends Entity{
 		b = new ArrayList<Bullet>();
 		hp = 100;
 		mxhp = 100;
-		hitspeed = 10;
+		hitspeed = 20;
 		guns[0] = new Pistol();
 		// TODO Auto-generated constructor stub
 	}

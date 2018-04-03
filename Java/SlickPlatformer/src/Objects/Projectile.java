@@ -78,5 +78,11 @@ public class Projectile {
 	public int getDamage() {
 		return damage;
 	}
+	public double getvX() {
+		return velX;
+	}
+	public double getvY() {
+		return velY;
+	}
 
 }
