@@ -8,6 +8,7 @@ import Main.Game;
 import Objects.Bullet;
 import Objects.Gun;
 import Objects.Pistol;
+import Objects.Shotgun;
 import Objects.Wall;
 
 public class Player extends Entity{
@@ -34,6 +35,7 @@ public class Player extends Entity{
 		mxhp = 100;
 		hitspeed = 10;
 		guns[0] = new Pistol();
+		guns[1] = new Shotgun();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -57,25 +59,30 @@ public class Player extends Entity{
 			}
 		}
 		if(weaponType == 1 && !shoot) {
-			Bullet b1 = new Bullet(x,y,0,0,walls,b);
-			Bullet b2 = new Bullet(x,y,0,0,walls,b);
-			Bullet b3 = new Bullet(x,y,0,0,walls,b);
-
-			double sp = b1.getSpeed();
-
-			float angle = (float) Math.toDegrees(Math.atan2(my-Game.V_HEIGHT/2+25, mx-Game.V_WIDTH/2+15));
-			b1.setvX(sp*Math.cos(Math.toRadians(angle)));
-			b1.setvY(sp*Math.sin(Math.toRadians(angle)));
-			b2.setvX(sp*Math.cos(Math.toRadians(angle+10)));
-			b2.setvY(sp*Math.sin(Math.toRadians(angle+10)));
-			b3.setvX(sp*Math.cos(Math.toRadians(angle-10)));
-			b3.setvY(sp*Math.sin(Math.toRadians(angle-10)));
-			b.add(b1);	
-			b.add(b2);
-			b.add(b3);
-			shoot = true;
-//			guns[weaponType].setCurrClip(guns[weaponType].getCurrClip() - 1);
-
+			if(guns[weaponType].getCurrClip() > 0) {
+				Bullet b1 = new Bullet(x,y,0,0,walls,b);
+				Bullet b2 = new Bullet(x,y,0,0,walls,b);
+				Bullet b3 = new Bullet(x,y,0,0,walls,b);
+	
+				double sp = b1.getSpeed();
+	
+				float angle = (float) Math.toDegrees(Math.atan2(my-Game.V_HEIGHT/2+25, mx-Game.V_WIDTH/2+15));
+				b1.setvX(sp*Math.cos(Math.toRadians(angle)));
+				b1.setvY(sp*Math.sin(Math.toRadians(angle)));
+				b2.setvX(sp*Math.cos(Math.toRadians(angle+10)));
+				b2.setvY(sp*Math.sin(Math.toRadians(angle+10)));
+				b3.setvX(sp*Math.cos(Math.toRadians(angle-10)));
+				b3.setvY(sp*Math.sin(Math.toRadians(angle-10)));
+				b.add(b1);	
+				b.add(b2);
+				b.add(b3);
+				shoot = true;
+				guns[weaponType].setCurrClip(guns[weaponType].getCurrClip() - 3);
+			}
+			else {
+				guns[weaponType].reload();
+				shoot = true;
+			}
 		}
 
 
