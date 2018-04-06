@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>Owen Brake</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,11 +45,11 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Programming</h2>
             <hr class="light my-4">
-			<figure class="figure" style="margin-right:200px;">
+			<figure class="figure" style="padding-right:15%">
 				<img src="img/javaDevelopment.png" style="width: 200px;">			
 					<figcaption class="figure-caption" style="color:white;">Desktop Development.<br>Java,C#,Python</figcaption>
 			</figure>
-			<figure class="figure"style="margin-right:200px;">
+			<figure class="figure"style="padding-right:15%;">
 				<img src="img/webDevelopment.png" style="width: 200px;">			
 					<figcaption class="figure-caption" style="color:white;">Web Development.<br>HTML,CSS,JavaScript,PHP,Ruby on Rails,MySQL</figcaption>
 			</figure>
@@ -82,8 +82,8 @@
 					<figcaption class="figure-caption" style="color:black;">Robotics.<br>Vex Robotics, Arduino</figcaption>
 			</figure>
 
-		  <p class="text-faded mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-          <!--  <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
+		  <!--<p class="text-faded mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
           </div>
         </div>
       </div>

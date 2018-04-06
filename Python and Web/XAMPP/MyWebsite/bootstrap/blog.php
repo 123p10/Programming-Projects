@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>Gold and Blue</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,14 +26,14 @@
   <body>
 	<?php include("navbar.html");?>
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <header class="masthead" style="background-image: url('img/pcbg.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
-              <h1>Clean Blog</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+              <h1>Gold and Blue</h1>
+              <span class="subheading">The Truth</span>
             </div>
           </div>
         </div>
@@ -45,21 +45,21 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-preview">
-            <a href="post.html">
+            <a href="posts/post.php">
               <h2 class="post-title">
-                Man must explore, and this is exploration at its greatest
+                The Death of a Good Newspaper
               </h2>
+                How to squash an infinite potential
               <h3 class="post-subtitle">
-                Problems look mighty small from 150 miles up
               </h3>
             </a>
             <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on September 24, 2018</p>
+              <a href="posts/post.php">Owen Brake</a>
+              on April 6, 2018</p>
           </div>
           <hr>
           <div class="post-preview">
-            <a href="post.html">
+            <a href="posts/post.html">
               <h2 class="post-title">
                 I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
               </h2>
