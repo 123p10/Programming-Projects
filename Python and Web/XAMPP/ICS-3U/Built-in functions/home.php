@@ -145,5 +145,53 @@ function my_max($arr){
 }
 echo my_max([3,2,9,1]);
 ?>
+<h2>Substring</h2>
 <br>
+input: "Hello World",6,5
+<br>
+substr();
+<br>
+<?php
+	echo substr("Hello World",6,5);
+?><br>
+my_substr();
+<br>
+<?php
+	function my_substr($str,$start,$len){
+		$word = "";
+		for($i = $start;$i < $start + $len;$i++){
+			$word .= $str[$i];
+		}
+		return $word;
+	}
+	echo my_substr("Hello World",6,5);
+?>
+<h2>String Position</h2>
+input: Hello World Nice, "ld"
+<br>
+strpos();
+<br>
+<?php
+	echo strpos("Hello World Nice","ld");
+?>
+<br>
+my_strpos();
+<br>
+<?php
+	function my_strpos($str,$search){
+		for($i = 0;$i < strlen($str) - strlen($search);$i++){
+			$word = "";
+			for($j = $i;$j < strlen($search)+$i;$j++){
+				$word .= $str[$j];
+			}
+			if($word == $search){
+				return $i;
+			}
+		}
+		return false;	
+	}
+	echo my_strpos("Hello World Nice","ld");
+?>
+
+
 
