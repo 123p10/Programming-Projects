@@ -33,53 +33,57 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Gold and Blue</h1>
-              <span class="subheading">The Truth</span>
+              <span class="subheading">The Better News</span>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Main Content -->
+	<!-- Yeah David's Pretty gay -->
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-preview">
             <a href="posts/post.php">
               <h2 class="post-title">
-                The Death of a Good Newspaper
+                Local Grade 9 student rats on robotics team's domestic terror plot
               </h2>
-                How to squash an infinite potential
+                The RCMP has been notified of a domestic terror plot, supposedly ran by the gayest barber in town.
               <h3 class="post-subtitle">
               </h3>
             </a>
             <p class="post-meta">Posted by
-              <a href="posts/post.php">Owen Brake</a>
+              <a href="posts/post.php">None of your fucking business.</a>
               on April 6, 2018</p>
           </div>
           <hr>
           <div class="post-preview">
             <a href="posts/post.html">
               <h2 class="post-title">
-                I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
+				Local man arrested for performing necrophilia on local body.
               </h2>
+			  <h3 class="post-subtitle">
+				Offender Jamie Rogers claim that the body was plump and succulous and that many buckets were required.
+              </h3>
+
             </a>
             <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
+              <a href="#">Joseph Argent Stalin</a>
               on September 18, 2018</p>
           </div>
           <hr>
           <div class="post-preview">
             <a href="post.html">
               <h2 class="post-title">
-                Science has not yet mastered prophecy
+                Local man has to get pelvis realignment.
               </h2>
               <h3 class="post-subtitle">
-                We predict too much for the next year and yet far too little for the next ten.
+				Mr Ohja reportedly had to get pelvis realignment after "I had buckets inside of me"
               </h3>
             </a>
             <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
+              <a href="#">David "the Homosexual" Barber</a>
               on August 24, 2018</p>
           </div>
           <hr>

@@ -52,22 +52,31 @@
             </a>
 
             <p class="post-meta"><b>Duration: 2016-2019</b><br>Posted by
-              <a href="posts/robotics.php">Owen Brake</a>
+              <a href="index.php">Owen Brake</a>
               on April 6, 2018</p>
           </div>
           <hr>
           <div class="post-preview">
-            <a href="posts/post.html">
+            <a href="posts/arcade.html">
               <h2 class="post-title">
 				Arcade Machine
               </h2>
             </a>
             <p class="post-meta"><b>Duration: 2014-2015</b><br>Posted by
-              <a href="#">Owen Brake
+              <a href="index.php">Owen Brake</a>
               on September 18, 2018</p>
           </div>
           <hr>
-          
+                    <div class="post-preview">
+            <a href="posts/arcade.html">
+              <h2 class="post-title">
+				Arcade Machine
+              </h2>
+            </a>
+            <p class="post-meta"><b>Duration: 2014-2015</b><br>Posted by
+              <a href="index.php">Owen Brake</a>
+              on September 18, 2018</p>
+          </div>
           <hr>
         </div>
       </div>
