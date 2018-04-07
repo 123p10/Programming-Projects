@@ -34,6 +34,9 @@
             <div class="page-heading">
               <h1>Owen Brake</h1>
               <span class="subheading">This is what I do.</span>
+			  <br><br>
+			  	<img src="img/owen2.jpg" style="border-radius:50%;" width="200" height="200">			
+
             </div>
           </div>
         </div>
@@ -73,14 +76,19 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-black">Engineering</h2>
             <hr class="light my-4">
-			<figure class="figure" style="margin-right:200px;">
+			<figure class="figure" style="padding-right:15%;">
 				<img src="img/AutoCadIcon.png" style="width: 200px;">			
 					<figcaption class="figure-caption" style="color:black;">Design.<br>AutoCad, Autodesk Inventor</figcaption>
 			</figure>
-			<figure class="figure">
+			<figure class="figure"style="margin-right:15%;">
 				<img src="img/vexRobot.png" style="width: 200px;">			
-					<figcaption class="figure-caption" style="color:black;">Robotics.<br>Vex Robotics, Arduino</figcaption>
+					<figcaption class="figure-caption" style="color:black;">Metal Work.<br>Vex Robotics, Arduino</figcaption>
 			</figure>
+			<figure class="figure">
+				<img class="rounded-circle"src="img/arcade3.jpg"  width="200" height="200">			
+					<figcaption class="figure-caption" style="color:black;">Woodworking.<br>Trebuchet, Arcade Machine</figcaption>
+			</figure>
+
 
 		  <!--<p class="text-faded mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
