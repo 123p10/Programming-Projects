@@ -56,18 +56,19 @@
               on April 6, 2018</p>
           </div>
           <hr>
-          <div class="post-preview">
+		  		  <div class="post-preview">
             <a href="posts/arcade.html">
               <h2 class="post-title">
-				Arcade Machine
+				This Website
               </h2>
             </a>
-            <p class="post-meta"><b>Duration: 2014-2015</b><br>Posted by
+            <p class="post-meta"><b>Duration: 2018</b><br>Posted by
               <a href="index.php">Owen Brake</a>
-              on September 18, 2018</p>
+              on April 7, 2018</p>
           </div>
           <hr>
-                    <div class="post-preview">
+
+          <div class="post-preview">
             <a href="posts/arcade.html">
               <h2 class="post-title">
 				Arcade Machine

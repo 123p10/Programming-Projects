@@ -32,7 +32,7 @@
                 </a>
               </li>
             </ul>
-            <p class="copyright text-muted" ><font color="white">Copyright &copy; Owen Brake 2018</font></p>
+            <p class="copyright text-muted" ><font color="white">Copyright &copy; Owen Brake 2018<br>Made in Bootstrap</font></p>
           </div>
         </div>
       </div>
