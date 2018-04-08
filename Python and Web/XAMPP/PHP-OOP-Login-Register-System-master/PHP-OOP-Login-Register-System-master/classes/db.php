@@ -1,5 +1,7 @@
 <?php
- 
+/**
+ * Created by Chris on 9/29/2014 3:54 PM.
+ */
 
 class DB {
     private static $_instance = null;

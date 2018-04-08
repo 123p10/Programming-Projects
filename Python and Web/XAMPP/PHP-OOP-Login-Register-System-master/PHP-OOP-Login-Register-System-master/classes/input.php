@@ -1,4 +1,7 @@
 <?php
+/**
+ * Created by Chris on 9/29/2014 3:55 PM.
+ */
 
 class Input {
     public static function exists($type = 'post') {
