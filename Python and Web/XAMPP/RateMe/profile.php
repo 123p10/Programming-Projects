@@ -22,7 +22,7 @@ if(!$username = Input::get('user')) {
 }
 #Lets update our rating by compiling all of the ratings shall we?
 $user->updateRating($user);
-echo "Total Rating:" . $user->getRating($user);
+echo "Total Rating:" . $user->getRating($user) . "<br>";
 
 
 #echo Session::get('user');
@@ -42,7 +42,7 @@ if(!($my_user->data()->username == escape($user->data()->username))){
 }
 
 else{
-	echo "Dumbass you cant rate yourself";
+	#echo "Dumbass you cant rate yourself";
 }
 #This is for the input form send rating if you haven't rated already
 if(Input::exists()) {		
