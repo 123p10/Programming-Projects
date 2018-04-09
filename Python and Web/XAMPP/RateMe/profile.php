@@ -16,7 +16,61 @@ if(!$username = Input::get('user')) {
 
         <h3><?php echo escape($data->username); ?></h3>
         <p>Name: <?php echo escape($data->name); ?></p>
-
+		
 <?php
     }
 }
+#Lets update our rating by compiling all of the ratings shall we?
+$user->updateRating($user);
+echo "Total Rating:" . $user->getRating($user);
+
+
+#echo Session::get('user');
+$my_user = new User(Session::get('user'));
+if(!($my_user->data()->username == escape($user->data()->username))){
+	?>
+	<form action="" method="post">
+    <div class="field">
+        <label for="rating">Rating:</label>
+        <input type="text" name="rating" value="<?php echo escape(Input::get('rating')); ?>" id="rating">
+		<input type="hidden" name="token" id="token"value="<?php echo Token::generate(); ?>">
+		<input type="submit" value="Rate">
+
+	</div>
+	</form>
+	<?php
+}
+
+else{
+	echo "Dumbass you cant rate yourself";
+}
+#This is for the input form send rating if you haven't rated already
+if(Input::exists()) {		
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
+            'rating' => array('required' => true)
+		));
+
+        if($validate->passed()) {
+			if($my_user->hasRated($user)){
+				$my_user->rate($user->data()->username,Input::get('rating'));
+			}
+        } else {
+            foreach($validate->errors() as $error) {
+                echo $error, '<br>';
+            }
+        }
+    
+}
+
+
+#Print all my ratings
+if($user->getRatings($user) !== false){
+	foreach ($user->getRatings($user)->results() as $row) {
+		echo $row->sender_user . " rated " . $row->client_user . " as a " . $row->rating;
+		#Alright TODO: find the user with sender_user or client_user and get their name
+	}
+}
+
+
+?>

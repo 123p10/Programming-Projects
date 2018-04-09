@@ -6,7 +6,7 @@ class User {
             $_sessionName,
             $_cookieName,
             $isLoggedIn;
-
+	
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('sessions/session_name');
@@ -19,7 +19,7 @@ class User {
                 if($this->find($user)) {
                     $this->isLoggedIn = true;
                 } else {
-                    //Logout
+                    logout();
                 }
             }
         } else {
@@ -120,4 +120,45 @@ class User {
     public function isLoggedIn() {
         return $this->isLoggedIn;
     }
+	
+	public function hasRated($user){
+		$arr = $this->_db->get('ratings', array('sender_user', '=', $user->data()->username));
+		if($arr->count()){
+			return true;
+		}
+		return false;
+	}
+	public function rate($user,$rating){
+		if(!$this->_db->insert('ratings', array(
+		'sender_user' => $this->_data->username,
+		'client_user' => $user,
+		'rating' => $rating
+		))){
+			echo "shit";
+		}
+	}
+	public function getRatings($user){
+		$arr = $this->_db->get('ratings', array('client_user', '=', $user->data()->username));
+		if($arr->count() > 0){
+			return $arr;
+		}
+		return false;
+	}
+	public function updateRating($user){
+		if($user->getRatings($user) !== false){
+			$i = 0;
+			$sum = 0;
+			foreach ($user->getRatings($user)->results() as $row) {
+				$sum += $row->rating;
+				$i++;
+			}
+			$sum /= $i;
+			$this->_db->update('users', $user->data()->id, array('rating' => $sum));
+		}
+	}
+	public function getRating($user){
+		return $user->_data->rating;
+	}
+
+	
 }
