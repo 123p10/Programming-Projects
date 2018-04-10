@@ -30,40 +30,42 @@ if(Input::exists()) {
     }
 }
 ?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Login V3</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="bootstrap/images/icons/favicon.ico"/>
+	<link rel="icon" type="/bootstrap/image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/select2/select2.min.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/util.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/bootstrapcss/main.css">
 <!--===============================================================================================-->
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('bootstrap/images/bg-01.jpg');">
+		<div class="container-login100" style="background-image: url('/bootstrap/images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" action="" method="post">
+				<form class="login100-form validate-form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -90,11 +92,10 @@ if(Input::exists()) {
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn">
+						<button class="login100-form-btn">
 							Login
-						</input>
+						</button>
 					</div>
-					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 
 					<div class="text-center p-t-90">
 						<a class="txt1" href="#">
@@ -110,21 +111,21 @@ if(Input::exists()) {
 	<div id="dropDownSelect1"></div>
 	
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/bootstrap/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/animsition/js/animsition.min.js"></script>
+	<script src="/bootstrap/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/bootstrap/js/popper.js"></script>
-	<script src="bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/bootstrap/vendor/bootstrap/js/popper.js"></script>
+	<script src="/bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/select2/select2.min.js"></script>
+	<script src="/bootstrap/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/daterangepicker/moment.min.js"></script>
-	<script src="bootstrap/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="/bootstrap/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/bootstrap/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/vendor/countdowntime/countdowntime.js"></script>
+	<script src="/bootstrap/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="bootstrap/js/main.js"></script>
+	<script src="/bootstrap/js/main.js"></script>
 
 </body>
 </html>

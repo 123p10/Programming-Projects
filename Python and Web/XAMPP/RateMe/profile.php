@@ -1,5 +1,6 @@
 <?php
-
+#Alright so to prevent bad stuff my_profile and profile will be the same thing
+#So simply add elements if this is my profile or not 
 
 require_once 'core/init.php';
 
@@ -25,6 +26,7 @@ $user->updateRating($user);
 echo "Total Rating:" . $user->getRating($user) . "<br>";
 
 
+
 #echo Session::get('user');
 $my_user = new User(Session::get('user'));
 if(!($my_user->data()->username == escape($user->data()->username))){
@@ -43,6 +45,14 @@ if(!($my_user->data()->username == escape($user->data()->username))){
 
 else{
 	#echo "Dumbass you cant rate yourself";
+	?>
+    <ul>
+        <li><a href="update.php">Update Profile</a></li>
+        <li><a href="changepassword.php">Change Password</a></li>
+        <li><a href="logout.php">Log out</a></li>
+    </ul>
+
+	<?php
 }
 #This is for the input form send rating if you haven't rated already
 if(Input::exists()) {		
