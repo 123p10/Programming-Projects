@@ -57,14 +57,32 @@ class DB {
 
             if(in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
-
+				#echo $sql;
                 if(!$this->query($sql, array($value))->error()) {
                     return $this;
                 }
             }
 
         }
+		if(count($where) === 4) {
+            $operators = array('=', '>', '<', '>=', '<=');
 
+            $field = $where[0];
+            $operator = $where[1];
+            $value = $where[2];
+			$wheretwo = $where[3];
+            if(in_array($operator, $operators)) {
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} {$value} {$wheretwo}";
+				#echo $sql;
+                if(!$this->query($sql, array($value))->error()) {
+                    return $this;
+                }
+			#	echo $sql;
+            }
+
+        }
+
+	#	echo "why?" .  count($where);
         return false;
     }
 

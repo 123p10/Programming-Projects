@@ -122,8 +122,8 @@ class User {
     }
 	
 	public function hasRated($user){
-		$arr = $this->_db->get('ratings', array('sender_user', '=', $user->data()->username));
-		if($arr->count()){
+		$arr = $this->_db->get('ratings', array('client_user', '=', "'" . $user->data()->username . "'", " and sender_user='" . $this->_data->username . "'"));
+		if(($arr->count()) > 0){
 			return true;
 		}
 		return false;
@@ -158,6 +158,15 @@ class User {
 	}
 	public function getRating($user){
 		return $user->_data->rating;
+	}
+	public function numberofRated(){
+		$arr = $this->_db->get('ratings', array('sender_user', '=', $this->_data->username ));
+		
+		if($arr->count() > 0){
+			return $arr->count();
+		}
+		return 0;
+
 	}
 
 	
