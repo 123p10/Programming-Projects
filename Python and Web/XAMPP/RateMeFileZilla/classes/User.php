@@ -19,7 +19,7 @@ class User {
                 if($this->find($user)) {
                     $this->isLoggedIn = true;
                 } else {
-                    #logout();
+                    logout();
                 }
             }
         } else {
@@ -64,9 +64,9 @@ class User {
             $user = $this->find($username);
 
             if ($user) {
-                if (password_verify($password,$this->data()->password)) {
+                if ($this->data()->password === Hash::make($password, $this->data()->salt)) {
                     Session::put($this->_sessionName, $this->data()->id);
-
+                    echo "Success";
                     if ($remember) {
                         $hash = Hash::unique();
                         $hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
@@ -85,6 +85,8 @@ class User {
 
                     return true;
                 }
+                echo "Failure";
+                echo $this->data()->password . " " . Hash::make($password, $this->data()->salt);
             }
         }
         return false;
