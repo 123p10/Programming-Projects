@@ -2,10 +2,13 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--- Include the above in your HEAD tag ---------->
 </head>
 <?php
+include ('navbar.php');
+include('checklogin.php');
 #Alright so to prevent bad stuff my_profile and profile will be the same thing
-#So simply add elements if this is my profile or not 
+#So simply add elements if this is my profile or not
 
 require_once 'core/init.php';
 
@@ -24,37 +27,23 @@ if(!$username = Input::get('user')) {
 $user->updateRating($user);
 
 $my_user = new User(Session::get('user'));
-if(!($my_user->data()->username == escape($user->data()->username))){
-}
-
-else{
-	?>
-    <ul>
-        <li><a href="update.php">Update Profile</a></li>
-        <li><a href="changepassword.php">Change Password</a></li>
-        <li><a href="logout.php">Log out</a></li>
-    </ul>
-
-	<?php
-}
 
 #This is for the input form send rating if you haven't rated already
-if(Input::exists()) {		
+if(Input::exists()) {
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             'star' => array('required' => true)
 		));
 
         if($validate->passed()) {
-			if(!($my_user->hasRated($user))){
-				$my_user->rate($user->data()->username,Input::get('star')[0]);
+			if(!($my_user->hasRated($user))){				$my_user->rate($user->data()->username,Input::get('star')[0]);				$user->updateRating($user);
 			}
         } else {
             foreach($validate->errors() as $error) {
                 echo $error, '<br>';
             }
         }
-    
+
 }
 
 $numRatings = 0;
@@ -64,33 +53,32 @@ if($user->getRatings($user) !== false){
 		#echo $row->sender_user . " rated " . $row->client_user . " as a " . $row->rating;
 		#Alright TODO: find the user with sender_user or client_user and get their name
 		$numRatings++;
-	}
+	}	$user->updateRating($user);
 }
 
 ?>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div class="container">	<center>
 	<div class="row">
-		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+		<div class="">
     	 <div class="well profile">
             <div class="col-sm-12">
-                <div class="col-xs-12 col-sm-8">
-                    <h2><?php echo $user->data()->name;?></h2>
-                </div>             
-            </div>            
+                    <b><h1 style="text-align: center"><?php echo $user->data()->name;?></h1></b>
+					<h5 style="text-align: center"><?php echo $user->data()->username;?></h5>
+            </div>
             <div class="col-xs-12 divider text-center">
                 <div class="col-xs-12 col-sm-4">
-                    <h2><strong> <?php echo $user->numberofRated(); ?> </strong></h2>                    
+                    <h2><strong> <?php echo $user->numberofRated(); ?> </strong></h2>
                     <p><small>Rated</small></p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
-                    <h2><strong><?php echo $numRatings; ?></strong></h2>                    
+                    <h2><strong><?php echo $numRatings; ?></strong></h2>
                     <p><small>Ratings</small></p>
 					<div class="txt-center">
 					<?php
 					if(!($my_user->data()->username == escape($user->data()->username))){
-					
+
 
 					?>
 					  <form action="" method="post">
@@ -108,21 +96,21 @@ if($user->getRatings($user) !== false){
 								<div class="clear"></div>
 								<input type="hidden" name="token" id="token"value="<?php echo Token::generate(); ?>">
 
-								<input type="submit">
+								<input type="submit" value="submit">
 							</div>
 						</form>
 					<?php } ?>
-					</div>     
-					
+					</div>
+
                 </div>
                 <div class="col-xs-12 col-sm-4">
-                    <h2><strong><?php echo $user->getRating($user); ?></strong></h2>                    
+                    <h2><strong><?php echo $user->getRating($user); ?> / 5</strong></h2>
                     <p><small>Score</small></p>
 				</div>
             </div>
-    	 </div>                 
+    	 </div>
 		</div>
-	</div>
+	</div></center>
 </div>
 <style>
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
@@ -130,7 +118,7 @@ body
 {
     font-family: 'Lato', 'sans-serif';
     }
-.profile 
+.profile
 {
     min-height: 355px;
     display: inline-block;
@@ -149,15 +137,15 @@ figcaption.ratings a:hover
     color:#f39c12;
     text-decoration:none;
     }
-.divider 
+.divider
 {
     border-top:1px solid rgba(0,0,0,0.1);
     }
-.emphasis 
+.emphasis
 {
     border-top: 4px solid transparent;
     }
-.emphasis:hover 
+.emphasis:hover
 {
     border-top: 4px solid #1abc9c;
     }
@@ -165,7 +153,7 @@ figcaption.ratings a:hover
 {
     margin-bottom:0;
     }
-span.tags 
+span.tags
 {
     background: #1abc9c;
     border-radius: 2px;
@@ -173,28 +161,28 @@ span.tags
     font-weight: bold;
     padding: 2px 4px;
     }
-.dropdown-menu 
+.dropdown-menu
 {
-    background-color: #34495e;    
+    background-color: #34495e;
     box-shadow: none;
     -webkit-box-shadow: none;
     width: 250px;
     margin-left: -125px;
     left: 50%;
     }
-.dropdown-menu .divider 
+.dropdown-menu .divider
 {
-    background:none;    
+    background:none;
     }
 .dropdown-menu>li>a
 {
     color:#f5f5f5;
     }
-.dropup .dropdown-menu 
+.dropup .dropdown-menu
 {
     margin-bottom:10px;
     }
-.dropup .dropdown-menu:before 
+.dropup .dropdown-menu:before
 {
     content: "";
     border-top: 10px solid #34495e;
@@ -254,3 +242,4 @@ span.tags
 }
 
 </style>
+</html>
