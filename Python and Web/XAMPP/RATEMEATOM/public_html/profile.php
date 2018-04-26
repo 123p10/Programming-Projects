@@ -1,9 +1,13 @@
 <head>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <!--- Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="bootstrap/css/starability/starability-all.min.css">
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <?php
 include ('navbar.php');
 include('checklogin.php');
@@ -32,18 +36,20 @@ $my_user = new User(Session::get('user'));
 if(Input::exists()) {
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
-            'star' => array('required' => true)
+            'rating' => array('required' => true)
 		));
 
-        if($validate->passed()) {
-			if(!($my_user->hasRated($user))){				$my_user->rate($user->data()->username,Input::get('star')[0]);				$user->updateRating($user);
+  if($validate->passed()) {
+			if(!($my_user->hasRated($user))){
+      		$my_user->rate($user->data()->username,6 - (Input::get('rating')));
+          $user->updateRating($user);
 			}
-        } else {
-            foreach($validate->errors() as $error) {
-                echo $error, '<br>';
-            }
+    }
+    else {
+        foreach($validate->errors() as $error) {
+            echo $error, '<br>';
         }
-
+    }
 }
 
 $numRatings = 0;
@@ -57,15 +63,19 @@ if($user->getRatings($user) !== false){
 }
 
 ?>
-
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+<html>
+<body>
 <div class="container">	<center>
 	<div class="row">
 		<div class="">
     	 <div class="well profile">
             <div class="col-sm-12">
-                    <b><h1 style="text-align: center"><?php echo $user->data()->name;?></h1></b>
-					<h5 style="text-align: center"><?php echo $user->data()->username;?></h5>
+                    <b>
+                      <h1 style="text-align: center"><?php echo $user->data()->name;?></h1>
+                    </b>
+					          <h5 style="text-align: center"><?php echo $user->data()->username;?></h5>
             </div>
             <div class="col-xs-12 divider text-center">
                 <div class="col-xs-12 col-sm-4">
@@ -75,171 +85,163 @@ if($user->getRatings($user) !== false){
                 <div class="col-xs-12 col-sm-4">
                     <h2><strong><?php echo $numRatings; ?></strong></h2>
                     <p><small>Ratings</small></p>
-					<div class="txt-center">
-					<?php
-					if(!($my_user->data()->username == escape($user->data()->username))){
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                      <h2><strong><?php echo $user->getRating($user); ?> / 5</strong></h2>
+                      <p><small>Score</small></p>
+                  </div>
 
+            					<?php
+            					if(!($my_user->data()->username == escape($user->data()->username))){
+            					?>
+                      <form action="" method="POST" >
+                        <div class="txt-center">
 
-					?>
-					  <form action="" method="post">
-							<div class="rating" >
-								<input id="star5" name="star[]" type="radio" value="5" class="radio-btn hide" />
-								<label for="star5" >☆</label>
-								<input id="star4" name="star[]" type="radio" value="4" class="radio-btn hide" />
-								<label for="star4" >☆</label>
-								<input id="star3" name="star[]" type="radio" value="3" class="radio-btn hide" />
-								<label for="star3" >☆</label>
-								<input id="star2" name="star[]" type="radio" value="2" class="radio-btn hide" />
-								<label for="star2" >☆</label>
-								<input id="star1" name="star[]" type="radio" value="1" class="radio-btn hide" />
-								<label for="star1" >☆</label>
-								<div class="clear"></div>
-								<input type="hidden" name="token" id="token"value="<?php echo Token::generate(); ?>">
+                        <fieldset class="starability-basic">
 
-								<input type="submit" value="submit">
-							</div>
-						</form>
-					<?php } ?>
-					</div>
+                          <input type="radio" id="rate5" name="rating" value="5" />
+                          <label for="rate5" title="Amazing">5 stars</label>
 
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <h2><strong><?php echo $user->getRating($user); ?> / 5</strong></h2>
-                    <p><small>Score</small></p>
-				</div>
-            </div>
-    	 </div>
+                          <input type="radio" id="rate4" name="rating" value="4" />
+                          <label for="rate4" title="Very good">4 stars</label>
+
+                          <input type="radio" id="rate3" name="rating" value="3" />
+                          <label for="rate3" title="Average">3 stars</label>
+
+                          <input type="radio" id="rate2" name="rating" value="2" />
+                          <label for="rate2" title="Not good">2 stars</label>
+
+                          <input type="radio" id="rate1" name="rating" value="1" />
+                          <label for="rate1" title="Terrible">1 star</label>
+                        </fieldset>
+                        <input type="submit" value="RATE" id="submit" name="submit"></submit>
+                      </div>
+                      </form>
+					         <?php } ?>
+					     </div>
+        </div>
+    	</div>
 		</div>
-	</div></center>
-</div>
+	</div>
+</center>
+</body>
+</html>
+
+
 <style>
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
-body
-{
-    font-family: 'Lato', 'sans-serif';
-    }
-.profile
-{
-    min-height: 355px;
-    display: inline-block;
-    }
-figcaption.ratings
-{
-    margin-top:20px;
-    }
-figcaption.ratings a
-{
-    color:#f1c40f;
-    font-size:11px;
-    }
-figcaption.ratings a:hover
-{
-    color:#f39c12;
-    text-decoration:none;
-    }
-.divider
-{
-    border-top:1px solid rgba(0,0,0,0.1);
-    }
-.emphasis
-{
-    border-top: 4px solid transparent;
-    }
-.emphasis:hover
-{
-    border-top: 4px solid #1abc9c;
-    }
-.emphasis h2
-{
-    margin-bottom:0;
-    }
-span.tags
-{
-    background: #1abc9c;
-    border-radius: 2px;
-    color: #f5f5f5;
-    font-weight: bold;
-    padding: 2px 4px;
-    }
-.dropdown-menu
-{
-    background-color: #34495e;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    width: 250px;
-    margin-left: -125px;
-    left: 50%;
-    }
-.dropdown-menu .divider
-{
-    background:none;
-    }
-.dropdown-menu>li>a
-{
-    color:#f5f5f5;
-    }
-.dropup .dropdown-menu
-{
-    margin-bottom:10px;
-    }
-.dropup .dropdown-menu:before
-{
-    content: "";
-    border-top: 10px solid #34495e;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    margin-left: -10px;
-    z-index: 10;
-    }
-	.txt-center {
-  text-align: center;
-}
-.hide {
-  display: none;
-}
-
-.clear {
-  float: none;
-  clear: both;
-}
-
-.rating {
-    width: 90px;
-    unicode-bidi: bidi-override;
-    direction: rtl;
+  @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+  body
+  {
+      font-family: 'Lato', 'sans-serif';
+      }
+  .profile
+  {
+      min-height: 355px;
+      display: inline-block;
+      }
+  figcaption.ratings
+  {
+      margin-top:20px;
+      }
+  figcaption.ratings a
+  {
+      color:#f1c40f;
+      font-size:11px;
+      }
+  figcaption.ratings a:hover
+  {
+      color:#f39c12;
+      text-decoration:none;
+      }
+  .divider
+  {
+      border-top:1px solid rgba(0,0,0,0.1);
+      }
+  .emphasis
+  {
+      border-top: 4px solid transparent;
+      }
+  .emphasis:hover
+  {
+      border-top: 4px solid #1abc9c;
+      }
+  .emphasis h2
+  {
+      margin-bottom:0;
+      }
+  span.tags
+  {
+      background: #1abc9c;
+      border-radius: 2px;
+      color: #f5f5f5;
+      font-weight: bold;
+      padding: 2px 4px;
+      }
+  .dropdown-menu
+  {
+      background-color: #34495e;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      width: 250px;
+      margin-left: -125px;
+      left: 50%;
+      }
+  .dropdown-menu .divider
+  {
+      background:none;
+      }
+  .dropdown-menu>li>a
+  {
+      color:#f5f5f5;
+      }
+  .dropup .dropdown-menu
+  {
+      margin-bottom:10px;
+      }
+  .dropup .dropdown-menu:before
+  {
+      content: "";
+      border-top: 10px solid #34495e;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      margin-left: -10px;
+      z-index: 10;
+      }
+  	.txt-center {
     text-align: center;
-    position: relative;
-}
+  }
+  .hide {
+    display: none;
+  }
 
-.rating > label {
-    float: right;
-    display: inline;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    width: 1.1em;
-    cursor: pointer;
-    color: #000;
-}
+  .clear {
+    float: none;
+    clear: both;
+  }
 
-.rating > label:hover,
-.rating > label:hover ~ label,
-.rating > input.radio-btn:checked ~ label {
-    color: transparent;
-}
+  .starability-basic{
+    position:relative;
+    margin:auto;
+  }
+  #submit{
+    border-radius: 8px;
+    width:100%;
+    height:10%;
+    font-size: 30px;
+    background-color: #ffb68c;
+    color:white;
+    border:none;
 
-.rating > label:hover:before,
-.rating > label:hover ~ label:before,
-.rating > input.radio-btn:checked ~ label:before,
-.rating > input.radio-btn:checked ~ label:before {
-    content: "\2605";
-    position: absolute;
-    left: 0;
-    color: #FFD700;
-}
+  }
+  body{
+    background-color: #606060;
+  }
+  form{
+    padding-left:0;
+    padding-top:0;
+  }
 
 </style>
-</html>
