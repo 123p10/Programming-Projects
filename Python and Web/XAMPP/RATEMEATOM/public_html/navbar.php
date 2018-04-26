@@ -8,9 +8,8 @@
 </head>
 <?php
 	require_once 'core/init.php';
-	$username = Input::get('user');
-    $user = new User($username);
-
+	#$username = Input::get('user');
+  $user = new User(Session::get('user'));
 ?>
 
 <nav class="navbar navbar-inverse">
@@ -21,48 +20,73 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Rate Me</a>
+      <a class="navbar-brand" href="index.php">Rate Me</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><?php echo $user->data()->name;?> <span class="caret"></span></a>
-          <ul class="dropdown-menu " role="menu">
+          <ul class="dropdown-menu" role="menu">
             <li class="dropdown-item" ><a href="changepassword.php">Change Password</a></li>
             <li class="dropdown-item"><a href="update.php">Update Profile</a></li>
             <li class="dropdown-item"><a href="logout.php">Logout</a></li>
           </ul>
         </li>
-      <li class="search-container">
-          <form action="search.php">
-            <input type="text" placeholder="Search.." name="search" id="search">
-      <!--      <button type="submit"><i class="fa fa-search"></i></button>-->
-          </form>
+
+      <li id="searchbox">
+        <form id="form" method="POST" action="search.php">
+          <input type="text" placeholder="Search.." name="search" id="search">
+          <button type="button" id="searchbutton" value=""><i class="fa fa-search"></i></button>
+        </form>
       </li>
+
     </ul>
 
     </div>
   </div>
+
 </nav>
+
 
 <style>
   .collapse{
-    position:relative;
 
   }
+  .dropdown-menu{
+    padding-left:35%;
+    width:50%;
+  }
   .dropdown-item{
+
   	position:relative;
   	float:center;
-  	left:25%;
+
   }
-  .search-container{
-    position:relative;
-    
+  form{
+    width:110%;
+    padding-top:5px;
+    padding-left:10px;
   }
   #search{
-    position:absolute;
-    top:75%;
-    height:100%;
+    border-radius:8px;
+    border:none;
+    height:35px;
+    min-width: 75%;
+    max-width:90%;
+  }
+  #searchbutton{
+    width:30px;
+
+    height:35px;
+    border-radius: 6px;
+    border:none;
   }
 </style>
+<script>
+var form = document.getElementById("form");
+
+document.getElementById("searchbutton").addEventListener("click", function () {
+  form.submit();
+});
+</script>
