@@ -32,11 +32,11 @@ if(Input::exists()) {
 ?>
 <html lang="en">
 <head>
-	<title>Login V3</title>
+	<title>SHSM</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="bootstrap/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="bootstrap/images/icons/SHSM.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
