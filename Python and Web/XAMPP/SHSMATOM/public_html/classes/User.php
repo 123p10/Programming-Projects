@@ -1,12 +1,12 @@
 <?php
- 
+
 class User {
     private $_db,
             $_data,
             $_sessionName,
             $_cookieName,
             $isLoggedIn;
-	
+
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('sessions/session_name');
@@ -28,7 +28,7 @@ class User {
     }
 
     public function create($fields = array()) {
-        if(!$this->_db->insert('users', $fields)) {
+        if(!$this->_db->insert('login', $fields)) {
             throw new Exception('Sorry, there was a problem creating your account;');
         }
     }
@@ -39,15 +39,15 @@ class User {
             $id = $this->data()->id;
         }
 
-        if(!$this->_db->update('users', $id, $fields)) {
+        if(!$this->_db->update('login', $id, $fields)) {
             throw new Exception('There was a problem updating');
         }
     }
 
     public function find($user = null) {
         if($user) {
-            $field = (is_numeric($user)) ? 'id' : 'username';
-            $data = $this->_db->get('users', array($field, '=', $user));
+            $field = 'ID';
+            $data = $this->_db->get('login', array($field, '=', $user));
 
             if($data->count()) {
                 $this->_data = $data->first();
@@ -120,7 +120,7 @@ class User {
     public function isLoggedIn() {
         return $this->isLoggedIn;
     }
-	
+
 	public function hasRated($user){
 		$arr = $this->_db->get('ratings', array('client_user', '=', "'" . $user->data()->username . "'", " and sender_user='" . $this->_data->username . "'"));
 		if(($arr->count()) > 0){
@@ -128,54 +128,4 @@ class User {
 		}
 		return false;
 	}
-	public function rate($user,$rating){
-		if(!$this->_db->insert('ratings', array(
-		'sender_user' => $this->_data->username,
-		'client_user' => $user,
-		'rating' => $rating
-		))){
-			echo "shit";
-		}
-	}
-	public function getRatings($user){
-		$arr = $this->_db->get('ratings', array('client_user', '=', $user->data()->username));
-		if($arr->count() > 0){
-			return $arr;
-		}
-		return false;
-	}
-	public function updateRating($user){
-		if($user->getRatings($user) !== false){
-			$i = 0;
-			$sum = 0;
-			foreach ($user->getRatings($user)->results() as $row) {
-				$sum += $row->rating;
-				$i++;
-			}
-			$sum /= $i;
-			if($i == 0 || $sum == 0){
-				$sum = 0;
-			}
-			$this->_db->update('users', $user->data()->id, array('rating' => $sum));
-		}
-		else{
-			$this->_db->update('users', $user->data()->id, array('rating' => 0));
-
-		}
-		$this->find($user->data()->username);
-	}
-	public function getRating($user){
-		return $user->_data->rating;
-	}
-	public function numberofRated(){
-		$arr = $this->_db->get('ratings', array('sender_user', '=', $this->_data->username ));
-		
-		if($arr->count() > 0){
-			return $arr->count();
-		}
-		return 0;
-
-	}
-
-	
 }

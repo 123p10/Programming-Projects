@@ -1,5 +1,5 @@
 <?php
- 
+
 
 class DB {
     private static $_instance = null;
@@ -64,21 +64,7 @@ class DB {
             }
 
         }
-		if(count($where) === 4) {
-            $operators = array('=', '>', '<', '>=', '<=');
 
-            $field = $where[0];
-            $operator = $where[1];
-            $value = $where[2];
-			$wheretwo = $where[3];
-            if(in_array($operator, $operators)) {
-                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} {$value} {$wheretwo}";
-                if(!$this->query($sql, array($value))->error()) {
-                    return $this;
-                }
-            }
-
-        }
 
 	#	echo "why?" .  count($where);
         return false;

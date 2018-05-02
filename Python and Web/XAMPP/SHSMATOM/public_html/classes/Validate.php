@@ -1,5 +1,5 @@
 <?php
- 
+
 class Validate {
     private $_passed = false;
     private $_errors = array();
@@ -37,7 +37,6 @@ class Validate {
                             break;
                         case 'unique':
                             $check = $this->_db->get($rule_value, array($item, '=', $value));
-
                             if($check->count()) {
                                 $this->addError("{$item} already exists.");
                             }

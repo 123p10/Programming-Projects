@@ -2,29 +2,59 @@
 
 require_once 'core/init.php';
 
-if(Input::exists()) {
+if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
-
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
-            'ID' => array('required' => true),
-            'password' => array('required' => true)
+            'FirstName' => array(
+                'name' => 'FirstName',
+                'required' => true,
+                'min' => 2,
+                'max' => 50
+            ),
+            'LastName' => array(
+                'name' => 'LastName',
+                'required' => true,
+                'min' => 2,
+                'max' => 50
+            ),
+            'ID' => array(
+                'name' => 'ID',
+                'required' => true,
+                'min' => 2,
+                'max' => 20,
+                'unique' => 'login'
+            ),
+            'password' => array(
+                'name' => 'password',
+                'required' => true,
+                'min' => 6
+            ),
+            'password_again' => array(
+                'required' => true,
+                'matches' => 'password'
+            ),
         ));
 
-        if($validate->passed()) {
+        if ($validate->passed()) {
             $user = new User();
 
-            $remember = (Input::get('remember') === 'on') ? true : false;
-            $login = $user->login(Input::get('ID'), Input::get('password'), $remember);
+            try {
+                $user->create(array(
+                    'FirstName' => Input::get('FirstName'),
+                    'ID' => Input::get('ID'),
+                    'LastName'=>Input::get("LastName"),
+                    'password' => password_hash(Input::get('password'),PASSWORD_DEFAULT)
+                ));
 
-            if($login) {
-                Redirect::to('loggedin.php');
-            } else {
-                echo '<p>Incorrect username or password</p>';
+                Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
+                Redirect::to('login.php');
+            } catch(Exception $e) {
+                echo $e, '<br>';
             }
         } else {
-            foreach($validate->errors() as $error) {
-                echo $error, '<br>';
+            foreach ($validate->errors() as $error) {
+                echo $error . "<br>";
             }
         }
     }
@@ -32,11 +62,11 @@ if(Input::exists()) {
 ?>
 <html lang="en">
 <head>
-	<title>SHSM</title>
+	<title>Register</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="bootstrap/images/icons/SHSM.ico"/>
+	<link rel="icon" type="image/png" href="bootstrap/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="bootstrap/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -61,7 +91,7 @@ if(Input::exists()) {
 <body>
 
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('bootstrap/images/robotics.jpg');">
+		<div class="container-login100" style="background-image: url('bootstrap/images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="" method="post">
 					<span class="login100-form-logo">
@@ -69,47 +99,55 @@ if(Input::exists()) {
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Register
 					</span>
 
+					<div class="wrap-input100 validate-input" data-validate = "Enter First Name">
+						<input class="input100" type="text" name="FirstName" placeholder="Name" value="<?php echo escape(Input::get('FirstName')); ?>">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+          <div class="wrap-input100 validate-input" data-validate = "Enter Last Name">
+						<input class="input100" type="text" name="LastName" placeholder="Name" value="<?php echo escape(Input::get('LastName')); ?>">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="ID" placeholder="Username">
-            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+						<input class="input100" type="text" name="ID" placeholder="Username"value="<?php echo escape(Input::get('ID')); ?>">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<input class="input100" type="password" name="password" placeholder="Password">
-            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
-					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-						<label class="label-checkbox100" for="ckb1">
-							Remember me
-						</label>
+					<div class="wrap-input100 validate-input" data-validate = "Enter password again">
+						<input class="input100" type="password" name="password_again" placeholder="Enter Password Again">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
-							Login
+							Register
 						</input>
 					</div>
+          <br>
+            <form action="login.php">
+              <div class="container-login100-form-btn">
+                <button type="submit" class="login100-form-btn">
+                  Login
+                </input>
+              </div>
+          </form>
+
 					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 
-					<!--<div class="text-center p-t-90">
+				<!--	<div class="text-center p-t-90">
 						<a class="txt1" href="#">
 							Forgot Password?
 						</a>
 					</div>-->
 				</form>
-        <br>
-          <form action="register.php">
-            <div class="container-login100-form-btn">
-              <button type="submit" class="login100-form-btn">
-                Register
-              </input>
-            </div>
-        </form>
 			</div>
 		</div>
 	</div>
