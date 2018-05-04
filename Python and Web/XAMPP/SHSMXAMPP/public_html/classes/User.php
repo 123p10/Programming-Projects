@@ -28,10 +28,18 @@ class User {
         }
     }
 
-    public function create($fields = array()) {
-        if(!$this->_db->insert('login', $fields)) {
+    public function create($fields = array(),$perm = array()) {
+      echo "?";
+        if(!$this->_db->insert('login', $fields)  {
             throw new Exception('Sorry, there was a problem creating your account;');
         }
+        if($fields["Teacher"] == 0){
+          $this->_db->insert('studentperms',array($perm));
+        }
+        else{
+          $this->_db->insert('teacherperms',array($perm));
+        }
+
     }
 
     public function update($fields = array(), $id = null) {

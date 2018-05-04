@@ -34,20 +34,33 @@ if (Input::exists()) {
                 'required' => true,
                 'matches' => 'password'
             ),
+            'role' => array(
+              'name' => 'role',
+              'required' => true
+            ),
         ));
 
         if ($validate->passed()) {
             $user = new User();
-
+            $teacher = 0;
+            if(Input::get('role') == 'Teacher'){
+              $teacher = 1;
+            }
+            echo Input::get('role');
             try {
                 $user->create(array(
                     'FirstName' => Input::get('FirstName'),
                     'ID' => Input::get('ID'),
                     'LastName'=>Input::get("LastName"),
                     'password' => password_hash(Input::get('password'),PASSWORD_DEFAULT),
-                    'Teacher' => 1
-                ));
+                    'Teacher' => $teacher
+                ),
+                  array(
+                    'ID' => Input::get('ID')
 
+                  )
+              );
+              echo "post";
                 Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
                 Redirect::to('login.php');
             } catch(Exception $e) {
@@ -104,11 +117,11 @@ if (Input::exists()) {
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter First Name">
-						<input class="input100" type="text" name="FirstName" placeholder="Name" value="<?php echo escape(Input::get('FirstName')); ?>">
+						<input class="input100" type="text" name="FirstName" placeholder="First Name" value="<?php echo escape(Input::get('FirstName')); ?>">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
           <div class="wrap-input100 validate-input" data-validate = "Enter Last Name">
-						<input class="input100" type="text" name="LastName" placeholder="Name" value="<?php echo escape(Input::get('LastName')); ?>">
+						<input class="input100" type="text" name="LastName" placeholder="Last Name" value="<?php echo escape(Input::get('LastName')); ?>">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
@@ -127,18 +140,26 @@ if (Input::exists()) {
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
+          <div class="radio" style="color:white">
+            <label style="display:inline;"><input type="radio" name="role" value="Teacher"><b style="padding-left:1%;">Teacher</b></label>
+            <label style="display:inline; float:right;padding-right:5%;"><input type="radio" name="role" value="Student"><b style="padding-left:0%;">Student</b></label>
+          </div>
+
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
 							Register
 						</input>
 					</div>
           <br>
+        </form>
+
             <form action="login.php">
               <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn">
                   Login
                 </input>
               </div>
+
           </form>
 
 					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
@@ -148,7 +169,6 @@ if (Input::exists()) {
 							Forgot Password?
 						</a>
 					</div>-->
-				</form>
 			</div>
 		</div>
 	</div>
