@@ -29,8 +29,8 @@ class User {
     }
 
     public function create($fields = array(),$perm = array()) {
-      echo "?";
-        if(!$this->_db->insert('login', $fields)  {
+
+        if(!$this->_db->insert('login', $fields))  {
             throw new Exception('Sorry, there was a problem creating your account;');
         }
         if($fields["Teacher"] == 0){

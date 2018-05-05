@@ -18,7 +18,7 @@ if(Input::exists()) {
             $login = $user->login(Input::get('ID'), Input::get('password'), $remember);
 
             if($login) {
-                
+
                 Redirect::to('index.php');
             } else {
                 echo '<p>Incorrect username or password</p>';
@@ -93,7 +93,7 @@ if(Input::exists()) {
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
 							Login
-						</input>
+						</button>
 					</div>
 					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 
@@ -108,7 +108,7 @@ if(Input::exists()) {
             <div class="container-login100-form-btn">
               <button type="submit" class="login100-form-btn">
                 Register
-              </input>
+              </button>
             </div>
         </form>
 			</div>

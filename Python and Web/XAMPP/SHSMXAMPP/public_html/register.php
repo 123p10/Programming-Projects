@@ -4,6 +4,8 @@ require_once 'core/init.php';
 
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
+      echo "no token";
+
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             'FirstName' => array(
@@ -39,14 +41,12 @@ if (Input::exists()) {
               'required' => true
             ),
         ));
-
         if ($validate->passed()) {
             $user = new User();
             $teacher = 0;
             if(Input::get('role') == 'Teacher'){
               $teacher = 1;
             }
-            echo Input::get('role');
             try {
                 $user->create(array(
                     'FirstName' => Input::get('FirstName'),
@@ -108,6 +108,8 @@ if (Input::exists()) {
 		<div class="container-login100" style="background-image: url('bootstrap/images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="" method="post">
+          <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+
 					<span class="login100-form-logo">
             <img src="bootstrap/images/icons/SHSM.ico"style="width:90%;"></img>
 					</span>
@@ -148,11 +150,10 @@ if (Input::exists()) {
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
 							Register
-						</input>
+						</button>
 					</div>
-          <br>
         </form>
-
+          <br>
             <form action="login.php">
               <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn">
@@ -162,7 +163,6 @@ if (Input::exists()) {
 
           </form>
 
-					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 
 				<!--	<div class="text-center p-t-90">
 						<a class="txt1" href="#">
