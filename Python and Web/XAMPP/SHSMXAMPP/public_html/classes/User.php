@@ -140,8 +140,8 @@ class User {
     public function isLoggedIn() {
         return $this->isLoggedIn;
     }
-    public function permissions(){
-
+    public function perms(){
+      return $this->_perms;
     }
 
 }

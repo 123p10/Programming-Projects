@@ -22,8 +22,36 @@ if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
 }
 echo "<h3>Hello " . $user->data()->FirstName . " " . $user->data()->LastName . "</h3>";
+
+$program = "";
+foreach($user->perms() as $key => $data){
+  if($key != "ID" && $key != "Admin"){
+    if(isset($_POST[$key]) == 1){
+      $program = $key;
+      break;
+    }
+  }
+}
+echo $program;
+
+$db = DB::getInstance();
+$list = $db->get("login",array('Teacher', '=', "0"))->results();
+#print_r( $list);
+?>
+<br>
+<table class="table">
+<th>First Name </th>
+<th> Last Name </th>
+<?php
+foreach($list as $key=>$data){
+  $id = $data->id;
+  echo "<tr>";
+  echo "<td>" . "" . "</td>";
+  echo "</tr>";
+}
 ?>
 
+</table>
 
 
 </div>

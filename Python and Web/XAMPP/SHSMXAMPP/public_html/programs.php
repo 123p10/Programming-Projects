@@ -21,9 +21,17 @@ include "teacher_navbar.php";
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
 }
-echo "<h3>Hello " . $user->data()->FirstName . " " . $user->data()->LastName . "</h3>";
+echo "<h2>" . $user->data()->FirstName . " " . $user->data()->LastName . " you have access to</h2> <br>";
+echo "<form action=\"table.php\" method=\"POST\">";
+foreach($user->perms() as $key => $data){
+  if($key != "ID" && $key != "Admin"){
+    if($data == 1){
+      echo "<button type= \"submit\" name=\"$key\"style=\"padding: 5% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>$key</h1></button>";
+    }
+  }
+}
 ?>
-
+</form>
 
 
 </div>
