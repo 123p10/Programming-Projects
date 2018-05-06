@@ -4,8 +4,7 @@ require_once 'core/init.php';
 
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
-      echo "no token";
-
+      echo "Well you did something wrong.... not me...... <br>";
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             'FirstName' => array(

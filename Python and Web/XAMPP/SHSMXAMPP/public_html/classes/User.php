@@ -34,10 +34,10 @@ class User {
             throw new Exception('Sorry, there was a problem creating your account;');
         }
         if($fields["Teacher"] == 0){
-          $this->_db->insert('studentperms',array($perm));
+          $this->_db->insert('studentperms',$perm);
         }
         else{
-          $this->_db->insert('teacherperms',array($perm));
+          $this->_db->insert('teacherperms',$perm);
         }
 
     }
