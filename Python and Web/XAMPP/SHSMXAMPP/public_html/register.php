@@ -41,12 +41,20 @@ if (Input::exists()) {
             ),
         ));
         if ($validate->passed()) {
-            $user = new User();
-            $teacher = 0;
             if(Input::get('role') == 'Teacher'){
               $teacher = 1;
             }
             try {
+              $user = new User();
+
+              $arr = array('ID' => Input::get('ID'));
+              foreach($user->perms() as $key => $data){
+                if($key != "ID" && $key != "Admin"){
+                    echo $key;
+                    $arr[$key] = isset($_POST[$key]) ? 1 : 0;
+                  }
+                }
+
                 $user->create(array(
                     'FirstName' => Input::get('FirstName'),
                     'ID' => Input::get('ID'),
@@ -54,14 +62,10 @@ if (Input::exists()) {
                     'password' => password_hash(Input::get('password'),PASSWORD_DEFAULT),
                     'Teacher' => $teacher
                 ),
-                  array(
-                    'ID' => Input::get('ID')
-
-                  )
+                  $arr
               );
-              echo "post";
                 Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
-                Redirect::to('login.php');
+            #    Redirect::to('login.php');
             } catch(Exception $e) {
                 echo $e, '<br>';
             }
@@ -145,6 +149,15 @@ if (Input::exists()) {
             <label style="display:inline;"><input type="radio" name="role" value="Teacher"><b style="padding-left:1%;">Teacher</b></label>
             <label style="display:inline; float:right;padding-right:5%;"><input type="radio" name="role" value="Student"><b style="padding-left:0%;">Student</b></label>
           </div>
+          <br>
+          <b>
+          <span class="checkbox checkbox-inline" style="color:white">
+            <label class="checkbox-inline" style="text-align:left !important; display:inline;"><input type="checkbox" name="Manufacturing"value="Manufacturing" style="">Manufacturing</label>
+          </span>
+          <span class="checkbox checkbox-inline" style="float:right;color:white;">
+            <label class="checkbox-inline" style="text-align:right !important; display:inline;"><input type="checkbox" name="Justice"value="Justice">Justice</label>
+          </span>
+        </b>
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">

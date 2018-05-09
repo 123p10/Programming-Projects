@@ -64,6 +64,13 @@ class DB {
             }
 
         }
+        else if(count($where) === 0){
+          $sql = "{$action} {$table}";
+          if(!$this->query($sql)->error()) {
+              return $this;
+          }
+
+        }
 
 
 	#	echo "why?" .  count($where);
@@ -122,7 +129,7 @@ class DB {
     }
 
     public function results() {
-        return $this->_results;
+        return $this->action('Describe');
     }
 
     public function first() {
@@ -136,5 +143,9 @@ class DB {
 
     public function error() {
         return $this->_error;
+    }
+    public function getPrograms(){
+      return $this->action('DESCRIBE','studentperms');
+
     }
 }

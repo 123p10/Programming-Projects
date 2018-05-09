@@ -76,7 +76,6 @@ class User {
         }
         return false;
     }
-
     public function login($username = null, $password = null, $remember = false) {
         if(!$username && !$password && $this->exists()) {
             Session::put($this->_sessionName, $this->data()->id);
@@ -143,5 +142,4 @@ class User {
     public function perms(){
       return $this->_perms;
     }
-
 }
