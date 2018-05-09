@@ -129,7 +129,7 @@ class DB {
     }
 
     public function results() {
-        return $this->action('Describe');
+      return $this->_results;
     }
 
     public function first() {
@@ -144,8 +144,8 @@ class DB {
     public function error() {
         return $this->_error;
     }
-    public function getPrograms(){
-      return $this->action('DESCRIBE','studentperms');
+    public function describe($table){
+      return $this->action('DESCRIBE',$table,array());
 
     }
 }

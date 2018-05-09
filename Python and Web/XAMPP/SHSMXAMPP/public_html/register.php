@@ -41,20 +41,22 @@ if (Input::exists()) {
             ),
         ));
         if ($validate->passed()) {
+            $teacher = 0;
             if(Input::get('role') == 'Teacher'){
               $teacher = 1;
             }
             try {
               $user = new User();
-
               $arr = array('ID' => Input::get('ID'));
-              foreach($user->perms() as $key => $data){
-                if($key != "ID" && $key != "Admin"){
-                    echo $key;
-                    $arr[$key] = isset($_POST[$key]) ? 1 : 0;
+              $db = DB::getInstance();
+              $db = $db->describe('teacherperms');
+              foreach($db->results() as $data){
+                if($data->Field != "ID" && $data->Field != "Admin"){
+                    $arr[$data->Field] = isset($_POST[$data->Field]) ? 1 : 0;
+
                   }
                 }
-
+                print_r($arr);
                 $user->create(array(
                     'FirstName' => Input::get('FirstName'),
                     'ID' => Input::get('ID'),
@@ -65,7 +67,7 @@ if (Input::exists()) {
                   $arr
               );
                 Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
-            #    Redirect::to('login.php');
+                Redirect::to('login.php');
             } catch(Exception $e) {
                 echo $e, '<br>';
             }

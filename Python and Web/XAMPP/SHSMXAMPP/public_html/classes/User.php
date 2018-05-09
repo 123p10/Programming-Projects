@@ -64,11 +64,12 @@ class User {
                 $pass = true;
             }
             if($this->_data->Teacher == 0){
-              $perm = $this->_db->get('StudentPerms',array($field,"=",$user));
+              $perm = $this->_db->get('studentperms',array('id',"=",$user));
             }
             else{
-              $perm = $this->_db->get('TeacherPerms',array($field,"=",$user));
+              $perm = $this->_db->get('teacherperms',array('id',"=",$user));
             }
+          
             if($perm->count()){
                 $this->_perms = $perm->first();
             }

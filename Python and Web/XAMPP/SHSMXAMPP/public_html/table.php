@@ -35,23 +35,43 @@ foreach($user->perms() as $key => $data){
 echo $program;
 
 $db = DB::getInstance();
-$list = $db->get("login",array('Teacher', '=', "0"))->results();
 #print_r( $list);
+$certs = $db->describe('certifications');
+
+#print_r($join->results());
 ?>
 <br>
-<table class="table">
-<th>First Name </th>
-<th> Last Name </th>
-<?php
-foreach($list as $key=>$data){
-  $id = $data->id;
-  echo "<tr>";
-  echo "<td>" . "" . "</td>";
-  echo "</tr>";
-}
-?>
+  <table class="table">
+  <th>First Name </th>
+  <th> Last Name </th>
+    <?php
+    foreach($certs->results() as $data){
+      if($data->Field != "ID"){
+          echo "<th>" . $data->Field . "</th>";
+        }
+      }
+      $join = $db->query("
+      SELECT *
+      ((FROM login
+      INNER JOIN studentperms ON studentperms.id = login.ID)
+      INNER JOIN certifications ON certifications.id = login.ID
+      );
+      ");
 
-</table>
+
+    foreach($join->results() as $key=>$data){
+      $id = $data->id;
+      $Fname = $data->FirstName;
+      $Lname = $data->LastName;
+      echo "<tr>";
+      echo "<td>" . $Fname . "</td>";
+      echo "<td>" . $Lname . "</td>";
+
+      echo "</tr>";
+    }
+    ?>
+
+  </table>
 
 
 </div>
