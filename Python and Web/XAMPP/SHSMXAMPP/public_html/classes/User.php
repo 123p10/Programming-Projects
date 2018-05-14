@@ -69,7 +69,7 @@ class User {
             else{
               $perm = $this->_db->get('teacherperms',array('id',"=",$user));
             }
-          
+
             if($perm->count()){
                 $this->_perms = $perm->first();
             }

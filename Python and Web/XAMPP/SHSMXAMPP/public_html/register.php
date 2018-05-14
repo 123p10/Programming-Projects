@@ -53,7 +53,6 @@ if (Input::exists()) {
               foreach($db->results() as $data){
                 if($data->Field != "ID" && $data->Field != "Admin"){
                     $arr[$data->Field] = isset($_POST[$data->Field]) ? 1 : 0;
-
                   }
                 }
                 print_r($arr);
@@ -66,6 +65,9 @@ if (Input::exists()) {
                 ),
                   $arr
               );
+              if($teacher == 0){
+                $db->insert('certifications',array('ID' => Input::get('ID')));
+              }
                 Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
                 Redirect::to('login.php');
             } catch(Exception $e) {

@@ -36,12 +36,12 @@ echo $program;
 
 $db = DB::getInstance();
 #print_r( $list);
-$certs = $db->describe('certifications');
+$certs = $db->describe('ManufacturingCerts');
 
 #print_r($join->results());
 ?>
 <br>
-  <table class="table">
+  <table class="table table-bordered">
   <th>First Name </th>
   <th> Last Name </th>
     <?php
@@ -51,22 +51,28 @@ $certs = $db->describe('certifications');
         }
       }
       $join = $db->query("
-      SELECT *
-      ((FROM login
+      SELECT * FROM
+      ((login
       INNER JOIN studentperms ON studentperms.id = login.ID)
-      INNER JOIN certifications ON certifications.id = login.ID
-      );
+      INNER JOIN ManufacturingCerts ON ManufacturingCerts.id = login.ID
+      )
+      WHERE studentperms." . $program . " = 1;
       ");
-
 
     foreach($join->results() as $key=>$data){
       $id = $data->id;
       $Fname = $data->FirstName;
       $Lname = $data->LastName;
+      $sql = $db->get('ManufacturingCerts', array('id','=' , $id));
       echo "<tr>";
-      echo "<td>" . $Fname . "</td>";
+      echo "<td><a href='profile.php?user=" . $id . "'>" . $Fname . "</a></td>";
       echo "<td>" . $Lname . "</td>";
+      foreach($sql->first() as $ke=>$dat){
+        if($ke != 'ID'){
+            echo "<td>" . $dat . "</td>";
 
+        }
+      }
       echo "</tr>";
     }
     ?>
@@ -78,3 +84,6 @@ $certs = $db->describe('certifications');
 
 </body>
 </html>
+<style>
+
+</style>
