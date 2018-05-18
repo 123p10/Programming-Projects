@@ -4,6 +4,7 @@
 
 #echo $gmap->getDirections();
 class GoogleMaps{
+	//This is the google maps API KEY
 	private $APIKEY = "AIzaSyBl7-D9TPPYlnvmdElOIh6pBDAkV6GPC4k";
 	//DO NOT CHANGE THIS ^^^^
 	private $loc1 = "";
@@ -31,7 +32,7 @@ class GoogleMaps{
 		$data = json_decode($json);
 		$route = $data->routes[0]->legs[0]->steps;
 		foreach($route as $data){
-			$output .= " " . strip_tags($data->html_instructions) . " ";
+			$output .= " " . strip_tags($data->html_instructions) . " \n ";
 		} 
 		#echo $output;
 		return $output;
@@ -46,7 +47,7 @@ class GoogleMaps{
 		$data = json_decode($json);
 		$route = $data->routes[0]->legs[0];
 		$output .= $route->start_address . " -> " .  $route->end_address . "\n";
-		$output .= "This will take a total of " . $route->distance->text . " and driving will take " . $route->duration->text;
+		$output .= "This will take a total of " . $route->distance->text . " and driving will take " . $route->duration->text . "\n";
 		return $output;
 
 	}
