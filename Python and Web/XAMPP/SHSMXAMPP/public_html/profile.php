@@ -22,7 +22,6 @@ include "teacher_navbar.php";
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
 }
-echo "<h3>This is  " . $profile->data()->FirstName . " " . $profile->data()->LastName . "'s Profile</h3>";
 $program = "";
 foreach($profile->perms() as $key => $data){
   if($key != "ID" && $key != "Admin"){
@@ -32,7 +31,7 @@ foreach($profile->perms() as $key => $data){
     }
   }
 }
-
+echo "<h3>This is  " . $profile->data()->FirstName . " " . $profile->data()->LastName . "'s Profile in $program</h3>";
 $db = DB::getInstance();
 echo "<h3>Total</h3>";
 echo "<table class='table table-bordered'>";
@@ -78,7 +77,45 @@ foreach($certs->results() as $data){
     }
   }
   echo "</tr>";
+echo "</table>";
+
+echo "<h3>Courses</h3>";
+echo "<table class='table table-bordered'>";
+$p = $db->get('mandatorycourses',array("Program","=",$program));
+echo "<tr>";
+foreach($p->first() as $key=>$data){
+  if($key != "Program" && $data != 0){
+      echo "<th>" . $key . "</th>";
+    }
+  }
+  echo "</tr>";
+  echo "<tr>";
+  foreach($p->first() as $field=>$data){
+    if($field != "Program"){
+      echo "<td>" . $data . "</td>";
+    }
+  }
+  echo "</tr>";
+  echo "<tr>";
+  $p = $p->first();
+  $english = 0;
+  $p2 = $db->get('courses',array("id","=",$profile->data()->id))->first();
+  #print_r($p2);
+    foreach($p as $field=>$data){
+      if($field != "Program"){
+          foreach($p2 as $data2){
+                $p3 = $db->get('coursetypes',array("Course","=",$data2))->first();
+            #    if($p3->$field){
+            #      $english++;
+            #    }
+          }
+        }
+      }
+
+echo $english;
+  echo "</tr>";
 echo "</table>"
+
 ?>
 
 
