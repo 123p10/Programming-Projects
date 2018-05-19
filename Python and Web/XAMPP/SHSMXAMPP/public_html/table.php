@@ -36,7 +36,7 @@ echo $program;
 
 $db = DB::getInstance();
 #print_r( $list);
-$certs = $db->describe('ManufacturingCerts');
+$certs = $db->describe($program . 'mandatorycerts');
 
 #print_r($join->results());
 ?>
@@ -54,7 +54,7 @@ $certs = $db->describe('ManufacturingCerts');
       SELECT * FROM
       ((login
       INNER JOIN studentperms ON studentperms.id = login.ID)
-      INNER JOIN ManufacturingCerts ON ManufacturingCerts.id = login.ID
+      INNER JOIN ". $program ."mandatorycerts ON ".$program."mandatorycerts.id = login.ID
       )
       WHERE studentperms." . $program . " = 1;
       ");
@@ -63,7 +63,7 @@ $certs = $db->describe('ManufacturingCerts');
       $id = $data->id;
       $Fname = $data->FirstName;
       $Lname = $data->LastName;
-      $sql = $db->get('ManufacturingCerts', array('id','=' , $id));
+      $sql = $db->get($program .'mandatorycerts', array('id','=' , $id));
       echo "<tr>";
       echo "<td><a href='profile.php?user=" . $id . "'>" . $Fname . "</a></td>";
       echo "<td>" . $Lname . "</td>";
