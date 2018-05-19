@@ -109,19 +109,13 @@ else if(strcasecmp($cmd, 'Nav') == 0){
 }
 
 else if(strcasecmp($cmd, 'Siri') == 0){
-	$output .=  "&#10;" . "Siri is another perosnal assistant, however, unlike me she uses data, which is so overated!";
-}
-
-else if(strcasecmp($cmd, 'Alexa') == 0){
-	$output .=  "&#10;" . "Alexa is another perosnal assistant, however, unlike me she uses data, which is so overated!";
+	$output .= "Siri is another personal assistant, but she needs data. She's stuck in the past!". "&#10;";
 }
 //Easter eggs are done
 //If command does not exist throw error
 else{
 	$output = "Sorry I did not understand that, the command you entered is invalid";
 }
-
-$complete = "&#10;" . "Bye Now! If you ever need me, I am just one text away.";
 
 
 
@@ -135,10 +129,12 @@ $complete = "&#10;" . "Bye Now! If you ever need me, I am just one text away.";
 $response = new Twiml();
 $response->message(
 	$output
-	$complete
 );
 
 echo $response;
+
+
+
 
 //Get the command and body out of the input
 function extractCommand($command){
