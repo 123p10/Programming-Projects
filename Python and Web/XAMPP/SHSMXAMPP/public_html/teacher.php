@@ -18,14 +18,52 @@ include "teacher_navbar.php";
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <div class="container">
 <?php
+$db = DB::getInstance();
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
 }
 echo "<h3>Hello " . $user->data()->FirstName . " " . $user->data()->LastName . "</h3>";
+if($user->perms()->Admin == 1){
+?>
+<table class="table table-bordered" id ="table">
+  <tr>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Username</th>
+<?php
+foreach($user->perms() as $key => $data){
+  if($key != "ID" ){
+      echo "<th>{$key}</th>";
+  }
+}
+echo "</tr><tr>";
+$table = $db->get('teacherperms',array('1','=','1'));
+foreach($table->results() as $use){
+  $u = new User($use->ID);
+  echo "<td>{$u->data()->FirstName}</td>";
+  echo "<td>{$u->data()->LastName}</td>";
+  echo "<td>{$u->data()->id}</td>";
+
+  foreach($use as $key => $data){
+    if($key != "ID"){
+      echo "<td>{$data}</td>";
+    }
+  }
+  echo "</tr><tr>";
+}
+
+?>
+</tr>
+</table>
+
+<button type= "submit" onclick="location.href = 'addteacher.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Teacher</h1></button>;
+
+<?php
+}
 ?>
 
 
-
+</table>
 </div>
 
 </body>

@@ -13,10 +13,12 @@ if($user->data()->Teacher == 0){
 include "teacher_navbar.php";
 ?>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <div class="container">
+  <input type="text" id="search" placeholder="Type to search" style="width:100%;">
+
 <?php
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
@@ -41,45 +43,59 @@ $certs = $db->describe($program . 'mandatorycerts');
 #print_r($join->results());
 ?>
 <br>
-  <table class="table table-bordered">
+  <table class="table table-bordered" id ="table">
   <th>First Name </th>
   <th> Last Name </th>
     <?php
-    foreach($certs->results() as $data){
-      if($data->Field != "ID"){
-          echo "<th>" . $data->Field . "</th>";
-        }
-      }
       $join = $db->query("
       SELECT * FROM
       ((login
       INNER JOIN studentperms ON studentperms.id = login.ID)
-      INNER JOIN ". $program ."mandatorycerts ON ".$program."mandatorycerts.id = login.ID
       )
-      WHERE studentperms." . $program . " = 1;
-      ");
+      WHERE studentperms." . $program . " = 1;");
 
     foreach($join->results() as $key=>$data){
       $id = $data->id;
       $Fname = $data->FirstName;
       $Lname = $data->LastName;
-      $sql = $db->get($program .'mandatorycerts', array('id','=' , $id));
       echo "<tr>";
       echo "<td><a href='profile.php?user=" . $id . "'>" . $Fname . "</a></td>";
       echo "<td>" . $Lname . "</td>";
-      foreach($sql->first() as $ke=>$dat){
-        if($ke != 'ID'){
-            echo "<td>" . $dat . "</td>";
-
-        }
-      }
       echo "</tr>";
     }
     ?>
 
   </table>
+  <?php
+  if($user->perms()->Admin == 1){
+     ?>
+<form method="post" action="addmandatorycerts.php">
+  <div class="form-group">
+    <input class="form-control" rows="1" name="cert" style="width:50%; display: inline-block !important; resize:none;"></textarea>
+    <input type="hidden" name="program" value="<?php echo $program ?>">
+  <button type= "submit" name="" style=" width:50% !important; float:right;height:50% !important;" class="btn btn-info"><b>Add Mandatory Certification</b></button>
+</div>
+</form>
+<form method="post" action="removemanufacturingcerts.php">
+  <div class="form-group">
+    <select class ="form-control" name="names" style="width:50%; display:inline-block;">
+    <?php
+      $certs = $db->describe($program . 'MandatoryCerts');
+      foreach($certs->results() as $data){
+        if($data->Field != "ID"){
+            echo "<option value=\"" . $data->Field . "\"> " . $data->Field ."</option>";
+        }
+      }
 
-
+    ?>
+    </select>
+    <input type="hidden" name="program" value="<?php echo $program ?>">
+  <button type= "submit" name="" style=" width:50% !important; float:right;height:50% !important;" class="btn btn-info"><b>Remove Mandatory Certification</b></button>
+</div>
+</form>
+<?php
+}
+?>
 </div>
 
 </body>
@@ -87,3 +103,13 @@ $certs = $db->describe($program . 'mandatorycerts');
 <style>
 
 </style>
+<script>
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>

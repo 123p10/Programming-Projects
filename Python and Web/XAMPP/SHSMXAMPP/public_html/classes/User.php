@@ -143,4 +143,16 @@ class User {
     public function perms(){
       return $this->_perms;
     }
+    public function removeUser($id){
+      $this->_db->delete('login',array('id','=',$id));
+      foreach($this->perms() as $key => $data){
+        if($key != "ID" && $key != "Admin"){
+          $this->_db->delete($key . 'mandatorycerts',array('ID','=',$id));
+        }
+      }
+      $this->_db->delete('courses',array('id','=',$id));
+      $this->_db->delete('studentperms',array('ID','=',$id));
+      $this->_db->delete('teacherperms',array('ID','=',$id));
+
+    }
 }

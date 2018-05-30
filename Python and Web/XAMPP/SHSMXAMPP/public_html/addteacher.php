@@ -76,6 +76,8 @@ if (Input::exists()) {
                 $db->insert('courses',array('id' =>Input::get('ID')));
                 echo $program;
               }
+              else{
+              }
                 Session::flash('home', 'Welcome ' . Input::get('FirstName') . '! Your account has been registered. You may now log in.');
                 Redirect::to('login.php');
             } catch(Exception $e) {
@@ -158,7 +160,8 @@ if (Input::exists()) {
 					</div>
 
           <div class="radio" style="color:white">
-            <label style="display:inline; float:right;padding-right:5%;"><input type="hidden" name="role" value="Student"><b style="padding-left:0%;"></b></label>
+
+            <label style="display:inline; padding-left:45%;"><input type="hidden" name="role" value="Teacher"><b style="padding-left:1%;"></b></label>
           </div>
           <br>
           <b>

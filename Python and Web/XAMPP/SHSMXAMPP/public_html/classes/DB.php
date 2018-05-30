@@ -43,6 +43,7 @@ class DB {
                 $this->_error = true;
             }
         }
+      #  print_r($this->_query->errorInfo());
 
         return $this;
     }
@@ -104,19 +105,18 @@ class DB {
         $x = 1;
 
         foreach($fields as $name => $value) {
-            $set .= "{$name} = ?";
+            $set .= "`{$name}` = ?";
             if($x < count ($fields)) {
                 $set .= ', ';
             }
             $x++;
         }
 
-        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
-
+        $sql = "UPDATE `{$table}` SET {$set} WHERE id = \"{$id}\" OR ID = \"{$id}\"";
+        echo $sql;
         if(!$this->query($sql, $fields)->error()) {
             return true;
         }
-
         return false;
     }
 

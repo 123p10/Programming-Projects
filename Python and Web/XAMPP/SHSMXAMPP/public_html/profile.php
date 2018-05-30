@@ -22,25 +22,87 @@ include "teacher_navbar.php";
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
 }
-$program = "";
-foreach($profile->perms() as $key => $data){
-  if($key != "ID" && $key != "Admin"){
-    if($data == 1){
-      $program = $key;
-      break;
+  $program = "";
+  foreach($profile->perms() as $key => $data){
+    if($key != "ID" && $key != "Admin"){
+      if($data == 1){
+        $program = $key;
+        break;
+      }
+    }
+  }
+$db = DB::getInstance();
+
+//Calculate courses
+$p2 = $db->get('courses',array("id","=",$profile->data()->id));
+
+#$p is mandatorycourses
+#p2 is courses
+$courses = json_decode(json_encode($p2->first()), True);
+$p3 = $db->get('coursetypes',array('1','=','1'));
+$coursetypes = json_decode(json_encode($p3->results()), True);
+#  print_r($coursetypes);
+$coursefinal = [];
+foreach($courses as $data1){
+  $bool = false;
+  foreach($coursetypes as $data2){
+    if($data1 == $data2["Course"]){
+      foreach($data2 as $key3=>$data3){
+        if($data3 >= 1){
+          $bool = true;
+          if(!isset($coursefinal[$key3])){$coursefinal[$key3] = 0;}
+          $coursefinal[$key3] += $data3;
+        }
+      }
     }
   }
 }
+#$coursefinal["Co-op"] = 2;
+$p = $db->get('mandatorycourses',array("Program","=",$program));
+$p = $p->first();
+$arecoursescomplete = 1;
+foreach($p as $key1=>$data1){
+  if($key1 != "Program" && $data1 >= 1 && (!isset($coursefinal[$key1]) || ($coursefinal[$key1] < $data1))){
+    $arecoursescomplete = 0;
+  }
+}
+$ecount = 0;
+$ecert = $db->get("electivecerts",array("id","=",$profile->data()->id));
+foreach($ecert->first() as $key=>$data){
+  if($key != "id"){
+    if($data != "N/A"){
+      $ecount++;
+    }
+  }
+}
+$electivecount = 0;
+$tcount = 0;
+$ecert = $db->get("electivecerts",array("id","=",$profile->data()->id));
+foreach($ecert->first() as $key=>$data){
+  if($key != "id"){
+    $tcount++;
+    if($data != "N/A"){
+      $electivecount++;
+    }
+  }
+}
+
+
 echo "<h3>This is  " . $profile->data()->FirstName . " " . $profile->data()->LastName . "'s Profile in $program</h3>";
-$db = DB::getInstance();
 echo "<h3>Total</h3>";
 echo "<table class='table table-bordered'>";
 echo "<tr>";
 echo "<th>Courses</th>";
 echo "<th>Mandatory Certifications</th>";
+echo "<th>Elective Certifications</th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td></td>";
+if($arecoursescomplete == 1){
+  echo "<td style=\"background-color:green\">" . "" ."</td>";
+}
+else{
+  echo "<td style=\"background-color:red\">" . "" ."</td>";
+}
 $missing = false;
 $sql = $db->get($program . "MandatoryCerts",array("id","=",$profile->data()->id));
 foreach($sql->first() as $field=>$data){
@@ -48,13 +110,21 @@ foreach($sql->first() as $field=>$data){
     $missing = true;
   }
 }
-if($missing == true){
-  echo "<td>0</td>";
+if($missing == false){
+  echo "<td style=\"background-color:green; color:green\">" . "Green" ."</td>";
 }
 else{
-  echo "<td>1</td>";
-
+  echo "<td style=\"background-color:red; color:red;\">" . "Red" ."</td>";
 }
+if($ecount >= 3){
+  echo "<td style=\"background-color:green; color:green\">" . "Green" ."</td>";
+}
+else{
+  echo "<td style=\"background-color:red; color:red;\">" . "Red" ."</td>";
+}
+
+
+
 echo "</tr>";
 echo "</table>";
 
@@ -73,48 +143,104 @@ foreach($certs->results() as $data){
   $sql = $db->get($program . "MandatoryCerts",array("id","=",$profile->data()->id));
   foreach($sql->first() as $field=>$data){
     if($field != "ID"){
-      echo "<td>" . $data . "</td>";
+      if($data > 0){
+        echo "<td style=\"background-color:green; color:green;\">" . $data . "</td>";
+      }
+      else{
+        echo "<td style=\"background-color:red; color:red;\">" . $data . "</td>";
+      }
     }
   }
   echo "</tr>";
 echo "</table>";
 
+
+echo "<h3>Elective Certifications</h3>";
+echo "<table class='table table-bordered'>";
+echo "<tr>";
+for($i = 1;$i <= $tcount;$i++){
+  echo "<th>Elective " . $i . "</th>";
+}
+echo "<th>Total</th></tr><tr>";
+$electivecount = 0;
+$ecert = $db->get("electivecerts",array("id","=",$profile->data()->id));
+foreach($ecert->first() as $key=>$data){
+  if($key != "id"){
+    echo "<td>".$data."</td>";
+    if($data != "N/A"){
+      $electivecount++;
+    }
+  }
+}
+
+echo "<td>".$electivecount."</td>";
+echo "</tr>";
+echo "</table>";
+
+$courseorder = [];
 echo "<h3>Courses</h3>";
 echo "<table class='table table-bordered'>";
-$p = $db->get('mandatorycourses',array("Program","=",$program));
 echo "<tr>";
-foreach($p->first() as $key=>$data){
+foreach($p as $key=>$data){
   if($key != "Program" && $data != 0){
       echo "<th>" . $key . "</th>";
+      $courseorder[] = $key;
     }
   }
   echo "</tr>";
   echo "<tr>";
-  foreach($p->first() as $field=>$data){
-    if($field != "Program"){
+  foreach($p as $field=>$data){
+    if($field != "Program" && $data != 0){
       echo "<td>" . $data . "</td>";
     }
   }
   echo "</tr>";
   echo "<tr>";
-  $p = $p->first();
-  $english = 0;
-  $p2 = $db->get('courses',array("id","=",$profile->data()->id))->first();
-  #print_r($p2);
-    foreach($p as $field=>$data){
-      if($field != "Program"){
-          foreach($p2 as $data2){
-                $p3 = $db->get('coursetypes',array("Course","=",$data2))->first();
-            #    if($p3->$field){
-            #      $english++;
-            #    }
-          }
-        }
-      }
 
-echo $english;
+
+
+
+//Print Course nums here
+foreach($courseorder as $data){
+  $bool = false;
+  foreach($coursefinal as $key1=>$data1){
+    if($key1 == $data){
+      echo "<td>" . $data1 . "</td>";
+      $bool = true;
+    }
+  }
+  if(!$bool){
+    echo "<td>0</td>";
+  }
+}
+
   echo "</tr>";
-echo "</table>"
+echo "</table>";
+echo "<div style='overflow-x:auto'>";
+echo "<br><table class='table table-bordered'><tr>";
+foreach($courses as $key=>$data){
+  if($key != "id"){
+    echo "<td>" . $data . "</td>";
+  }
+}
+echo "</tr></table></div>";
+if($user->perms()->Admin == 1){
+echo "<form action='edit_certs.php' method ='post''>";
+echo "<br><button type= \"submit\" name=\"EDIT\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Edit Certs</h1></button>";
+echo "<input type=\"hidden\" name =\"user\" value=\"". $_GET['user'] ."\"></input>";
+
+echo "</form>";
+
+
+
+
+echo "<form action='delete_user.php' method ='post''>";
+echo "<br><button type= \"submit\" name=\"Delete\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>DELETE USER</h1></button>";
+echo "<input type=\"hidden\" name =\"user\" value=\"". $_GET['user'] ."\"></input>";
+echo "</form>";
+}
+
+
 
 ?>
 

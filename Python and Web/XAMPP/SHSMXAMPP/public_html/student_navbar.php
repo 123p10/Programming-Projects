@@ -18,9 +18,6 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="programs.php">My Programs</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>
       </li>
     </ul>
