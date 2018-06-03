@@ -147,9 +147,12 @@ class User {
       $this->_db->delete('login',array('id','=',$id));
       foreach($this->perms() as $key => $data){
         if($key != "ID" && $key != "Admin"){
-          $this->_db->delete($key . 'mandatorycerts',array('ID','=',$id));
+          $this->_db->delete(strtolower($key) . 'mandatorycerts',array('ID','=',$id));
+          $this->_db->delete(strtolower($key) . 'electivecerts',array('ID','=',$id));
+
         }
       }
+      $this->_db->delete('electivecerts',array("ID","=",$id));
       $this->_db->delete('courses',array('id','=',$id));
       $this->_db->delete('studentperms',array('ID','=',$id));
       $this->_db->delete('teacherperms',array('ID','=',$id));

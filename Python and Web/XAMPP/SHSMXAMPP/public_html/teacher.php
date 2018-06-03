@@ -30,6 +30,7 @@ if($user->perms()->Admin == 1){
 <th>First Name</th>
 <th>Last Name</th>
 <th>Username</th>
+<th>Delete User</th>
 <?php
 foreach($user->perms() as $key => $data){
   if($key != "ID" ){
@@ -43,6 +44,7 @@ foreach($table->results() as $use){
   echo "<td>{$u->data()->FirstName}</td>";
   echo "<td>{$u->data()->LastName}</td>";
   echo "<td>{$u->data()->id}</td>";
+  echo "<td><a href=\"deleteteacher.php?teacher=" . $u->data()->id . "\">" . $u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
 
   foreach($use as $key => $data){
     if($key != "ID"){

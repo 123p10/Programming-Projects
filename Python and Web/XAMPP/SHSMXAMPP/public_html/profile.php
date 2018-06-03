@@ -235,7 +235,7 @@ echo "</form>";
 
 
 echo "<form action='delete_user.php' method ='post''>";
-echo "<br><button type= \"submit\" name=\"Delete\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>DELETE USER</h1></button>";
+echo "<br><button type= \"submit\" name=\"Delete\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Delete Student</h1></button>";
 echo "<input type=\"hidden\" name =\"user\" value=\"". $_GET['user'] ."\"></input>";
 echo "</form>";
 }
