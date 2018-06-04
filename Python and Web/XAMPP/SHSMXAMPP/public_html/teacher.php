@@ -62,11 +62,11 @@ foreach($table->results() as $use){
 </tr>
 </table>
 
-<button type= "submit" onclick="location.href = 'addteacher.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Teacher</h1></button>;
-<button type= "submit" onclick="location.href = 'addprogram.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Program</h1></button>;
+<button type= "submit" onclick="location.href = 'addteacher.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Teacher</h1></button>
+<button type= "submit" onclick="location.href = 'addprogram.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Program</h1></button>
 
 
-<button type= "submit" onclick="location.href = 'addcourse.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Course to Type</h1></button>;
+<button type= "submit" onclick="location.href = 'addcourse.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Course to Type</h1></button>
 
 <?php
 }
