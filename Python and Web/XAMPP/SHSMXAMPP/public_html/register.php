@@ -162,12 +162,20 @@ if (Input::exists()) {
           </div>
           <br>
           <b>
-          <span class="checkbox checkbox-inline" style="color:white">
-            <label class="checkbox-inline" style="text-align:left !important; display:inline;"><input type="checkbox" name="Manufacturing"value="Manufacturing" style="">Manufacturing</label>
-          </span>
-          <span class="checkbox checkbox-inline" style="float:right;color:white;">
-            <label class="checkbox-inline" style="text-align:right !important; display:inline;"><input type="checkbox" name="Justice"value="Justice">Justice</label>
-          </span>
+          <?php
+            $db = DB::getInstance();
+            $table = $db->get('teacherperms',array('1','=','1'));
+            $use = $table->first();
+            foreach($use as $key => $data){
+              if($key != "ID" && $key != "Admin"){
+                echo "
+                <span class='checkbox checkbox-inline' style='padding-left:40%;;color:white;'>
+                  <label class='checkbox-inline' style=\"text-align:center !important; display:inline;\"><input type=\"checkbox\" name=\"{$key}\"value=\"{$key}\">{$key}</label>
+                </span><br>";
+              }
+            }
+
+          ?>
         </b>
 
 					<div class="container-login100-form-btn">

@@ -1,5 +1,4 @@
 <?php
-<?php
 ob_start();
 require_once 'core/init.php';
 
@@ -8,7 +7,7 @@ if(Session::exists('home')) {
 }
 
 $user = new User();
-$user->removeUser($_POST['user']);
+$user->removeUser($_GET['teacher']);
 
-header("Location: programs.php");
+header("Location: index.php");
 ?>

@@ -100,6 +100,20 @@ $certs = $db->describe($program . 'mandatorycerts');
   <button type= "submit" name="cer" style=" width:50% !important; float:right;height:50% !important;" class="btn btn-info"><b>Add Elective Certification</b></button>
 </div>
 </form>
+<form method="post" action="changecourses.php">
+  <div class="form-group">
+    <input type="hidden" name="program" value="<?php echo $program ?>">
+  <button type= "submit" name="cer" style="width:100% !important; float:right;height:100% !important;" class="btn btn-info"><h2>Change Course Requirements</h2></button>
+</div>
+</form>
+<br>
+<form method="post" action="submit_deleteprogram.php">
+  <div class="form-group">
+    <input type="hidden" name="program" value="<?php echo $program ?>"><br><br>
+  <button type= "submit" name="cer" style="width:100% !important; float:right;height:100% !important;" class="btn btn-info"><h2>Delete Program</h2></button>
+</div>
+</form>
+
 
 
 

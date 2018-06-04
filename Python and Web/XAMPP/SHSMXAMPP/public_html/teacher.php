@@ -25,11 +25,13 @@ if(!$user->isLoggedIn()) {
 echo "<h3>Hello " . $user->data()->FirstName . " " . $user->data()->LastName . "</h3>";
 if($user->perms()->Admin == 1){
 ?>
+<h2>Teacher Manager</h2>
 <table class="table table-bordered" id ="table">
   <tr>
 <th>First Name</th>
 <th>Last Name</th>
 <th>Username</th>
+<th>Alter Permissions</th>
 <th>Delete User</th>
 <?php
 foreach($user->perms() as $key => $data){
@@ -44,7 +46,9 @@ foreach($table->results() as $use){
   echo "<td>{$u->data()->FirstName}</td>";
   echo "<td>{$u->data()->LastName}</td>";
   echo "<td>{$u->data()->id}</td>";
-  echo "<td><a href=\"deleteteacher.php?teacher=" . $u->data()->id . "\">" . $u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
+  echo "<td><a href=\"alterperms.php?teacher=" . $u->data()->id . "\">" . "Change Permissions for " .$u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
+
+  echo "<td><a href=\"deleteteacher.php?teacher=" . $u->data()->id . "\">" . "Delete " .$u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
 
   foreach($use as $key => $data){
     if($key != "ID"){
@@ -59,13 +63,41 @@ foreach($table->results() as $use){
 </table>
 
 <button type= "submit" onclick="location.href = 'addteacher.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Teacher</h1></button>;
+<button type= "submit" onclick="location.href = 'addprogram.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Program</h1></button>;
+
+
+<button type= "submit" onclick="location.href = 'addcourse.php';"name="register"style="padding: 0% 0 !important" class="btn btn-info btn-lg btn-block"><h1>Add Course to Type</h1></button>;
 
 <?php
 }
 ?>
+</table>
 
+<h2>List of Course Types</h2>
+<table class="table table-bordered" id ="table">
+  <tr>
+<?php
+$courseT = $db->get('coursetypes',array('1','=','1'));
+/*foreach($courseT->first() as $key=>$data){
+   echo "<th>{$key}</th>";
+
+}
+echo "<tr></tr>";*/
+foreach($courseT->results() as $k=>$d){
+  foreach($d as $key=>$data){
+    if($data > 0){
+      echo "<td>$key</td>";
+    }
+    if($key == "Course"){
+      echo "<td><a href=\"edit_coursetype.php?course={$data}\";>$data</a></td>";
+    }
+  }
+  echo "</tr><tr>";
+}
+?>
 
 </table>
+<br><br>
 </div>
 
 </body>
