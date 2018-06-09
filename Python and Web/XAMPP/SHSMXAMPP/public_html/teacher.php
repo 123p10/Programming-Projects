@@ -26,7 +26,7 @@ echo "<h3>Hello " . $user->data()->FirstName . " " . $user->data()->LastName . "
 if($user->perms()->Admin == 1){
 ?>
 <h2>Teacher Manager</h2>
-<table class="table table-bordered" id ="table">
+<table class="table table-bordered table-responsive-lg" style="overflow: auto; width:100%;" id ="table">
   <tr>
 <th>First Name</th>
 <th>Last Name</th>
@@ -74,7 +74,13 @@ foreach($table->results() as $use){
 </table>
 
 <h2>List of Course Types</h2>
-<table class="table table-bordered" id ="table">
+<input type="text" id="search" placeholder="Type to search" style="width:100%;">
+
+<table class="table table-bordered table-responsive-lg" id ="table">
+  <tr>
+    <th>Course Type</th>
+    <th>Course Code</th>
+  </tr>
   <tr>
 <?php
 $courseT = $db->get('coursetypes',array('1','=','1'));
@@ -86,7 +92,21 @@ echo "<tr></tr>";*/
 foreach($courseT->results() as $k=>$d){
   foreach($d as $key=>$data){
     if($data > 0){
-      echo "<td>$key</td>";
+      $flag = 0;
+      if($user->perms()->Admin == 0){
+        foreach($user->perms() as $j=>$i){
+          if($i >= 1 && $j == $key){
+            $flag = 1;
+            echo "<td>$key</td>";
+          }
+        }
+        if($flag != 1){
+          break;
+        }
+      }
+      else{
+        echo "<td>$key</td>";
+      }
     }
     if($key == "Course"){
       echo "<td><a href=\"edit_coursetype.php?course={$data}\";>$data</a></td>";
@@ -102,3 +122,14 @@ foreach($courseT->results() as $k=>$d){
 
 </body>
 </html>
+<script>
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+
+</script>

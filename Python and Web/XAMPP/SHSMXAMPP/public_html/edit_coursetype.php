@@ -27,7 +27,7 @@ $courses = json_decode(json_encode($p2->first()), True);
 
 echo "<h2>Edit Course Type</h2><br>";
 echo "<form action=\"submit_editcourse.php\" method=\"post\">";
-echo "<table class='table table-bordered'>";
+echo "<table class='table table-bordered table-responsive-lg'>";
 echo "<tr>";
 $count = 0;
 foreach($courses as $key=>$data){

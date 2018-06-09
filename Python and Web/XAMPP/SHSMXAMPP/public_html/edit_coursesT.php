@@ -6,11 +6,11 @@ if(Session::exists('home')) {
     echo '<p>' . Session::flash('home'). '</p>';
 }
 $user = new User();
-$profile = new User(); //Current
-if($user->data()->Teacher == 1){
+$profile = new User($_POST['user']); //Current
+if($user->data()->Teacher == 0){
   Redirect::to("index.php");
 }
-include "student_navbar.php";
+include "teacher_navbar.php";
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

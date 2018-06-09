@@ -97,7 +97,7 @@ foreach($ecert->first() as $key=>$data){
 
 echo "<h3>This is  " . $profile->data()->FirstName . " " . $profile->data()->LastName . "'s Profile in $program</h3>";
 echo "<h3>Total</h3>";
-echo "<table class='table table-bordered'>";
+echo "<table class='table table-bordered table-responsive-lg'>";
 echo "<tr>";
 echo "<th>Courses</th>";
 echo "<th>Mandatory Certifications</th>";
@@ -137,7 +137,7 @@ echo "</table>";
 
 #print_r( $list);
 echo "<h3>Mandatory Certifications</h3>";
-echo "<table class='table table-bordered'>";
+echo "<table class='table table-bordered table-responsive-lg'>";
 $certs = $db->describe($program . 'MandatoryCerts');
 echo "<tr>";
 foreach($certs->results() as $data){
@@ -163,7 +163,7 @@ echo "</table>";
 
 
 echo "<h3>Elective Certifications</h3>";
-echo "<table class='table table-bordered'>";
+echo "<table class='table table-bordered table-responsive-lg'>";
 echo "<tr>";
 for($i = 1;$i <= $tcount;$i++){
   echo "<th>Elective " . $i . "</th>";
@@ -188,8 +188,9 @@ echo "</table>";
 
 $courseorder = [];
 echo "<h3>Courses</h3>";
-echo "<table class='table table-bordered'>";
+echo "<table class='table table-bordered table-responsive-lg'>";
 echo "<tr>";
+echo "<th>Type</th>";
 foreach($p as $key=>$data){
   if($key != "Program" && $data != 0){
       echo "<th>" . $key . "</th>";
@@ -198,6 +199,7 @@ foreach($p as $key=>$data){
   }
   echo "</tr>";
   echo "<tr>";
+  echo "<td>Required Courses</td>";
   foreach($p as $field=>$data){
     if($field != "Program" && $data != 0){
       echo "<td>" . $data . "</td>";
@@ -205,7 +207,7 @@ foreach($p as $key=>$data){
   }
   echo "</tr>";
   echo "<tr>";
-
+  echo "<td>Courses Taken</td>";
 
 
 
@@ -226,7 +228,7 @@ foreach($courseorder as $data){
   echo "</tr>";
 echo "</table>";
 echo "<div style='overflow-x:auto'>";
-echo "<br><table class='table table-bordered'><tr>";
+echo "<br><table class='table table-bordered table-responsive-lg'><tr>";
 foreach($courses as $key=>$data){
   if($key != "id"){
     echo "<td>" . $data . "</td>";

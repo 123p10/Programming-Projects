@@ -25,9 +25,9 @@ echo "<h2>" . $user->data()->FirstName . " " . $user->data()->LastName . " you h
 echo "<form action=\"table.php\" method=\"POST\">";
 foreach($user->perms() as $key => $data){
   if($key != "ID" && $key != "Admin"){
-    if($data == 1){
+  #  if($data == 1){
       echo "<button type= \"submit\" name=\"$key\"style=\"padding: 5% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>$key</h1></button>";
-    }
+  #  }
   }
 }
 ?>

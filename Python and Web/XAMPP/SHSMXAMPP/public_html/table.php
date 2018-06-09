@@ -67,7 +67,7 @@ $certs = $db->describe($program . 'mandatorycerts');
 
   </table>
   <?php
-  if($user->perms()->Admin == 1){
+  if($user->perms()->$program == 1){
      ?>
 <form method="post" action="addmandatorycerts.php">
   <div class="form-group">
