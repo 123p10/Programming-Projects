@@ -18,6 +18,9 @@ include "teacher_navbar.php";
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <div class="container">
+  <div id="imgdiv">
+<img id = "profile_pic" src="<?php echo "profile_pics/" . "{$profile->data()->id}" . ".jpg?" . time();?>" alt="profile_pics/default.jpg" onerror="this.onerror=null;this.src='profile_pics/default.jpg';" >
+</div>
 <?php
 if(!$user->isLoggedIn()) {
   Redirect::to("index.php");
@@ -236,7 +239,11 @@ echo "</form>";
 echo "<form action='edit_coursesT.php' method ='post''>";
 echo "<br><button type= \"submit\" name=\"EDIT\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Edit Courses</h1></button>";
 echo "<input type=\"hidden\" name =\"user\" value=\"". $_GET['user'] ."\"></input>";
+echo "</form>";
 
+echo "<form action='edit_profilepic.php' method ='post''>";
+echo "<br><button type= \"submit\" name=\"EDIT\"style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Edit Profile Picture</h1></button>";
+echo "<input type=\"hidden\" name =\"user\" value=\"". $_GET['user'] ."\"></input>";
 echo "</form>";
 
 
@@ -257,5 +264,14 @@ echo "</form>";
 </body>
 </html>
 <style>
+#profile_pic{
+  width:200px;
+  object-fit: cover;
+}
+#imgdiv{
+  width:200px;
+  height:200px;
+  overflow: hidden;
 
+}
 </style>
