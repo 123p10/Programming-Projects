@@ -188,14 +188,6 @@ if (Input::exists()) {
 					</div>
         </form>
           <br>
-            <form action="login.php">
-              <div class="container-login100-form-btn">
-                <button type="submit" class="login100-form-btn">
-                  Login
-                </input>
-              </div>
-
-          </form>
 
 
 				<!--	<div class="text-center p-t-90">
