@@ -48,8 +48,7 @@ foreach($table->results() as $use){
   echo "<td>{$u->data()->id}</td>";
   echo "<td><a href=\"alterperms.php?teacher=" . $u->data()->id . "\">" . "Change Permissions for " .$u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
 
-  echo "<td><a href=\"deleteteacher.php?teacher=" . $u->data()->id . "\">" . "Delete " .$u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
-
+  echo "<td><a onclick=\"return confirm('Are you sure?');\" href=\"deleteteacher.php?teacher=" . $u->data()->id . "\">" . "Delete " .$u->data()->FirstName . " " .$u->data()->LastName .  "</a></td>";
   foreach($use as $key => $data){
     if($key != "ID"){
       echo "<td>{$data}</td>";

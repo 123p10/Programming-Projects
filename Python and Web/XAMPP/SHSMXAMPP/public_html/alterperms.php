@@ -71,6 +71,6 @@ foreach($courses as $key=>$data){
 }
 
 echo "</tr></table>";
-echo "<br><button type= \"submit\" style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Submit Courses</h1></button></form>";
+echo "<br><button type= \"submit\" style=\"padding: 0% 0 !important\" class=\"btn btn-info btn-lg btn-block\"><h1>Submit Permissions</h1></button></form>";
 
 ?>

@@ -110,7 +110,9 @@ $certs = $db->describe($program . 'mandatorycerts');
 <form method="post" action="submit_deleteprogram.php">
   <div class="form-group">
     <input type="hidden" name="program" value="<?php echo $program ?>"><br><br>
-  <button type= "submit" name="cer" style="width:100% !important; float:right;height:100% !important;" class="btn btn-info"><h2>Delete Program</h2></button>
+  <button type= "submit" name="cer" style="width:100% !important; float:right;height:100% !important;" class="btn btn-info" onclick="return confirm('Are you sure you would like to delete this program?');"
+
+><h2>Delete Program</h2></button>
 </div>
 </form>
 
