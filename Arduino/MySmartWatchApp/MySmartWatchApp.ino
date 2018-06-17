@@ -1,9 +1,7 @@
-#include <SPI.h>
-#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <math.h>
-
+#include <SoftwareSerial.h>
+SoftwareSerial BT(2, 3); 
 // If using software SPI (the default case):
 #define OLED_MOSI   9
 #define OLED_CLK   10
@@ -18,12 +16,8 @@ Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 int state = 0; //0 clock 1 notes
 
-byte month = 1;
-byte day = 1;
-byte week = 1;
-byte AmPm = 0;
-byte hour = 0;
-byte minutes = 0;
+byte hour = 12;
+byte minutes = 25;
 byte seconds = 0;
 int totalSec;
 unsigned long previousMillis = 0;
@@ -39,9 +33,10 @@ void setup() {
   display.display();
   delay(2000);
   display.clearDisplay();
-
+  BT.begin(9600);
+   BT.println("Hello from Arduino");
 }
-
+char a;
 void loop() {
   getTime();
   //Serial.println(seconds);
@@ -49,22 +44,22 @@ void loop() {
   if(state == 0){
     myClock();
   }
+  if(BT.available()){
+       a=(BT.read());
+       if(a == 1){
+        BT.println("Your goddamn right");
+       }
+  }
 
 }
 void myClock(){
   display.setTextColor(WHITE);
   display.setTextSize(1);
-  display.setCursor(display.width()/2,0);
-  display.println("" + String(hour));
-  display.setTextSize(4);
-  display.setCursor(display.width()/2 + 7,display.height()/2 - 15);
-  display.println(""  + String(seconds));
-  display.setCursor(display.width()/2 - 15,display.height()/2 - 20);
-  display.setTextSize(6);
-  display.println(":");
-  display.setTextSize(4);
-  display.setCursor(display.width()/2 - 30,display.height()/2 - 15);
-  display.println(""  + String(minutes));
+  display.setCursor(0,0);
+  display.println("" + String(seconds));
+  display.setTextSize(2);
+  display.println("" + String(hour) + " : " + String(minutes));
+
   display.display();
   delay(500);
   display.clearDisplay();
