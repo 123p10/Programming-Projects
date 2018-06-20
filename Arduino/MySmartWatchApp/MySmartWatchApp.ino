@@ -29,15 +29,24 @@ unsigned long previousH = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(19200);
+<<<<<<< HEAD
 
 
+=======
+  BT.begin(19200);
+  BT.println("Hello from Arduino");
+>>>>>>> 89c930e9cfde14a96ce972edd4c229affeab8334
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC);
   display.display();
-  delay(2000);
+  delay(1000);
   display.clearDisplay();
+<<<<<<< HEAD
    BT.begin(19200);
   BT.println("Hello from Arduino");
+=======
+ 
+>>>>>>> 89c930e9cfde14a96ce972edd4c229affeab8334
 }
 char a;
 int hcount = 0;
@@ -51,6 +60,7 @@ void loop() {
     myClock();
   }
   if(BT.available()){
+<<<<<<< HEAD
        a=(BT.read());
        Serial.print(a);
        if(a == 'H'){
@@ -78,7 +88,17 @@ void loop() {
         hcount++;
         return;
        }
+=======
+    char myString = new char[5];
+    myString = BT.read();
+     Serial.write(myString);
   }
+  if (Serial.available())
+  {
+      BT.write(Serial.read());
+>>>>>>> 89c930e9cfde14a96ce972edd4c229affeab8334
+  }
+  
 
 }
 
@@ -113,7 +133,7 @@ void myClock(){
     display.print(" : 0" + String(minutes));
   }
   display.display();
-  delay(500);
+  delay(200);
   display.clearDisplay();
 }
 unsigned long currentMs;
