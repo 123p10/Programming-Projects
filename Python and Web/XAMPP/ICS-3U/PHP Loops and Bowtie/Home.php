@@ -94,13 +94,13 @@
 ?>
 <h2>Inverted Horizontally Pyramid</h2><br>
 <?php
-	$a = 10;
+	$a = 9;
 	for($i = 1;$i <= $a;$i++){
 		for($b = 0;$b < ($a-$i);$b++){
 			echo "&nbsp;&nbsp;";
 		}
 		for($c = 0;$c < $i;$c++){
-			echo "*";
+			echo $a - $c;
 		}
 		echo "<br>";
 		
@@ -140,4 +140,4 @@
 	for($i = 0;$i < $sc;$i++){
 		echo $a . $sp . $a . "<br>";
 	}
-?>
+	?>

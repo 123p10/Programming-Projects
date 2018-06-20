@@ -7,8 +7,17 @@ $marks = array(
 "Alex"=>[84,80,75,32,84],
 "Josh"=>[78,80,83,94,83]
 );
+$array =array([0,1,2],[0,1,2]);
+foreach($array as $arr){
+	foreach($arr as $val){
+		echo $val;
+	}
+}
 $sum = 0;
 $studentmean = array();
+foreach($array as $name=>$value){
+	
+}
 foreach($marks as $key=>$arr){
 	$mean = 0;
 	foreach($arr as $k=>$val){
