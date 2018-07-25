@@ -107,43 +107,35 @@ else if(strcasecmp($cmd, 'Nav') == 0){
 	$output .= "Lately I dont wanna sleep". "&#10;";
 	$output .= "'Cause my life feels better than my dreams";
 }
-
-else if(strcasecmp($cmd, 'Siri') == 0){
-	$output .=  "&#10;" . "Siri is another perosnal assistant, however, unlike me she uses data, which is so overated!";
-}
-
-else if(strcasecmp($cmd, 'Alexa') == 0){
-	$output .=  "&#10;" . "Alexa is another perosnal assistant, however, unlike me she uses data, which is so overated!";
-}
 //Easter eggs are done
 //If command does not exist throw error
 else{
 	$output = "Sorry I did not understand that, the command you entered is invalid";
 }
 
-$complete = "&#10;" . "Bye Now! If you ever need me, I am just one text away.";
-
 
 
 //BEFORE OUTPUTTING CUT TO <1600 characters we will say 1400 because Twilio has watermark
 #	$output = replaceNewLine($output);
 	$output = substr($output,0,1400);
-	
+
 
 
 //Send Response
 $response = new Twiml();
 $response->message(
 	$output
-	$complete
 );
 
 echo $response;
+
+
+
 
 //Get the command and body out of the input
 function extractCommand($command){
 	$index = strpos($command," ");
 	$cmd = substr($command,2,$index-1);
 	$body = substr($command,$index+1);
-	
+
 }

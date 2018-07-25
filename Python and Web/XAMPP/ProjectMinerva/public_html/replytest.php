@@ -1,7 +1,6 @@
 <?php
 require_once('wikipedia.php');
 require_once('googleMaps.php');
-require __DIR__ . '/twilio-php-master/Twilio/autoload.php';
 header("content-type: text/xml");
 use Twilio\Twiml;
 //Put all classes above and external apis
@@ -80,7 +79,7 @@ function extractCommand($command){
 	$index = strpos($command," ");
 	$cmd = substr($command,2,$index-1);
 	$body = substr($command,$index+1);
-	
+
 }
 function replaceNewLine($in){
 	$out = str_replace("\n","&#10;",$in);

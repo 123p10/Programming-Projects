@@ -34,7 +34,6 @@ class GoogleMaps{
 		foreach($route as $data){
 			$output .= " " . strip_tags($data->html_instructions) . " \n ";
 		} 
-		#echo $output;
 		return $output;
 	}
 	public function getHeader(){
@@ -42,7 +41,6 @@ class GoogleMaps{
 		$first = $this->loc1;
 		$second = $this->loc2;
 		$url = "https://maps.googleapis.com/maps/api/directions/json?origin=" . $first . "&destination=" . $second . "&key=" . $this->APIKEY;
-		#echo $url . "<br>";
 		$json = file_get_contents($url);
 		$data = json_decode($json);
 		$route = $data->routes[0]->legs[0];
