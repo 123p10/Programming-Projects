@@ -36,9 +36,10 @@
  2 = Right Stick Vertical
  3 = Left Stick Vertical
  4 = Left Stick Horizontal
- */
+*/
 void driveControl();
 void flywheelControl();
+void indexor();
 
 int power,turn;
 int deadzone = 15;
@@ -48,6 +49,9 @@ void operatorControl() {
 	while (1) {
 		driveControl();
 		flywheelControl();
+		indexor();
+		print("cmon");
+		lcdSetText(uart1, 2, "Hello World");
 		delay(20);
 	}
 }
@@ -65,16 +69,28 @@ void driveControl(){
 		else{
 			turn = 0;
 		}
-		setDrive(power + turn, power - turn);
+		//setDrive(power + turn, power - turn);
 }
 void flywheelControl(){
 	if(button(8,'U')){
 		setFlyWheel(127);
 	}
 	if(button(8,'D')){
-		setFlyWheel(-127);
-	}
-	if(button(8,'L')){
 		slowDownFlywheel();
 	}
+}
+void indexor(){
+	if(button(8,'R')){
+		setIndexor(127);
+	}
+	else if(button(8,'L')){
+		setIndexor(0);
+	}
+	if(button(5,'U')){
+		setBallIntake(127);
+	}
+	else if(button(5,'D')){
+		setBallIntake(0);
+	}
+
 }

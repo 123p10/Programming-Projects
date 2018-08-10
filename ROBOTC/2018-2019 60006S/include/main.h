@@ -100,16 +100,14 @@ void operatorControl();
 
 
 //MOTORS
-#define BIntake 1
-#define LDT 2
-#define LDM 3
-#define FWheelB 4
+#define BIntake 2
+#define LDT 3
+#define FWheelB 4 
 #define FWheelM 5
 #define FWheelS 6
-#define RDM 8
-#define RDT 9
-#define Indexor 10
-
+#define FWheelD 7
+#define RDT 8
+#define Indexor 9
 //Sensors
 #define DRIVE_LEFT_TOP 1
 #define DRIVE_LEFT_BOTTOM 2
@@ -138,6 +136,7 @@ int button(int btnGroup,char dir);
 int inchesToTicks(int inches);
 int cmToTicks(int cm);
 void initSensors();
+void slowDownFlywheel();
 
 // End C++ export structure
 #ifdef __cplusplus

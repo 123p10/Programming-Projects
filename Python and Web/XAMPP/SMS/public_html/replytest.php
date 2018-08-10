@@ -62,7 +62,7 @@ $cmd = substr($body,0,$index);
 $body = substr($body,$index+1);
 
 //Check which command was used
-if(strcasecmp($cmd, 'wikipedia') == 0){
+if(strcasecmp($cmd, 'wiki') == 0){
 	$info = Wikipedia::search($body);
 	$wiki = new Wikipedia($info);
 	$output .= $wiki->query();

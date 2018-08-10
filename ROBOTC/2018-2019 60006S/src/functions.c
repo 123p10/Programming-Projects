@@ -6,23 +6,23 @@
 */
 
 void setLDrive(int speed){
-  motorSet(LDM, -speed);
   motorSet(LDT, speed);
 }
 void setRDrive(int speed){
-  motorSet(RDT, -speed);
-  motorSet(RDM, speed);
+  motorSet(RDT, speed);
 }
 void setFlyWheel(int speed){
-  motorSet(FWheelB, speed);
-  motorSet(FWheelM, -speed);
+  motorSet(FWheelB, -speed);
+  motorSet(FWheelM, speed);
   motorSet(FWheelS, speed);
+  motorSet(FWheelD, -speed);
+
 }
 void setBallIntake(int speed){
   motorSet(BIntake,speed);
 }
 void setIndexor(int speed){
-  motorSet(Indexor,speed);
+  motorSet(9,speed);
 }
 void setDrive(int left,int right){
   setLDrive(left);
