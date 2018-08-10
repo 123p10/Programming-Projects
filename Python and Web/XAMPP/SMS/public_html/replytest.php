@@ -65,6 +65,8 @@ $body = substr($body,$index+1);
 if(strcasecmp($cmd, 'wiki') == 0){
 	$info = Wikipedia::search($body);
 	$wiki = new Wikipedia($info);
+	$title = "£" . $wiki->getTitle() . "£";
+	$output .= $title;
 	$output .= $wiki->query();
 }
 else if(strcasecmp($cmd, 'directions')==0){

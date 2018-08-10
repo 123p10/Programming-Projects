@@ -29,7 +29,17 @@ class Wikipedia{
 		$json = file_get_contents($url);
 		$data = json_decode($json);
 		return $data[1][0];
-		
+
+	}
+	public function getTitle(){
+		$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro&titles=' . $this->str . '&format=json&explaintext&redirects&inprop=url&indexpageids';
+		$url = str_replace(' ', '%20', $url);
+		$json = file_get_contents($url);
+		$data = json_decode($json);
+		//Get the basic summary
+		$pageid = $data->query->pageids[0];
+		$title = substr($data->query->pages->$pageid->title,0,1300);
+		return $title;
 	}
 
 }
