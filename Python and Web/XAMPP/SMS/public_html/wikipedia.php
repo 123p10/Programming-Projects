@@ -1,7 +1,6 @@
 
 <?php
 require_once('googleMaps.php');
-
 class Wikipedia{
 	private $str;
 	function __construct($s){
@@ -10,13 +9,13 @@ class Wikipedia{
 
 	public function query(){
 		//JSON request from wikipedia servers
-		$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro&titles=' . $this->str . '&format=json&explaintext&redirects&inprop=url&indexpageids';
+		$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro&titles=' . $this->str . '&format=json&explaintext&redirects=1&inprop=url&indexpageids';
 		$url = str_replace(' ', '%20', $url);
 		$json = file_get_contents($url);
 		$data = json_decode($json);
 		//Get the basic summary
 		$pageid = $data->query->pageids[0];
-		$output = substr($data->query->pages->$pageid->extract,0,1300);
+		//$output = substr($data->query->pages->$pageid->extract,0,1300);
 
 		return $output;
 
@@ -32,7 +31,7 @@ class Wikipedia{
 
 	}
 	public function getTitle(){
-		$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro&titles=' . $this->str . '&format=json&explaintext&redirects&inprop=url&indexpageids';
+		$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro&titles=' . $this->str . '&format=json&explaintext&redirects=1&inprop=url&indexpageids';
 		$url = str_replace(' ', '%20', $url);
 		$json = file_get_contents($url);
 		$data = json_decode($json);
@@ -40,6 +39,26 @@ class Wikipedia{
 		$pageid = $data->query->pageids[0];
 		$title = substr($data->query->pages->$pageid->title,0,1300);
 		return $title;
+	}
+	public function getTableOfContents(){
+		$url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=sections&page='. $this->str .'&redirects';
+		$url = str_replace(' ', '%20', $url);
+		$json = file_get_contents($url);
+		$data = json_decode($json);
+		//Get the basic summary
+		$pageid = $data->parse->sections;
+		$output = "\s";
+		foreach($pageid as $a){
+			if($a->toclevel == 1){
+				echo $a->anchor . "<br>";
+				$output .= "\s" . $a->anchor . "\s";
+
+			}
+		}
+
+	//	$title = substr($data->query->pages->$pageid->title,0,1300);
+		//return $title;
+		return;
 	}
 
 }

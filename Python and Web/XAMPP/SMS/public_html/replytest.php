@@ -119,17 +119,16 @@ else{
 
 //BEFORE OUTPUTTING CUT TO <1600 characters we will say 1400 because Twilio has watermark
 #	$output = replaceNewLine($output);
-	$output = substr($output,0,1400);
-
+	$output1 = substr($output,0,1000);
+	$output2 = substr($output,1401);
 
 
 //Send Response
 $response = new Twiml();
 $response->message(
-	$output
+	$output1
 );
 
-echo $response;
 
 
 
