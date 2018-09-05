@@ -95,9 +95,40 @@ void driveForward(int distance){
     setRDrive(motorGet(RDT) + output);
     delay(100);
   }
-
+  setDrive(-20, -20);
+  delay(200);
   setDrive(0, 0);
 }
 void flyWheelSpeed(int desiredRPM){
 
+}
+void turnGyro(int angle){
+
+}
+void turnEncoder(int dist){
+  int turningSpeed = 80;
+  setLDrive(turningSpeed * sgn(dist));
+  setRDrive(turningSpeed * sgn(dist) * -1);
+  int error = dist - encoderGet(driveL);
+  while(abs(error) > 0){
+      if(abs(error) < 200){
+        turningSpeed = 40;
+      }
+      setLDrive(turningSpeed * sgn(dist));
+      setRDrive(turningSpeed * sgn(dist) * -1);
+  }
+  setDrive(-20 * sgn(dist), -20 * sgn(dist));
+  delay(200);
+  setDrive(0, 0);
+}
+int sgn(int in){
+  if(in > 0){
+    return 1;
+  }
+  else if(in < 0){
+    return -1;
+  }
+  else{
+    return 0;
+  }
 }
