@@ -100,9 +100,10 @@ void operatorControl();
 
 
 //MOTORS
+#define flipper 1
 #define BIntake 2
 #define LDT 3
-#define FWheelB 4 
+#define FWheelB 4
 #define FWheelM 5
 #define FWheelS 6
 #define FWheelD 7
@@ -131,12 +132,15 @@ void setDrive(int left,int right);
 void setFlyWheel(int speed);
 void setIndexor(int speed);
 void setBallIntake(int speed);
+void setFlipper(int speed);
 int joystick(int axis);
 int button(int btnGroup,char dir);
 int inchesToTicks(int inches);
 int cmToTicks(int cm);
 void initSensors();
 void slowDownFlywheel();
+void driveForward(int distance);
+void flipperControl();
 
 // End C++ export structure
 #ifdef __cplusplus

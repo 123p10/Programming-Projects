@@ -32,6 +32,7 @@
 
 void autonomous() {
   initSensors();
+  driveForward(cmToTicks(90));
 }
 
 void initSensors(){

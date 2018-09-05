@@ -44,18 +44,47 @@ void indexor();
 int power,turn;
 int deadzone = 15;
 float multiplier = (4/4);
-
+const int driveStyle = 0;
+int lD,rD;
+//0 = tank
+//1 = arcade
+bool auton = false;
 void operatorControl() {
 	while (1) {
 		driveControl();
 		flywheelControl();
 		indexor();
-		print("cmon");
+		flipperControl();
+	//	print("cmon");
 		lcdSetText(uart1, 2, "Hello World");
 		delay(20);
 	}
+	while(1){
+		if(auton == false && button(8,'U')){
+			autonomous();
+			auton = true;
+		}
+	}
 }
 void driveControl(){
+	if(driveStyle == 0){
+		if(abs(joystick(3)) > deadzone){
+			lD = joystick(3);
+		}
+		else{
+			lD = 0;
+		}
+
+		if(abs(joystick(2)) > deadzone){
+			rD = joystick(2);
+		}
+		else{
+			rD = 0;
+		}
+		setDrive(-lD, -rD);
+
+	}
+	if(driveStyle == 1){
 		if(abs(joystick(3)) > deadzone){
 			power = joystick(3) * multiplier;
 		}
@@ -69,21 +98,33 @@ void driveControl(){
 		else{
 			turn = 0;
 		}
-		//setDrive(power + turn, power - turn);
+		setDrive(power + turn, power - turn);
+	}
 }
 void flywheelControl(){
 	if(button(8,'U')){
-		setFlyWheel(127);
+		setFlyWheel(65);
 	}
 	if(button(8,'D')){
 		slowDownFlywheel();
 	}
 }
-void indexor(){
-	if(button(8,'R')){
-		setIndexor(127);
+void flipperControl(){
+	if(button(7,'U')){
+		setFlipper(127);
 	}
-	else if(button(8,'L')){
+	else if(button(7,'D')){
+		setFlipper(-127);
+	}
+	else{
+		setFlipper(0);
+	}
+}
+void indexor(){
+	if(button(6,'U')){
+		setIndexor(80);
+	}
+	else if(button(6,'D')){
 		setIndexor(0);
 	}
 	if(button(5,'U')){
