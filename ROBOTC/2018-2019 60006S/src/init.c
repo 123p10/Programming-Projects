@@ -37,13 +37,12 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
-  setTeamName("4659");
+  setTeamName("60006X");
   lcdInit(uart1);
   lcdClear(uart1);
-  lcdPrint(uart1, 1, "X is %d", 3);
-// Print plain text to LCD (much faster than lcdPrint)
-  lcdSetText(uart1, 2, "Hello World");
-
+  lcdSetText(uart1,1,"60006X");
+  lcdSetText(uart1, 2, "Owen is da best");
+  lcdSetBacklight(uart1, true);
   driveL = encoderInit(DRIVE_LEFT_TOP, DRIVE_LEFT_BOTTOM, false);
   driveR = encoderInit(DRIVE_RIGHT_TOP,DRIVE_RIGHT_BOTTOM, false);
   mogo = encoderInit(MOGO_TOP,MOGO_BOTTOM,false);

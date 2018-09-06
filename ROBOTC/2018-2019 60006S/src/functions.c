@@ -1,4 +1,6 @@
 #include "main.h"
+#include "fbc.h"
+#include "fbc_pid.h"
 
 /*
  OK for all declarations of motors USE THESE FUNCTIONS
@@ -6,34 +8,42 @@
 */
 
 void setLDrive(int speed){
-  motorSet(LDT, speed);
+  motorSet(LDT, -speed);
 }
 void setRDrive(int speed){
   motorSet(RDT, speed);
 }
 void setFlyWheel(int speed){
-  motorSet(FWheelB, -speed);
-  motorSet(FWheelM, speed);
-  motorSet(FWheelS, speed);
-  motorSet(FWheelD, -speed);
+  motorSet(FWheelB, speed);
+  motorSet(FWheelM, -speed);
+  motorSet(FWheelS, -speed);
+  motorSet(FWheelD, speed);
 
 }
 void setBallIntake(int speed){
   motorSet(BIntake,speed);
 }
 void setIndexor(int speed){
-  motorSet(9,speed);
+  motorSet(Indexor,speed);
 }
 void setDrive(int left,int right){
   setLDrive(left);
   setRDrive(right);
 }
+void setFlipper(int speed){
+  motorSet(flipper,speed);
+}
 void slowDownFlywheel(){
-  while(abs(motorGet(FWheelB)) > 30){
-    setFlyWheel(motorGet(FWheelB) - 10);
-    delay(150);
+  int timeDelay = 250;
+  unsigned long time = millis();
+  while(abs(motorGet(FWheelB)) >= 10){
+    if(millis() - time >= (unsigned long)timeDelay){
+      setFlyWheel(abs(motorGet(FWheelB)) - 10);
+      time = millis();
+    }
   }
 }
+
 
 /*
 Joystick Axis
@@ -58,9 +68,67 @@ int button(int btnGroup, char dir){
   return joystickGetDigital(1, btnGroup, dir);
 }
 
+
+
+//Auton functions
 int inchesToTicks(int inches){
   return (360 / (4 * 3.14159)) * inches;
 }
 int cmToTicks(int cm){
   return (360/(10.16*3.14159)) * cm;
+}
+//my PID
+void driveForward(int distance){
+  const double kP = 0.5;
+  encoderReset(driveL);
+  encoderReset(driveR);
+  int dL = distance - encoderGet(driveL);
+  int dR = distance - encoderGet(driveR);
+  int output = dL - dR;
+  setLDrive(60);
+  setRDrive(60-5);
+  while(dL > 0){
+    dL = distance - encoderGet(driveL);
+    dR = distance - encoderGet(driveR);
+    output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
+    setLDrive(60);
+    setRDrive(motorGet(RDT) + output);
+    delay(100);
+  }
+  setDrive(-20, -20);
+  delay(200);
+  setDrive(0, 0);
+}
+void flyWheelSpeed(int desiredRPM){
+
+}
+void turnGyro(int angle){
+
+}
+void turnEncoder(int dist){
+  int turningSpeed = 80;
+  setLDrive(turningSpeed * sgn(dist));
+  setRDrive(turningSpeed * sgn(dist) * -1);
+  int error = dist - encoderGet(driveL);
+  while(abs(error) > 0){
+      if(abs(error) < 200){
+        turningSpeed = 40;
+      }
+      setLDrive(turningSpeed * sgn(dist));
+      setRDrive(turningSpeed * sgn(dist) * -1);
+  }
+  setDrive(-20 * sgn(dist), -20 * sgn(dist));
+  delay(200);
+  setDrive(0, 0);
+}
+int sgn(int in){
+  if(in > 0){
+    return 1;
+  }
+  else if(in < 0){
+    return -1;
+  }
+  else{
+    return 0;
+  }
 }
