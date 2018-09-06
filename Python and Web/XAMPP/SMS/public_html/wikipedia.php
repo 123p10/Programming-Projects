@@ -15,7 +15,7 @@ class Wikipedia{
 		$data = json_decode($json);
 		//Get the basic summary
 		$pageid = $data->query->pageids[0];
-		//$output = substr($data->query->pages->$pageid->extract,0,1300);
+		$output = substr($data->query->pages->$pageid->extract,0,3000);
 
 		return $output;
 
@@ -47,18 +47,18 @@ class Wikipedia{
 		$data = json_decode($json);
 		//Get the basic summary
 		$pageid = $data->parse->sections;
-		$output = "\s";
+		$output = "<T>";
 		foreach($pageid as $a){
 			if($a->toclevel == 1){
-				echo $a->anchor . "<br>";
-				$output .= "\s" . $a->anchor . "\s";
+		#		echo $a->anchor . "<br>";
+				$output .= "/S" . $a->anchor . "/s";
 
 			}
 		}
-
+		$output .= "</T>";
 	//	$title = substr($data->query->pages->$pageid->title,0,1300);
 		//return $title;
-		return;
+		return $output;
 	}
 
 }

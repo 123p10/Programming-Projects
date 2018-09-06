@@ -66,8 +66,11 @@ if(strcasecmp($cmd, 'wiki') == 0){
 	$info = Wikipedia::search($body);
 	$wiki = new Wikipedia($info);
 	$title = "£" . $wiki->getTitle() . "£";
+	$output .= "<E>";
 	$output .= $title;
 	$output .= $wiki->query();
+	#$output .= $wiki->getTableOfContents();
+	$toc = $wiki->getTableOfContents();
 }
 else if(strcasecmp($cmd, 'directions')==0){
 	$gmaps = new GoogleMaps($body);
@@ -115,21 +118,22 @@ else{
 	$output = "Sorry I did not understand that, the command you entered is invalid";
 }
 
-
+$response = new Twiml();
 
 //BEFORE OUTPUTTING CUT TO <1600 characters we will say 1400 because Twilio has watermark
 #	$output = replaceNewLine($output);
-	$output1 = substr($output,0,1000);
-	$output2 = substr($output,1401);
-
+	$output1 = substr($output,0,1300);
+	$output2 = substr($output,1300,2600);
+	for($i = 0; $i < strlen($output)/1300;$i++){
+		$response->message("<W>" . substr($output,$i*1300,($i+1)*1300));
+	}
+	for($i = 0; $i < strlen($toc)/1300;$i++){
+		$response->message(substr($toc,$i*1300,($i+1)*1300));
+	}
 
 //Send Response
-$response = new Twiml();
-$response->message(
-	$output1
-);
 
-
+echo $response;
 
 
 
