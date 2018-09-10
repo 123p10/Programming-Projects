@@ -32,7 +32,19 @@
 
 void autonomous() {
   initSensors();
-  driveForward(cmToTicks(90));
+//  driveForward(cmToTicks(25));
+  driveBackward(cmToTicks(55));
+  delay(1000);
+  driveForward(cmToTicks(55));
+  delay(1000);
+  driveBackward(cmToTicks(45));
+  delay(1000);
+  turnEncoder(cmToTicks(34));
+  delay(1000);
+  turnEncoder(cmToTicks(-35));
+  //driveForward(cmToTicks(-90));
+  //turnEncoder(cmToTicks(17));
+  //driveBackward(cmToTicks(30));
 }
 
 void initSensors(){

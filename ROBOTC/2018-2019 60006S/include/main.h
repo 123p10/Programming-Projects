@@ -144,6 +144,8 @@ void flipperControl();
 int sgn(int in);
 void turnGyro(int angle);
 void turnEncoder(int dist);
+void driveBackward(int distance);
+
 // End C++ export structure
 #ifdef __cplusplus
 }

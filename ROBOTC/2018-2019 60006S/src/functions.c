@@ -79,7 +79,7 @@ int cmToTicks(int cm){
 }
 //my PID
 void driveForward(int distance){
-  const double kP = 0.5;
+  const double kP = 0.4;
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance - encoderGet(driveL);
@@ -87,7 +87,7 @@ void driveForward(int distance){
   int output = dL - dR;
   setLDrive(60);
   setRDrive(60-5);
-  while(dL > 0){
+  while(dL >= 0){
     dL = distance - encoderGet(driveL);
     dR = distance - encoderGet(driveR);
     output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
@@ -99,26 +99,53 @@ void driveForward(int distance){
   delay(200);
   setDrive(0, 0);
 }
+void driveBackward(int distance){
+  const double kP = 0.4;
+  encoderReset(driveL);
+  encoderReset(driveR);
+  int dL = distance + encoderGet(driveL);
+  int dR = distance + encoderGet(driveR);
+  int output = dL - dR;
+  setLDrive(-60);
+  setRDrive(-55);
+  while(dL >= 0){
+    dL = distance + encoderGet(driveL);
+    dR = distance + encoderGet(driveR);
+    output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
+    setLDrive(-60);
+    setRDrive(motorGet(RDT) + output);
+    delay(100);
+  }
+  setDrive(20, 20);
+  delay(200);
+  setDrive(0, 0);
+}
+
 void flyWheelSpeed(int desiredRPM){
 
 }
 void turnGyro(int angle){
 
 }
+//17 cmToTicks is like 90 degrees
+//20 cmToTicks is like 135 degrees
 void turnEncoder(int dist){
+  encoderReset(driveL);
+  encoderReset(driveR);
   int turningSpeed = 80;
   setLDrive(turningSpeed * sgn(dist));
   setRDrive(turningSpeed * sgn(dist) * -1);
   int error = dist - encoderGet(driveL);
   while(abs(error) > 0){
-      if(abs(error) < 200){
-        turningSpeed = 40;
+      if(abs(error) < 100){
+        turningSpeed = 60;
       }
       setLDrive(turningSpeed * sgn(dist));
       setRDrive(turningSpeed * sgn(dist) * -1);
+      error = dist - encoderGet(driveL);
   }
-  setDrive(-20 * sgn(dist), -20 * sgn(dist));
-  delay(200);
+  setDrive(-20 * sgn(dist), 20 * sgn(dist));
+  delay(150);
   setDrive(0, 0);
 }
 int sgn(int in){

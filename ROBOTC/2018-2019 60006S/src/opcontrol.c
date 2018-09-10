@@ -111,10 +111,10 @@ void flywheelControl(){
 }
 void flipperControl(){
 	if(button(7,'U')){
-		setFlipper(127);
+		setFlipper(100);
 	}
 	else if(button(7,'D')){
-		setFlipper(-127);
+		setFlipper(-45);
 	}
 	else{
 		setFlipper(0);
