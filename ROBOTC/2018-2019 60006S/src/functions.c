@@ -79,41 +79,54 @@ int cmToTicks(int cm){
 }
 //my PID
 void driveForward(int distance){
+  int start = millis();
   const double kP = 0.4;
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance - encoderGet(driveL);
   int dR = distance - encoderGet(driveR);
   int output = dL - dR;
-  setLDrive(60);
-  setRDrive(60-5);
+  setLDrive(80);
+  setRDrive(80-5);
   while(dL >= 0){
     dL = distance - encoderGet(driveL);
     dR = distance - encoderGet(driveR);
     output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
-    setLDrive(60);
+    setLDrive(80);
     setRDrive(motorGet(RDT) + output);
+    if(millis() - start >= 3000){
+      break;
+    }
+
     delay(100);
   }
   setDrive(-20, -20);
   delay(200);
   setDrive(0, 0);
 }
-void driveBackward(int distance){
-  const double kP = 0.4;
+void driveBackward(int distance,int breakout){
+  int start = millis();
+  const double kP = 0.5;
+  const double kD = 0.05;
+  int previous_error = 0;
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance + encoderGet(driveL);
   int dR = distance + encoderGet(driveR);
   int output = dL - dR;
-  setLDrive(-60);
-  setRDrive(-55);
+  setLDrive(-80);
+  setRDrive(-80);
   while(dL >= 0){
     dL = distance + encoderGet(driveL);
     dR = distance + encoderGet(driveR);
-    output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
-    setLDrive(-60);
+
+    output = (encoderGet(driveL) - encoderGet(driveR)) * kP + (dL - dR - previous_error) * kD;
+    previous_error = dL - dR;
+    setLDrive(-80);
     setRDrive(motorGet(RDT) + output);
+    if(millis() - start >= breakout){
+      break;
+    }
     delay(100);
   }
   setDrive(20, 20);
@@ -158,4 +171,11 @@ int sgn(int in){
   else{
     return 0;
   }
+}
+void shootFlywheel(int speed){
+/*  setIndexor(80);
+  delay(500);
+  setFlyWheel(speed);
+  delay(250);
+  slowDownFlywheel();*/
 }

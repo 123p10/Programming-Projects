@@ -32,19 +32,58 @@
 
 void autonomous() {
   initSensors();
+  setFlyWheel(80);
+  driveForward(cmToTicks(10));
+  driveBackward(cmToTicks(70),10000);
+  setBallIntake(127);
+  delay(100);
+  //Shoot
+  setIndexor(127);
+  delay(850);
+  setIndexor(0);
+  delay(300);
+  turnEncoder(cmToTicks(3));
+  //Rape flag
+  driveBackward(cmToTicks(50),1000);
+  delay(400);
+  //Pull out
+  driveForward(cmToTicks(7));
+  //Attempt to correct the turning
+  turnEncoder(cmToTicks(-8));
+  driveForward(cmToTicks(18));
+  //Go for the cap
+  turnEncoder(cmToTicks(-29));
+  driveBackward(cmToTicks(40),10000);
+  delay(200);
+  setFlipper(-100);
+  delay(900);
+  setFlipper(0);
+  driveForward(cmToTicks(30));
+  delay(100);
+  turnEncoder(cmToTicks(30));
+  delay(100);
+
+  driveForward(cmToTicks(105));
+  delay(100);
+
+  turnEncoder(cmToTicks(30));
+  delay(100);
+
+//Ram the platform
+  setBallIntake(0);
+  setDrive(127,127);
+  delay(4000);
+  setDrive(0,0);
+  slowDownFlywheel();
+//  driveForward(cmToTicks(15));
+//  driveBackward(25);
+  //driveForward(15);
+  //  setBallIntake(127);
+    //shootFlywheel(70);
+
 //  driveForward(cmToTicks(25));
-  driveBackward(cmToTicks(55));
-  delay(1000);
-  driveForward(cmToTicks(55));
-  delay(1000);
-  driveBackward(cmToTicks(45));
-  delay(1000);
-  turnEncoder(cmToTicks(34));
-  delay(1000);
-  turnEncoder(cmToTicks(-35));
-  //driveForward(cmToTicks(-90));
-  //turnEncoder(cmToTicks(17));
-  //driveBackward(cmToTicks(30));
+//  delay(1000);
+  //driveForward(cmToTicks(55));
 }
 
 void initSensors(){
