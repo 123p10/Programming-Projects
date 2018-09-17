@@ -38,7 +38,7 @@ Formatting Rules
 
 
 
-
+$prefix = "";
 
 
 $output = "&#10;";
@@ -71,11 +71,14 @@ if(strcasecmp($cmd, 'wiki') == 0){
 	$output .= $wiki->query();
 	#$output .= $wiki->getTableOfContents();
 	$toc = $wiki->getTableOfContents();
+	$prefix = "<W>";
 }
 else if(strcasecmp($cmd, 'directions')==0){
 	$gmaps = new GoogleMaps($body);
 	$output .= $gmaps->getHeader();
-	$output .= $gmaps->getDirections();
+	#$output .= $gmaps->getDirections();
+#	$output = "test";
+	$prefix =  "<D>";
 }
 else if(strcasecmp($cmd,'news') == 0){
 	$news = new news($body);
@@ -122,13 +125,13 @@ $response = new Twiml();
 
 //BEFORE OUTPUTTING CUT TO <1600 characters we will say 1400 because Twilio has watermark
 #	$output = replaceNewLine($output);
-	$output1 = substr($output,0,1300);
-	$output2 = substr($output,1300,2600);
 	for($i = 0; $i < strlen($output)/1300;$i++){
-		$response->message("<W>" . substr($output,$i*1300,($i+1)*1300));
+		$response->message($prefix . substr($output,$i*1300,($i+1)*1300));
 	}
-	for($i = 0; $i < strlen($toc)/1300;$i++){
-		$response->message(substr($toc,$i*1300,($i+1)*1300));
+	if(isset($toc)){
+		for($i = 0; $i < strlen($toc)/1300;$i++){
+			$response->message($prefix . substr($toc,$i*1300,($i+1)*1300));
+		}
 	}
 
 //Send Response
