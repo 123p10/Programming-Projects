@@ -40,8 +40,8 @@ void initialize() {
   setTeamName("60006X");
   lcdInit(uart1);
   lcdClear(uart1);
-  lcdSetText(uart1,1,"60006X");
-  lcdSetText(uart1, 2, "Owen is da best");
+  lcdSetText(uart1,1,"VEER & OWEN");
+  lcdSetText(uart1, 2, "OWN THE 6IX");
   lcdSetBacklight(uart1, true);
   driveL = encoderInit(DRIVE_LEFT_TOP, DRIVE_LEFT_BOTTOM, false);
   driveR = encoderInit(DRIVE_RIGHT_TOP,DRIVE_RIGHT_BOTTOM, false);

@@ -56,7 +56,7 @@ void operatorControl() {
 		indexor();
 		flipperControl();
 	//	print("cmon");
-		lcdSetText(uart1, 2, "Hello World");
+	//	lcdSetText(uart1, 2, "Owen > Veer");
 		delay(20);
 	}
 	while(1){
