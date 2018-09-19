@@ -76,8 +76,8 @@ if(strcasecmp($cmd, 'wiki') == 0){
 else if(strcasecmp($cmd, 'directions')==0){
 	$gmaps = new GoogleMaps($body);
 	$output .= $gmaps->getHeader();
-	#$output .= $gmaps->getDirections();
-#	$output = "test";
+	$output .= $gmaps->getDirections();
+	$output .= "<.D>";
 	$prefix =  "<D>";
 }
 else if(strcasecmp($cmd,'news') == 0){
