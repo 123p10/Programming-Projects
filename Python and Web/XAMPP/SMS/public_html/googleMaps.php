@@ -28,7 +28,7 @@ class GoogleMaps{
 		$json = file_get_contents($query);
 		$data = json_decode($json);
 		$route = $data->route;
-		$output = "&#10;". "&#10;". $route->locations[0]->street . " to " .  $route->locations[1]->street . "&#10;";
+		$output = "\n". "&#10;". $route->locations[0]->street . " to " .  $route->locations[1]->street . "&#10;\n";
 		return $output;
 	}
 	public function getDirections(){
@@ -40,7 +40,7 @@ class GoogleMaps{
 		#print_r($route);
 		#echo $query;
 		foreach($route->maneuvers as $data){
-			$output .= "/D" . strip_tags($data->narrative) . "/d";
+			$output .= "" . strip_tags($data->narrative) . "\n\n";
 		}
 		$y = str_replace("Turn left", "Left", $output);
 		$x = str_replace("Turn right", "Right", $y);

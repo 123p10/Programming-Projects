@@ -65,20 +65,15 @@ $body = substr($body,$index+1);
 if(strcasecmp($cmd, 'wiki') == 0){
 	$info = Wikipedia::search($body);
 	$wiki = new Wikipedia($info);
-	$title = "£" . $wiki->getTitle() . "£";
-	$output .= "<E>";
 	$output .= $title;
 	$output .= $wiki->query();
-	#$output .= $wiki->getTableOfContents();
 	$toc = $wiki->getTableOfContents();
-	$prefix = "<W>";
 }
 else if(strcasecmp($cmd, 'directions')==0){
 	$gmaps = new GoogleMaps($body);
 	$output .= $gmaps->getHeader();
 	$output .= $gmaps->getDirections();
-	$output .= "<.D>";
-	$prefix =  "<D>";
+
 }
 else if(strcasecmp($cmd,'news') == 0){
 	$news = new news($body);
@@ -126,11 +121,11 @@ $response = new Twiml();
 //BEFORE OUTPUTTING CUT TO <1600 characters we will say 1400 because Twilio has watermark
 #	$output = replaceNewLine($output);
 	for($i = 0; $i < strlen($output)/1300;$i++){
-		$response->message($prefix . substr($output,$i*1300,($i+1)*1300));
+		$response->message(substr($output,$i*1300,($i+1)*1300));
 	}
 	if(isset($toc)){
 		for($i = 0; $i < strlen($toc)/1300;$i++){
-			$response->message($prefix . substr($toc,$i*1300,($i+1)*1300));
+			$response->message(substr($toc,$i*1300,($i+1)*1300));
 		}
 	}
 
