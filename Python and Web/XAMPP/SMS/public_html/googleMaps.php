@@ -1,9 +1,13 @@
 <?php
+/*use open guidance*/
 class GoogleMaps{
 	//This is the google maps API KEY
 #	private $APIKEY = "AIzaSyBl7-D9TPPYlnvmdElOIh6pBDAkV6GPC4k";
 #	private $APIKEY = "AIzaSyCz03ney0IlkV6nQRkhdrcBPkDZWEl_xys";
-	private $APIKEY = "llsCyJOoonmBNiJwteZ8IBRFnQCrlIJn";
+#	private $APIKEY = "llsCyJOoonmBNiJwteZ8IBRFnQCrlIJn";
+private $app_id = "HyE3Xy7QTC57QjAoH4Yo";
+private $app_code = "WQ__fBR_tfbJFtbahqCRAQ";
+
 	//DO NOT CHANGE THIS ^^^^
 	private $loc1 = "";
 	private $loc2 = "";
@@ -23,6 +27,42 @@ class GoogleMaps{
 		$this->loc1 = $loc1;
 		$this->loc2 = $loc2;
 	}
+
+
+
+
+
+	public function getHeader(){
+    $queryOrig = "https://geocoder.api.here.com/6.2/geocode.json?app_id=". $this->app_id . "&app_code=" . $this->app_code . "&searchtext=" . $this->loc1;
+    $json = file_get_contents($queryOrig);
+    $data = json_decode($json);
+		$this->originLatitude = $data->Response->View[0]->Result[0]->Location->DisplayPosition->Latitude;
+		$this->originLongitude = $data->Response->View[0]->Result[0]->Location->DisplayPosition->Longitude;
+    $origin = $data->Response->View[0]->Result[0]->Location->Address->Label;
+    $queryDest = "https://geocoder.api.here.com/6.2/geocode.json?app_id=". $this->app_id . "&app_code=" . $this->app_code . "&searchtext=" . $this->loc2;
+    $json = file_get_contents($queryDest);
+    $data = json_decode($json);
+    $destination = $data->Response->View[0]->Result[0]->Location->Address->Label;
+		$this->destLatitude = $data->Response->View[0]->Result[0]->Location->DisplayPosition->Latitude;
+		$this->destLongitude = $data->Response->View[0]->Result[0]->Location->DisplayPosition->Longitude;
+    return $origin . " to " . $destination;
+  }
+
+	public function getDirections(){
+		$string = "";
+		$query ="https://route.api.here.com/routing/7.2/calculateroute.json?app_id={$this->app_id}&app_code={$this->app_code}&waypoint0=geo!{$this->originLatitude},{$this->originLongitude}&waypoint1=geo!{$this->destLatitude},{$this->destLongitude}&deperature=now&repesentation=turnByTurn&mode=fastest%3Bcar%3Btraffic%3Aenabled";
+		$json = file_get_contents($query);
+		$data = json_decode($json);
+		foreach($data->response->route[0]->leg[0]->maneuver as $i){
+			$string .= $i->instruction . "\n &#10;";
+		}
+		$string = strip_tags($string);
+		return $string;
+	}
+
+
+/*
+	MapQuest
 	public function getHeader(){
 		$query = "https://www.mapquestapi.com/directions/v2/route?key=" . $this->APIKEY . "&from=". $this->loc1 ."&to=" . $this->loc2 . "&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
 		$json = file_get_contents($query);
@@ -32,6 +72,7 @@ class GoogleMaps{
 		return $output;
 	}
 	public function getDirections(){
+		//https://www.mapquestapi.com/directions/v2/route?key=llsCyJOoonmBNiJwteZ8IBRFnQCrlIJn&from=365+orano+ave,Mississauga&to=24+sussex+dr,Ottawa&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false
 		$query = "https://www.mapquestapi.com/directions/v2/route?key=" . $this->APIKEY . "&from=". $this->loc1 ."&to=" . $this->loc2 . "&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
 		$json = file_get_contents($query);
 		$data = json_decode($json);
@@ -50,7 +91,7 @@ class GoogleMaps{
 		return $w;
 	}
 
-
+*/
 
 /* GMAPS
 	public function getDirections(){
