@@ -32,7 +32,7 @@
 
 void autonomous() {
   initSensors();
-  setFlyWheel(80);
+/*  setFlyWheel(80);
   driveForward(cmToTicks(10));
   driveBackward(cmToTicks(70),10000);
   setBallIntake(127);
@@ -74,16 +74,7 @@ void autonomous() {
   setDrive(127,127);
   delay(4000);
   setDrive(0,0);
-  slowDownFlywheel();
-//  driveForward(cmToTicks(15));
-//  driveBackward(25);
-  //driveForward(15);
-  //  setBallIntake(127);
-    //shootFlywheel(70);
-
-//  driveForward(cmToTicks(25));
-//  delay(1000);
-  //driveForward(cmToTicks(55));
+  slowDownFlywheel();*/
 }
 
 void initSensors(){

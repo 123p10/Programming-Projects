@@ -103,10 +103,10 @@ void driveControl(){
 }
 void flywheelControl(){
 	if(button(8,'U')){
-		setFlyWheel(65);
+		setFlyWheel(127);
 	}
 	if(button(8,'D')){
-		slowDownFlywheel();
+		setFlyWheel(0);
 	}
 }
 void flipperControl(){
@@ -122,16 +122,10 @@ void flipperControl(){
 }
 void indexor(){
 	if(button(6,'U')){
-		setIndexor(80);
+		setIndexor(127);
 	}
 	else if(button(6,'D')){
-		setIndexor(0);
-	}
-	if(button(5,'U')){
-		setBallIntake(127);
-	}
-	else if(button(5,'D')){
-		setBallIntake(0);
+		setIndexor(-127);
 	}
 
 }

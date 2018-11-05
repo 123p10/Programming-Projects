@@ -101,14 +101,14 @@ void operatorControl();
 
 //MOTORS
 #define flipper 1
-#define BIntake 2
-#define LDT 3
-#define FWheelB 4
-#define FWheelM 5
-#define FWheelS 6
-#define FWheelD 7
-#define RDT 8
-#define Indexor 9
+#define LDB 2
+#define LDF 3
+#define FWheelL 4
+#define FWheelR 6
+
+#define RDF 7
+#define RDB 8
+#define Indexor 10
 //Sensors
 #define DRIVE_LEFT_TOP 1
 #define DRIVE_LEFT_BOTTOM 2

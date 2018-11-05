@@ -8,20 +8,19 @@
 */
 
 void setLDrive(int speed){
-  motorSet(LDT, -speed);
-}
-void setRDrive(int speed){
-  motorSet(RDT, speed);
-}
-void setFlyWheel(int speed){
-  motorSet(FWheelB, speed);
-  motorSet(FWheelM, -speed);
-  motorSet(FWheelS, -speed);
-  motorSet(FWheelD, speed);
+  motorSet(LDF, -speed);
+  motorSet(LDB, -speed);
 
 }
-void setBallIntake(int speed){
-  motorSet(BIntake,speed);
+void setRDrive(int speed){
+  motorSet(RDF, speed);
+  motorSet(RDB, speed);
+
+}
+void setFlyWheel(int speed){
+  motorSet(FWheelL, -speed);
+  motorSet(FWheelR, -speed);
+
 }
 void setIndexor(int speed){
   motorSet(Indexor,speed);
@@ -33,7 +32,7 @@ void setDrive(int left,int right){
 void setFlipper(int speed){
   motorSet(flipper,speed);
 }
-void slowDownFlywheel(){
+/*void slowDownFlywheel(){
   int timeDelay = 250;
   unsigned long time = millis();
   while(abs(motorGet(FWheelB)) >= 10){
@@ -42,7 +41,7 @@ void slowDownFlywheel(){
       time = millis();
     }
   }
-}
+}*/
 
 
 /*
@@ -93,7 +92,7 @@ void driveForward(int distance){
     dR = distance - encoderGet(driveR);
     output = (encoderGet(driveL) - encoderGet(driveR)) * kP;
     setLDrive(80);
-    setRDrive(motorGet(RDT) + output);
+    setRDrive(motorGet(RDF) + output);
     if(millis() - start >= 3000){
       break;
     }
@@ -123,7 +122,7 @@ void driveBackward(int distance,int breakout){
     output = (encoderGet(driveL) - encoderGet(driveR)) * kP + (dL - dR - previous_error) * kD;
     previous_error = dL - dR;
     setLDrive(-80);
-    setRDrive(motorGet(RDT) + output);
+    setRDrive(motorGet(RDF) + output);
     if(millis() - start >= breakout){
       break;
     }
