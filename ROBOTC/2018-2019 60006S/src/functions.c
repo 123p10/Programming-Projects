@@ -44,6 +44,27 @@ void slowDownFlywheel(){
   }
 }
 
+/*
+void flywheelRPMCode(int rpm){
+  int kP = 5;
+  int lastTime = currTime;
+  int deltaTime, deltaMeasurement,deltaRPM;
+  int lastMeasurement = encoderGet(QUAD_FLYWHEEL);
+  delay(200);
+  while(true){
+    deltaTime = millis() - lastTime;
+    //if you doing in a task like you gotta deal with this another way
+    deltaMeasurement = encoderGet(yourFlywheel) - lastMeasurement;
+    //multiply by 5 since we do this every 5th of a second multiply by 60 for 60 seconds in a minute
+    deltaRPM = (deltaMeasurement/deltaTime)*5*60;
+    setFlyWheelSpeed(deltaRPM / kP);
+    lastMeasurement = encoderGet(QUAD_FLYWHEEL);
+    lastTime = millis();
+    delay(200);
+  }
+}
+*/
+
 
 /*
 Joystick Axis
