@@ -54,8 +54,9 @@ private $app_code = "WQ__fBR_tfbJFtbahqCRAQ";
 		$json = file_get_contents($query);
 		$data = json_decode($json);
 		foreach($data->response->route[0]->leg[0]->maneuver as $i){
-			$string .= $i->instruction . "\n";
+			$string .= $i->instruction . "&#10;";
 		}
+		$string = strip_tags($string);
 		return $string;
 	}
 

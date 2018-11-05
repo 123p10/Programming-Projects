@@ -70,10 +70,16 @@ if(strcasecmp($cmd, 'wiki') == 0){
 	$toc = $wiki->getTableOfContents();
 }
 else if(strcasecmp($cmd, 'directions')==0){
+	$mode = substr($body,0,strpos($body," "));
+	$body = substr($body,strpos($body," "));
 	$gmaps = new GoogleMaps($body);
 	$output .= $gmaps->getHeader();
-	$output .= $gmaps->getDirections();
-
+	if(strcasecmp($mode,'drive') == 0){
+		$output .= $gmaps->getDirections();
+	}
+	else if(strcasecmp($mode,'transit')){
+		
+	}
 }
 else if(strcasecmp($cmd,'news') == 0){
 	$news = new news($body);
