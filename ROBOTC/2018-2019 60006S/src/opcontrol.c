@@ -38,6 +38,8 @@
  4 = Left Stick Horizontal
 */
 void driveControl();
+void liftControl();
+
 void flywheelControl();
 void indexor();
 
@@ -54,6 +56,7 @@ void operatorControl() {
 		driveControl();
 		flywheelControl();
 		indexor();
+		liftControl();
 		flipperControl();
 	//	print("cmon");
 	//	lcdSetText(uart1, 2, "Owen > Veer");
@@ -64,6 +67,17 @@ void operatorControl() {
 			autonomous();
 			auton = true;
 		}
+	}
+}
+void liftControl(){
+	if(button(5,'U')){
+		setLift(127);
+	}
+	else if(button(5,'D')){
+		setLift(-127);
+	}
+	else{
+		setLift(0);
 	}
 }
 void driveControl(){
@@ -111,10 +125,10 @@ void flywheelControl(){
 }
 void flipperControl(){
 	if(button(7,'U')){
-		setFlipper(100);
+		setFlipper(50);
 	}
 	else if(button(7,'D')){
-		setFlipper(-45);
+		setFlipper(-50);
 	}
 	else{
 		setFlipper(0);
@@ -125,7 +139,7 @@ void indexor(){
 		setIndexor(127);
 	}
 	else if(button(6,'D')){
-		setIndexor(-127);
+		setIndexor(0);
 	}
 
 }

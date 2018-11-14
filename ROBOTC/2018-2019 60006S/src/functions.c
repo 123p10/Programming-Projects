@@ -7,6 +7,10 @@
  This is because motors cannot be reversed using pros so we must set them to negative in these functions
 */
 
+void setLift(int speed){
+  motorSet(LiftL,-speed);
+  motorSet(LiftR,speed);
+}
 void setLDrive(int speed){
   motorSet(LDF, -speed);
   motorSet(LDB, -speed);
@@ -23,7 +27,7 @@ void setFlyWheel(int speed){
 
 }
 void setIndexor(int speed){
-  motorSet(Indexor,speed);
+  motorSet(Indexor,-speed);
 }
 void setDrive(int left,int right){
   setLDrive(left);

@@ -104,10 +104,11 @@ void operatorControl();
 #define LDB 2
 #define LDF 3
 #define FWheelL 4
-#define FWheelR 6
-
-#define RDF 7
-#define RDB 8
+#define LiftL 5
+#define LiftR 6
+#define FWheelR 7
+#define RDF 8
+#define RDB 9
 #define Indexor 10
 //Sensors
 #define DRIVE_LEFT_TOP 1
@@ -133,6 +134,7 @@ void setFlyWheel(int speed);
 void setIndexor(int speed);
 void setBallIntake(int speed);
 void setFlipper(int speed);
+void setLift(int speed);
 int joystick(int axis);
 int button(int btnGroup,char dir);
 int inchesToTicks(int inches);
