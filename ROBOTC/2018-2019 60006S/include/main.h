@@ -113,8 +113,8 @@ void operatorControl();
 //Sensors
 #define DRIVE_LEFT_TOP 1
 #define DRIVE_LEFT_BOTTOM 2
-#define DRIVE_RIGHT_TOP 3
-#define DRIVE_RIGHT_BOTTOM 4
+#define DRIVE_RIGHT_TOP 11
+#define DRIVE_RIGHT_BOTTOM 12
 #define MOGO_TOP 5
 #define MOGO_BOTTOM 6
 #define GYRO_PORT 7
@@ -141,12 +141,12 @@ int inchesToTicks(int inches);
 int cmToTicks(int cm);
 void initSensors();
 void slowDownFlywheel();
-void driveForward(int distance);
+void driveForward(int distance,double kP);
 void flipperControl();
 int sgn(int in);
 void turnGyro(int angle);
 void turnEncoder(int dist);
-void driveBackward(int distance,int breakout);
+void driveBackward(int distance,int breakout,double kP);
 void shootFlywheel(int speed);
 // End C++ export structure
 #ifdef __cplusplus

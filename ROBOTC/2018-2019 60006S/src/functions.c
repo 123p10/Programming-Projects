@@ -102,9 +102,8 @@ int cmToTicks(int cm){
   return (360/(10.16*3.14159)) * cm;
 }
 //my PID
-void driveForward(int distance){
+void driveForward(int distance, double kP){
   int start = millis();
-  const double kP = 0.4;
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance - encoderGet(driveL);
@@ -128,9 +127,9 @@ void driveForward(int distance){
   delay(200);
   setDrive(0, 0);
 }
-void driveBackward(int distance,int breakout){
+void driveBackward(int distance,int breakout,double kP){
   int start = millis();
-  const double kP = 0.5;
+  //const double kP = 0.5;
   const double kD = 0.05;
   int previous_error = 0;
   encoderReset(driveL);

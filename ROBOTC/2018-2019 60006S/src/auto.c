@@ -32,6 +32,36 @@
 
 void autonomous() {
   initSensors();
+  //driveBackward(cmToTicks(50),1000);
+  //0.3 driveBackwards
+  //0.2 driveForwards
+//  driveBackward(cmToTicks(80),10000,0.3);
+//  driveForward(cmToTicks(100),0.2);
+
+  setFlyWheel(127);
+  delay(3000);
+  setIndexor(127);
+  delay(1250);
+  setIndexor(0);
+  driveBackward(cmToTicks(7),4000,0.3);
+  /*driveBackward(cmToTicks(80),4000,0.5);
+  delay(500);
+  driveForward(cmToTicks(77),0.2);
+  delay(500);*/
+  turnEncoder(cmToTicks(-34));
+  delay(500);
+  driveBackward(cmToTicks(70),4000,0.3);
+  delay(500);
+  driveForward(cmToTicks(65),0.2);
+  delay(500);
+  turnEncoder(cmToTicks(28));
+  delay(500);
+  driveBackward(cmToTicks(23),4000,0.3);
+  setIndexor(127);
+  delay(1000);
+  setIndexor(0);
+  driveBackward(cmToTicks(25),4000,0.3);
+  //driveBackward(cmToTicks())
 /*  setFlyWheel(80);
   driveForward(cmToTicks(10));
   driveBackward(cmToTicks(70),10000);
