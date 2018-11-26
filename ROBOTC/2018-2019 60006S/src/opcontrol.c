@@ -19,7 +19,7 @@ int lDCurrent = 0, rDCurrent = 0;
 
 float power,turn;
 int deadzone = 15;
-float multiplier = (4.0/4.0);
+float multiplier = (5.0/5.0);
 const int driveStyle = 1;
 int lD,rD;
 int driveLeft[10] = {0};
@@ -57,19 +57,19 @@ void liftControl(){
 void driveControl(){
 	if(driveStyle == 0){
 		if(abs(joystick(3)) > deadzone){
-			lD = joystick(3);
+			lD = joystick(3) * multiplier;
 		}
 		else{
 			lD = 0;
 		}
 
 		if(abs(joystick(2)) > deadzone){
-			rD = joystick(2);
+			rD = joystick(2) * multiplier;
 		}
 		else{
 			rD = 0;
 		}
-
+		setDrive(-lD,-rD);
 
 		/*int step = 5;
 		int stepPauseMS = 20;

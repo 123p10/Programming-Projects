@@ -30,37 +30,75 @@
  //This File will be used for auton functions
  //Create a new file for each route
 
-void autonomous() {
-  initSensors();
-  //driveBackward(cmToTicks(50),1000);
-  //0.3 driveBackwards
-  //0.2 driveForwards
-//  driveBackward(cmToTicks(80),10000,0.3);
-//  driveForward(cmToTicks(100),0.2);
+ //0.3 driveBackwards
+ //0.2 driveForwards
 
-  setFlyWheel(127);
-  delay(3000);
-  setIndexor(127);
-  delay(1250);
-  setIndexor(0);
-  driveBackward(cmToTicks(7),4000,0.3);
-  /*driveBackward(cmToTicks(80),4000,0.5);
-  delay(500);
-  driveForward(cmToTicks(77),0.2);
-  delay(500);*/
-  turnEncoder(cmToTicks(-34));
-  delay(500);
-  driveBackward(cmToTicks(70),4000,0.3);
-  delay(500);
-  driveForward(cmToTicks(65),0.2);
-  delay(500);
-  turnEncoder(cmToTicks(28));
-  delay(500);
-  driveBackward(cmToTicks(23),4000,0.3);
-  setIndexor(127);
-  delay(1000);
-  setIndexor(0);
-  driveBackward(cmToTicks(25),4000,0.3);
+
+void autonomous() {
+  const int auton = 2;
+  initSensors();
+  if(auton == 0){
+    setFlyWheel(127);
+    delay(3000);
+    setIndexor(127);
+    delay(1250);
+    setIndexor(0);
+    driveBackward(cmToTicks(4),4000,0.3);
+    turnEncoder(cmToTicks(-30));
+    delay(500);
+    driveBackward(cmToTicks(70),4000,0.3);
+    delay(500);
+    driveForward(cmToTicks(69),0.2);
+    delay(500);
+    turnEncoder(cmToTicks(28));
+    delay(500);
+    driveBackward(cmToTicks(23),4000,0.3);
+    setIndexor(127);
+    delay(1000);
+    setIndexor(0);
+  //  driveBackward(cmToTicks(25),4000,0.3);
+    setDrive(-65,-100);
+    delay(2000);
+    setDrive(0,0);
+  }
+  if(auton == 1){
+    setFlyWheel(127);
+    delay(1000);
+    driveBackward(cmToTicks(95), 10000,0.3);
+    delay(1000);
+
+    setFlyWheel(0);
+    //driveForward(cmToTicks(5),0.2);
+  /*  turnEncoder(cmToTicks(-125));
+    setDrive(-127,-127);
+    delay(3000);
+    setDrive(0,0);*/
+    //driveBackward(cmToTicks(40),10000,0.3);
+  }
+  if(auton == 2){
+    setFlyWheel(127);
+    delay(4000);
+    setIndexor(127);
+    delay(1250);
+    setIndexor(0);
+    driveBackward(cmToTicks(4),4000,0.3);
+    turnEncoder(cmToTicks(31));
+    delay(500);
+    driveBackward(cmToTicks(70),4000,0.3);
+    delay(500);
+    driveForward(cmToTicks(71),0.2);
+    delay(500);
+    turnEncoder(cmToTicks(-33));
+    delay(500);
+    driveBackward(cmToTicks(33),4000,0.3);
+    setIndexor(127);
+    delay(1000);
+    setIndexor(0);
+  //  driveBackward(cmToTicks(25),4000,0.3);
+    setDrive(-100,-75);
+    delay(2000);
+    setDrive(0,0);
+  }
   //driveBackward(cmToTicks())
 /*  setFlyWheel(80);
   driveForward(cmToTicks(10));
