@@ -29,168 +29,170 @@
 
  //This File will be used for auton functions
  //Create a new file for each route
-
- //0.3 driveBackwards
- //0.2 driveForwards
+//driveForward 0.001
 
 
+  //Negative is left
+  //Positive is right
+
+/*
+New Auton Runs
+  0 = red back auton, descore, flip cap, mount platform
+  4 = blue back auton
+  5 = red front auton
+*/
 void autonomous() {
-  const int auton = 2;
+//  TaskHandle flywheeltask = taskRunLoop(flyWheelSpeedManager,100);
+  const int auton = 6;
+  //flyWheelTargetSpeed = 0;
   initSensors();
   if(auton == 0){
     setFlyWheel(127);
-    delay(3000);
-    setIndexor(127);
-    delay(1250);
-    setIndexor(0);
-    driveBackward(cmToTicks(4),4000,0.3);
-    turnEncoder(cmToTicks(-30));
+    delay(200);
+    driveForward(cmToTicks(150),0.001);
+    delay(300);
+    driveBackward(cmToTicks(3),5000,0.001);
+    delay(300);
+    turnEncoder(cmToTicks(-28));
+    setFlyWheel(0);
     delay(500);
-    driveBackward(cmToTicks(70),4000,0.3);
+    driveBackward(cmToTicks(6), 1500, 0.001);
     delay(500);
-    driveForward(cmToTicks(69),0.2);
-    delay(500);
-    turnEncoder(cmToTicks(28));
-    delay(500);
-    driveBackward(cmToTicks(23),4000,0.3);
-    setIndexor(127);
-    delay(1000);
-    setIndexor(0);
-  //  driveBackward(cmToTicks(25),4000,0.3);
-    setDrive(-65,-100);
-    delay(2000);
+    setLift(127);
+    delay(600);
+    setLift(-127);
+    delay(300);
+    setLift(0);
+    turnEncoder(cmToTicks(-20));
+    delay(300);
+    driveForward(cmToTicks(4), 0.001);
+    delay(300);
+    turnEncoder(cmToTicks(20));
+    delay(300);
+    driveForward(cmToTicks(33),0.001);
+    delay(300);
+    setDrive(127,127);
+    delay(900);
     setDrive(0,0);
   }
-  if(auton == 1){
+  else if(auton == 1){
     setFlyWheel(127);
     delay(1000);
-    driveBackward(cmToTicks(95), 10000,0.3);
-    delay(1000);
-
-    setFlyWheel(0);
-    //driveForward(cmToTicks(5),0.2);
-  /*  turnEncoder(cmToTicks(-125));
-    setDrive(-127,-127);
-    delay(3000);
-    setDrive(0,0);*/
-    //driveBackward(cmToTicks(40),10000,0.3);
-  }
-  if(auton == 2){
-    setFlyWheel(127);
-    delay(4000);
+    driveForward(cmToTicks(140),0.001);
+    delay(300);
+    driveBackward(cmToTicks(120), 5000, 0.001);
+    delay(300);
+    turnEncoder(cmToTicks(-28));
+    delay(400);
     setIndexor(127);
-    delay(1250);
+    delay(600);
     setIndexor(0);
-    driveBackward(cmToTicks(4),4000,0.3);
-    turnEncoder(cmToTicks(31));
+    delay(200);
+    driveForward(cmToTicks(70),0.001);
+    delay(200);
+    setIndexor(127);
+    delay(600);
+    setIndexor(0);
+    delay(200);
+    driveBackward(cmToTicks(140),5000,0.001);
+    turnEncoder(cmToTicks(20));
+    driveForward(cmToTicks(30), 0.001);
+  }
+  else if(auton == 2){
+    setFlyWheel(127);
+    delay(200);
+    driveForward(cmToTicks(150),0.001);
+    delay(300);
+    driveBackward(cmToTicks(3),5000,0.001);
+    delay(300);
+    setFlyWheel(0);
+    turnEncoder(cmToTicks(-20));
+    delay(300);
+    driveForward(cmToTicks(7), 0.001);
+    delay(300);
+    turnEncoder(cmToTicks(20));
+    delay(300);
+    driveForward(cmToTicks(33),0.001);
+    delay(300);
+    setDrive(127,127);
+    delay(900);
+    setDrive(0,0);
+
+  }
+  else if(auton == 3){
+    setFlyWheel(127);
     delay(500);
-    driveBackward(cmToTicks(70),4000,0.3);
+    driveForward(cmToTicks(130),0.001);
     delay(500);
-    driveForward(cmToTicks(71),0.2);
+    setFlyWheel(0);
+  }
+  else if(auton == 4){
+    driveForward(cmToTicks(47),0.001);
     delay(500);
     turnEncoder(cmToTicks(-33));
     delay(500);
-    driveBackward(cmToTicks(33),4000,0.3);
-    setIndexor(127);
-    delay(1000);
-    setIndexor(0);
-  //  driveBackward(cmToTicks(25),4000,0.3);
-    setDrive(-100,-75);
-    delay(2000);
+    driveForward(cmToTicks(30),0.001);
+    delay(200);
+    setLDrive(127);
+    setRDrive(127);
+    delay(1100);
     setDrive(0,0);
+
   }
-  //driveBackward(cmToTicks())
-/*  setFlyWheel(80);
-  driveForward(cmToTicks(10));
-  driveBackward(cmToTicks(70),10000);
-  setBallIntake(127);
-  delay(100);
-  //Shoot
-  setIndexor(127);
-  delay(850);
-  setIndexor(0);
-  delay(300);
-  turnEncoder(cmToTicks(3));
-  //Rape flag
-  driveBackward(cmToTicks(50),1000);
-  delay(400);
-  //Pull out
-  driveForward(cmToTicks(7));
-  //Attempt to correct the turning
-  turnEncoder(cmToTicks(-8));
-  driveForward(cmToTicks(18));
-  //Go for the cap
-  turnEncoder(cmToTicks(-29));
-  driveBackward(cmToTicks(40),10000);
-  delay(200);
-  setFlipper(-100);
-  delay(900);
-  setFlipper(0);
-  driveForward(cmToTicks(30));
-  delay(100);
-  turnEncoder(cmToTicks(30));
-  delay(100);
+  else if(auton == 5){
+    setFlyWheel(127);
+    delay(400);
+    driveForward(cmToTicks(70),0.001);
+    delay(800);
+    setIndexor(127);
+    delay(600);
+    setIndexor(0);
+    delay(200);
+    turnEncoder(cmToTicks(-7));
+    delay(300);
+    driveBackward(cmToTicks(100),5000,0.001);
+    setFlyWheel(0);
+    delay(500);
+    turnEncoder(cmToTicks(30));
+    delay(500);
+    driveForward(cmToTicks(20),0.001);
+    delay(500);
+    setDrive(127,127);
+    delay(1000);
+    setDrive(0,0);
 
-  driveForward(cmToTicks(105));
-  delay(100);
+  }
+  else if(auton == 6){
+      setFlyWheel(65);
+      driveForward(cmToTicks(44),0.001);
+      delay(1000);
+      setIndexor(127);
+      delay(1000);
+      setIndexor(0);
+      delay(500);
+      turnEncoder(cmToTicks(-31));
+      setFlyWheel(0);
+      delay(500);
+      driveForward(cmToTicks(30),0.001);
+      delay(200);
+      setLDrive(127);
+      setRDrive(127);
+      delay(1400);
+      setDrive(0,0);
 
-  turnEncoder(cmToTicks(30));
-  delay(100);
+    }
 
-//Ram the platform
-  setBallIntake(0);
-  setDrive(127,127);
-  delay(4000);
-  setDrive(0,0);
-  slowDownFlywheel();*/
+
 }
 
 void initSensors(){
   gyroReset(gyro);
   encoderReset(driveL);
   encoderReset(driveR);
-  encoderReset(mogo);
+  encoderReset(flyWheel);
 }
 
-void drive(int d,int speed){
-  //Adjustables
-  /*
-  TBH Fuck Integral
-  Just tune kP till its p good
-  Then tune kD
-  */
-  float kP = 1;
-  float kI = 0;
-  float kD = 0;
-  d = inchesToTicks(d);
-  //Constant
-  int previous_error = 0;
-  int calc = 0;
-  int integral = 0;
-  int derivative = 0;
-  int errorL = d - encoderGet(driveL);
-  int errorR = d - encoderGet(driveR);
-  int eD = (errorL + errorR)/2;
-  int error = errorL - errorR;
-  int left,right;
 
 
-  if(d > 0){
-    while(eD > 10){
-      eD = (errorL + errorR)/2;
-      error = errorL - errorR;
 
-      integral += error;
-      derivative = error - previous_error;
-      previous_error = error;
-      calc = error * kP + kI * integral + kD * derivative;
-
-      left = speed + calc;
-      right = speed - calc;
-      setDrive(left,right);
-      delay(50);
-    }
-  }
-  else{
-  }
-}
+//Do not use this I left this here to help me think

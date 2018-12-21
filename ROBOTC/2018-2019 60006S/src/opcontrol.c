@@ -1,6 +1,6 @@
 
 #include "main.h"
-
+#include "mtrmgr.h"
 
  /*
  Joystick Axis
@@ -16,18 +16,20 @@ void flywheelControl();
 void indexor();
 
 int lDCurrent = 0, rDCurrent = 0;
-
 float power,turn;
-int deadzone = 15;
-float multiplier = (5.0/5.0);
-const int driveStyle = 1;
+int deadzone = 25;
+float multiplier = (4.5/5.0);
+const int driveStyle = 0;
 int lD,rD;
-int driveLeft[10] = {0};
-int driveRight[10] = {0};
 //0 = tank
 //1 = arcade
 bool auton = false;
 void operatorControl() {
+	//delay(4000);
+//	autonomous();
+//	TaskHandle flywheeltask = taskRunLoop(flyWheelSpeedManager,60);
+//	TaskHandle driveSlew = taskRunLoop(driveSlewRate,100);
+	//flyWheelTargetSpeed = 1500;
 	while (1) {
 		driveControl();
 		flywheelControl();
@@ -35,12 +37,6 @@ void operatorControl() {
 		liftControl();
 		flipperControl();
 		delay(20);
-	}
-	while(1){
-		if(auton == false && button(8,'U')){
-			autonomous();
-			auton = true;
-		}
 	}
 }
 void liftControl(){
@@ -54,7 +50,9 @@ void liftControl(){
 		setLift(0);
 	}
 }
+
 void driveControl(){
+//	printf("Left: %d Right %d",encoderGet(driveL),encoderGet(driveR));
 	if(driveStyle == 0){
 		if(abs(joystick(3)) > deadzone){
 			lD = joystick(3) * multiplier;
@@ -69,23 +67,10 @@ void driveControl(){
 		else{
 			rD = 0;
 		}
-		setDrive(-lD,-rD);
+		//lDriveGoal = lD;
+		//rDriveGoal = rD;
 
-		/*int step = 5;
-		int stepPauseMS = 20;
-		if(lD > lDCurrent){
-			lDCurrent += step;
-		} else if (lD < lDCurrent) {
-			lDCurrent -= step;
-		}
-		if(rD > rDCurrent){
-			rDCurrent += step;
-		} else if (rD < rDCurrent) {
-			rDCurrent -= step;
-		}
-		delay(stepPauseMS);
-
-		setDrive(lDCurrent, rDCurrent);*/
+		setDrive(lD,rD);
 
 	}
 	if(driveStyle == 1){
@@ -102,7 +87,10 @@ void driveControl(){
 		else{
 			turn = 0;
 		}
-		setDrive(-power - turn, -power + turn);
+		setDrive(power + turn, power - turn);
+	//lDriveGoal = power + turn;
+//	rDriveGoal = power - turn;
+
 	}
 }
 void flywheelControl(){

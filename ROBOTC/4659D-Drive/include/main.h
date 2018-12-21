@@ -32,9 +32,6 @@
 extern "C" {
 #endif
 
-
-
-
 // A function prototype looks exactly like its declaration, but with a semicolon instead of
 // actual code. If a function does not match a prototype, compile errors will occur.
 
@@ -96,64 +93,6 @@ void initialize();
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl();
-
-
-
-//MOTORS
-#define flipper 1
-#define LDB 9
-#define LDF 3
-#define FWheelL 4
-#define LiftL 5
-#define LiftR 6
-#define FWheelR 7
-#define RDF 8
-#define RDB 2
-#define Indexor 10
-//Sensors
-#define DRIVE_LEFT_TOP 1
-#define DRIVE_LEFT_BOTTOM 2
-#define DRIVE_RIGHT_TOP 12
-#define DRIVE_RIGHT_BOTTOM 11
-#define FLYWHEEL_TOP 5
-#define FLYWHEEL_BOTTOM 6
-#define GYRO_PORT 7
-
-Encoder driveL;
-Encoder driveR;
-Encoder flyWheel;
-Gyro gyro;
-
-
-
-void setLDrive(int speed);
-void setRDrive(int speed);
-void setDrive(int left,int right);
-void setFlyWheel(int speed);
-void setIndexor(int speed);
-void setBallIntake(int speed);
-void setFlipper(int speed);
-void setLift(int speed);
-int joystick(int axis);
-int button(int btnGroup,char dir);
-int inchesToTicks(int inches);
-int cmToTicks(int cm);
-void initSensors();
-void slowDownFlywheel();
-void driveForward(int distance,double kP);
-void flipperControl();
-int sgn(int in);
-void turnGyro(int angle);
-void turnEncoder(int dist);
-void driveBackward(int distance,int breakout,double kP);
-void flyWheelSpeedManager();
-int calcSpeed(int change);
-int chassisTrueSpeed(int cmd);
-void driveSlewRate();
-int flyWheelTargetSpeed;
-int lDriveGoal;
-int rDriveGoal;
-
 
 // End C++ export structure
 #ifdef __cplusplus

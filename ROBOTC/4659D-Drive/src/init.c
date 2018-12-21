@@ -11,7 +11,7 @@
  */
 
 #include "main.h"
-#include "mtrmgr.h"
+
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
  * VEX Cortex is starting up. As the scheduler is still paused, most API functions will fail.
@@ -37,17 +37,4 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
-  //motorManagerInit();
-  setTeamName("60006X");
-  lcdInit(uart1);
-  lcdClear(uart1);
-  lcdSetText(uart1,1,"VEER & OWEN");
-  lcdSetText(uart1, 2, "OWN THE 6IX");
-  lcdSetBacklight(uart1, true);
-  driveL = encoderInit(DRIVE_LEFT_TOP, DRIVE_LEFT_BOTTOM, false);
-  driveR = encoderInit(DRIVE_RIGHT_TOP,DRIVE_RIGHT_BOTTOM, false);
-  flyWheel = encoderInit(FLYWHEEL_TOP,FLYWHEEL_BOTTOM,false);
-  gyro = gyroInit(GYRO_PORT,0);
-  flyWheelTargetSpeed = 0;
-
 }
