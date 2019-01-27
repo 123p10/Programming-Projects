@@ -1,0 +1,26 @@
+DB: PCTests
+User: root
+Password: password
+
+
+Tables:
+- Courses
+ - Teachers
+  - Tests
+
+Setup
+
+Courses
+ -ID
+ -Course Name
+
+Teachers
+ -ID
+ -Course
+ -Teacher Name
+
+Tests
+ -ID
+ -Class Name
+ -Link
+ -Name of Test
