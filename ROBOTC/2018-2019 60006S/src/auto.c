@@ -27,169 +27,90 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 
- //This File will be used for auton functions
- //Create a new file for each route
-//driveForward 0.001
-
-
-  //Negative is left
-  //Positive is right
+ //Constants for driving
+ //0.75 is a good kP for both drive methods
+ //turnEncoder(40) does approximately a 180
 
 /*
 New Auton Runs
-  0 = red back auton, descore, flip cap, mount platform
-  4 = blue back auton
-  5 = red front auton
+
+1 red back tile left high flag, descore cap, platform attempt middle flag
 */
+#define AUTON 2
+
 void autonomous() {
-//  TaskHandle flywheeltask = taskRunLoop(flyWheelSpeedManager,100);
-  const int auton = 6;
-  //flyWheelTargetSpeed = 0;
   initSensors();
-  if(auton == 0){
-    setFlyWheel(127);
-    delay(200);
-    driveForward(cmToTicks(150),0.001);
-    delay(300);
-    driveBackward(cmToTicks(3),5000,0.001);
-    delay(300);
-    turnEncoder(cmToTicks(-28));
-    setFlyWheel(0);
-    delay(500);
-    driveBackward(cmToTicks(6), 1500, 0.001);
-    delay(500);
-    setLift(127);
-    delay(600);
-    setLift(-127);
-    delay(300);
-    setLift(0);
-    turnEncoder(cmToTicks(-20));
-    delay(300);
-    driveForward(cmToTicks(4), 0.001);
-    delay(300);
-    turnEncoder(cmToTicks(20));
-    delay(300);
-    driveForward(cmToTicks(33),0.001);
-    delay(300);
-    setDrive(127,127);
-    delay(900);
-    setDrive(0,0);
+  TaskHandle anglerTask = taskRunLoop(anglerAuton, 25);
+  TaskHandle puncherTask = taskRunLoop(puncherAuton, 25);
+  initSensors();
+  if(AUTON == 0){
   }
-  else if(auton == 1){
-    setFlyWheel(127);
-    delay(1000);
-    driveForward(cmToTicks(140),0.001);
-    delay(300);
-    driveBackward(cmToTicks(120), 5000, 0.001);
-    delay(300);
-    turnEncoder(cmToTicks(-28));
-    delay(400);
-    setIndexor(127);
-    delay(600);
-    setIndexor(0);
-    delay(200);
-    driveForward(cmToTicks(70),0.001);
-    delay(200);
-    setIndexor(127);
-    delay(600);
-    setIndexor(0);
-    delay(200);
-    driveBackward(cmToTicks(140),5000,0.001);
-    turnEncoder(cmToTicks(20));
-    driveForward(cmToTicks(30), 0.001);
+  if(AUTON == 1){
+    setAnglerAutonHeight(2300);
+    wait_for(700);
+    autonShoot(360+80);
+    wait_for(700);
+    turnGyro(-90,1,5000);
+    wait_for(300);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    driveForward(cmToTicks(105),0.75,0,0);
+    wait_for(1500);
+    setIntake(0);
+    driveBackward(cmToTicks(15), 0.8, 4000);
+    wait_for(400);
+    turnGyro(90,1,3000);
+    wait_for(300);
+    driveForward(cmToTicks(60),0.75,0,0);
+    wait_for(500);
+    setAnglerAutonHeight(1250);
+    turnGyro(20,1,3000);
+    wait_for(300);
+    setIntake(127);
+    wait_for(750);
+    setIntake(0);
+    wait_for(500);
+    autonShoot(360*2+80);
+    wait_for(1000);
   }
-  else if(auton == 2){
-    setFlyWheel(127);
-    delay(200);
-    driveForward(cmToTicks(150),0.001);
-    delay(300);
-    driveBackward(cmToTicks(3),5000,0.001);
-    delay(300);
-    setFlyWheel(0);
-    turnEncoder(cmToTicks(-20));
-    delay(300);
-    driveForward(cmToTicks(7), 0.001);
-    delay(300);
-    turnEncoder(cmToTicks(20));
-    delay(300);
-    driveForward(cmToTicks(33),0.001);
-    delay(300);
-    setDrive(127,127);
-    delay(900);
-    setDrive(0,0);
+  if(AUTON == 2){
+    setAnglerAutonHeight(2300);
+    wait_for(700);
+    autonShoot(360+80);
+    wait_for(700);
+    turnGyro(88,1,5000);
+    wait_for(300);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    driveForward(cmToTicks(90),0.75,0,0);
+    wait_for(1500);
+    setIntake(0);
+    driveBackward(cmToTicks(15), 0.8, 4000);
+    wait_for(400);
+    turnGyro(-90,1,3000);
+    wait_for(300);
+    driveForward(cmToTicks(60),0.75,0,0);
+    wait_for(500);
+    setAnglerAutonHeight(1250);
+    turnGyro(-20,1,3000);
+    wait_for(300);
+    setIntake(127);
+    wait_for(750);
+    setIntake(0);
+    wait_for(500);
+    autonShoot(360*2+80);
+    wait_for(1000);
 
   }
-  else if(auton == 3){
-    setFlyWheel(127);
-    delay(500);
-    driveForward(cmToTicks(130),0.001);
-    delay(500);
-    setFlyWheel(0);
-  }
-  else if(auton == 4){
-    driveForward(cmToTicks(47),0.001);
-    delay(500);
-    turnEncoder(cmToTicks(-33));
-    delay(500);
-    driveForward(cmToTicks(30),0.001);
-    delay(200);
-    setLDrive(127);
-    setRDrive(127);
-    delay(1100);
-    setDrive(0,0);
-
-  }
-  else if(auton == 5){
-    setFlyWheel(127);
-    delay(400);
-    driveForward(cmToTicks(70),0.001);
-    delay(800);
-    setIndexor(127);
-    delay(600);
-    setIndexor(0);
-    delay(200);
-    turnEncoder(cmToTicks(-7));
-    delay(300);
-    driveBackward(cmToTicks(100),5000,0.001);
-    setFlyWheel(0);
-    delay(500);
-    turnEncoder(cmToTicks(30));
-    delay(500);
-    driveForward(cmToTicks(20),0.001);
-    delay(500);
-    setDrive(127,127);
-    delay(1000);
-    setDrive(0,0);
-
-  }
-  else if(auton == 6){
-      setFlyWheel(65);
-      driveForward(cmToTicks(44),0.001);
-      delay(1000);
-      setIndexor(127);
-      delay(1000);
-      setIndexor(0);
-      delay(500);
-      turnEncoder(cmToTicks(-31));
-      setFlyWheel(0);
-      delay(500);
-      driveForward(cmToTicks(30),0.001);
-      delay(200);
-      setLDrive(127);
-      setRDrive(127);
-      delay(1400);
-      setDrive(0,0);
-
-    }
-
-
+  taskDelete(anglerTask);
+  taskDelete(puncherTask);
 }
 
 void initSensors(){
-  gyroReset(gyro);
   encoderReset(driveL);
   encoderReset(driveR);
-  encoderReset(flyWheel);
+  encoderReset(puncher);
+//  gyroReset(gyro);
 }
 
 

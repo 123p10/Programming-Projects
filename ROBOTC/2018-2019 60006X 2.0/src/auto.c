@@ -26,5 +26,38 @@
  * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
+
+ //This File will be used for auton functions
+ //Create a new file for each route
+//driveForward 0.001
+
+
+  //Negative is left
+  //Positive is right
+
+/*
+New Auton Runs
+  0 = red back auton, descore, flip cap, mount platform
+  4 = blue back auton
+  5 = red front auton
+*/
 void autonomous() {
+//  TaskHandle flywheeltask = taskRunLoop(flyWheelSpeedManager,100);
+  const int auton = 6;
+  //flyWheelTargetSpeed = 0;
+  initSensors();
+  if(auton == 0){
+  }
+
 }
+
+void initSensors(){
+  encoderReset(driveL);
+  encoderReset(driveR);
+  encoderReset(puncher);
+}
+
+
+
+
+//Do not use this I left this here to help me think

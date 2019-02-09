@@ -116,7 +116,6 @@ void autoDrive(int left, int right, int limit)
 
 	do {
 		wait1Msec(10);
-
 		leftError = left - SensorValue[leftEncoder];
 		rightError = right - SensorValue[rightEncoder];
 

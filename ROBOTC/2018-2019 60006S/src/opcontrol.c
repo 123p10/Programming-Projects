@@ -1,6 +1,5 @@
 
 #include "main.h"
-#include "mtrmgr.h"
 
  /*
  Joystick Axis
@@ -10,68 +9,67 @@
  4 = Left Stick Horizontal
 */
 void driveControl();
-void liftControl();
-
-void flywheelControl();
-void indexor();
-
+int puncherCrossed = 0;
+int lastShot = 0;
+int eightUPressed = 0;
+int fiveUHeld = 0;
+int fiveDHeld = 0;
+int puncherAngle = 315;
+int angleError = 0;
+int angleChoice = 1;
+int angler_integral = 0;
 int lDCurrent = 0, rDCurrent = 0;
 float power,turn;
 int deadzone = 25;
-float multiplier = (4.5/5.0);
+float multiplier = (5.0/5.0);
 const int driveStyle = 0;
 int lD,rD;
 //0 = tank
 //1 = arcade
 bool auton = false;
 void operatorControl() {
-	//delay(4000);
-//	autonomous();
-//	TaskHandle flywheeltask = taskRunLoop(flyWheelSpeedManager,60);
-//	TaskHandle driveSlew = taskRunLoop(driveSlewRate,100);
-	//flyWheelTargetSpeed = 1500;
 	while (1) {
 		driveControl();
-		flywheelControl();
-		indexor();
-		liftControl();
-		flipperControl();
-		delay(20);
+		puncherControl();
+		anglerControl();
+		intakeControl();
+		delay(25);
 	}
 }
-void liftControl(){
-	if(button(5,'U')){
-		setLift(127);
-	}
-	else if(button(5,'D')){
-		setLift(-127);
-	}
-	else{
-		setLift(0);
-	}
-}
+const int driveMap[128] = {
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		10,12,13,14,15,16,17,18,19,19,
+		20,21,22,21,22,24,25,27,28,29,
+		30,32,33,35,37,37,38,38,39,39,
+		40,40,41,41,42,42,43,43,44,44,
+		45,45,46,46,47,47,48,48,49,49,
+		50,50,51,51,52,52,53,53,54,54,
+		55,55,56,56,57,57,58,58,59,59,
+		60,60,61,62,63,64,65,66,67,68,
+		69,70,71,72,73,74,75,76,77,78,
+		79,80,81,82,83,84,85,86,87,88,
+		89,90,91,92,94,96,127,127};
 
 void driveControl(){
-//	printf("Left: %d Right %d",encoderGet(driveL),encoderGet(driveR));
+//	printf("Gyro Angle: %d\n\n",gyroGet(gyro));
+printf("Puncher: %d\n\n",encoderGet(puncher));
+	//printf("Left Drive: %d Right Drive: %d \n\n",encoderGet(driveL),encoderGet(driveR));
 	if(driveStyle == 0){
 		if(abs(joystick(3)) > deadzone){
-			lD = joystick(3) * multiplier;
+			lD = driveMap[abs(joystick(3))] * sgn(joystick(3));
 		}
 		else{
 			lD = 0;
 		}
 
 		if(abs(joystick(2)) > deadzone){
-			rD = joystick(2) * multiplier;
+			rD = driveMap[abs(joystick(2))] * sgn(joystick(2));
 		}
 		else{
 			rD = 0;
 		}
-		//lDriveGoal = lD;
-		//rDriveGoal = rD;
-
 		setDrive(lD,rD);
-
 	}
 	if(driveStyle == 1){
 		if(abs(joystick(3)) > deadzone){
@@ -88,37 +86,102 @@ void driveControl(){
 			turn = 0;
 		}
 		setDrive(power + turn, power - turn);
-	//lDriveGoal = power + turn;
-//	rDriveGoal = power - turn;
-
 	}
 }
-void flywheelControl(){
+void puncherControl(){
+//	printf("Puncher Value: %d \n",encoderGet(puncher));
+/*	if(button(8,'U')){
+		setPuncher(127);
+	}
+	else{
+		setPuncher(0);
+	}*/
 	if(button(8,'U')){
-		setFlyWheel(127);
-	}
-	if(button(8,'D')){
-		setFlyWheel(0);
-	}
-}
-
-void flipperControl(){
-	if(button(8,'L')){
-		setFlipper(50);
-	}
-	else if(button(8,'R')){
-		setFlipper(-50);
+		setPuncher(127);
+		puncherCrossed = 0;
+		lastShot = millis();
 	}
 	else{
-		setFlipper(0);
+		if(encoderGet(puncher) % 360 < 300){
+			if(millis() - lastShot > 700){
+				if(puncherCrossed == 0){
+					setPuncher(127);
+				}
+			}
+			else{
+				setPuncher(0);
+			}
+		}
+		else{
+			puncherCrossed = 1;
+			setPuncher(0);
+		}
 	}
 }
-void indexor(){
+void intakeControl(){
 	if(button(6,'U')){
-		setIndexor(127);
+		setIntake(127);
+	}
+	else if(button(6,'D')){
+		setIntake(-127);
 	}
 	else{
-		setIndexor(0);
+		setIntake(0);
 	}
+}
+void anglerControl(){
+	//Bottom Value 215
+	//Back Middle flag 1700
+
+	//Max Pos 3200
+	//printf("Angler Pos: %d \n\n",analogRead(anglerE));
+	if(button(5,'U') && fiveUHeld == 0){
+		angleChoice++;
+		if(angleChoice > 3){angleChoice = 3;}
+		angler_integral = 0;
+		fiveUHeld = 1;
+	}
+	else if(!button(5,'U')){
+		fiveUHeld = 0;
+	}
+	if(button(5,'D') && fiveDHeld == 0){
+		angleChoice--;
+		fiveDHeld = 1;
+		angler_integral = 0;
+		if(angleChoice < 0){angleChoice = 0;}
+	}
+	else if(!button(5,'D')){
+		fiveDHeld = 0;
+	}
+	/*if(button(5,'D')){
+		angleChoice = 0;
+		angler_integral = 0;
+	}
+	if(button(7,'L')){
+		angleChoice = 1;
+		angler_integral = 0;
+
+	}
+	if(button(7,'U')){
+		angleChoice = 2;
+		angler_integral = 0;
+
+	}
+	if(button(7,'R')){
+		angleChoice = 3;
+		angler_integral = 0;
+
+	}*/
+	if(angleChoice == 0){puncherAngle = 315;}
+	if(angleChoice == 1){puncherAngle = 1700;}
+	if(angleChoice == 2){puncherAngle = 2620;}
+	if(angleChoice == 3){puncherAngle = 2800;}
+	if(angleChoice == 4){puncherAngle = 3200;}
+	angleError = analogRead(anglerE) - puncherAngle;
+	if(abs(angleError) >= 250 || angleError == 0){angler_integral = 0;}
+	angler_integral += angleError;
+	setAngler(angleError * 0.05 + angler_integral * 0.005);
+	//	setAngler(0);
+
 
 }

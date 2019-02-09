@@ -1,45 +1,32 @@
 #include "main.h"
-#include "fbc.h"
-#include "fbc_pid.h"
-#include "mtrmgr.h"
 
 /*
  OK for all declarations of motors USE THESE FUNCTIONS
  This is because motors cannot be reversed using pros so we must set them to negative in these functions
 */
 
-void setLift(int speed){
-  motorSet(LiftL,-speed);
-  motorSet(LiftR,speed);
-}
 void setLDrive(int speed){
   motorSet(LDF, speed);
   motorSet(LDB, speed);
-  //blrsMotorSet(LDF, speed, false);
-  //blrsMotorSet(LDB, -speed, false);
-
+  motorSet(LDM, speed);
 }
 void setRDrive(int speed){
   motorSet(RDF, -speed);
   motorSet(RDB, -speed);
-//  blrsMotorSet(RDF, -speed, false);
-  //blrsMotorSet(RDB, speed, false);
-
+  motorSet(RDM, -speed);
 }
-void setFlyWheel(int speed){
-  motorSet(FWheelL, -speed);
-  motorSet(FWheelR, -speed);
-}
-void setIndexor(int speed){
-  motorSet(Indexor,-speed);
+void setPuncher(int speed){
+  motorSet(puncherM, -speed);
 }
 void setDrive(int left,int right){
   setLDrive(left);
-
   setRDrive(right);
 }
-void setFlipper(int speed){
-  motorSet(flipper,speed);
+void setIntake(int speed){
+  motorSet(intake,-speed);
+}
+void setAngler(int speed){
+  motorSet(angler,-speed);
 }
 
 
@@ -75,59 +62,78 @@ int cmToTicks(int cm){
 }
 int lError = 0;
 //my PID
-void driveForward(int distance, double kP){
-  float kD = 0.0;
-  float kI = 0;
+void driveForward(int distance, double kP,double kI, double kD){
+  int acceleration = 30;
   int integral = 0;
-  int start = millis();
+//  int start = millis();
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance - encoderGet(driveL);
   int dR = distance - encoderGet(driveR);
   int output = dL - dR;
-  setLDrive(70);
-  setRDrive(70-10);
+  setLDrive(acceleration);
+  setRDrive(acceleration-5);
   while(dL >= 0){
     dL = distance - encoderGet(driveL);
     dR = distance - encoderGet(driveR);
     int error = encoderGet(driveL) - encoderGet(driveR);
     integral = error + integral;
     output = (error * kP + kD * (error - lError) + kI * integral);
-    setLDrive(70);
-    setRDrive(-motorGet(RDB) - output);
+    setLDrive(acceleration);
+    setRDrive(acceleration + output);
     lError = encoderGet(driveL) - encoderGet(driveR);
-
-    delay(100);
+    delay(50);
+    if(acceleration - 5 <= 65){
+      acceleration += 5;
+    }
+    if(dL <= 200){
+      if(acceleration + 5 >= 30){
+        acceleration -= 5;
+      }
+    }
+    //printf("Error: %d Output: %d\n\n",error,output);
   }
   setDrive(-10, -10);
   delay(200);
   setDrive(0, 0);
 }
-void driveBackward(int distance,int breakout,double kP){
+void driveBackward(int distance,double kP,int breakout){
+  int acceleration = 30;
   float kD = 0.0;
-  float kI = -0.0005;
+  float kI = 0.00;
   int integral = 0;
-  int start = millis();
   encoderReset(driveL);
   encoderReset(driveR);
   int dL = distance + encoderGet(driveL);
   int dR = distance + encoderGet(driveR);
   int output = dL - dR;
-  setLDrive(-80);
-  setRDrive(-80+10);
+  int start = millis();
+  setLDrive(-acceleration);
+  setRDrive(-acceleration+5);
   while(dL >= 0){
     dL = distance + encoderGet(driveL);
     dR = distance + encoderGet(driveR);
     int error = encoderGet(driveL) - encoderGet(driveR);
     integral = error + integral;
     output = (error * kP + kD * (error - lError) + kI * integral);
-    setLDrive(-80);
-    setRDrive(-motorGet(RDB) - output);
+    setLDrive(-acceleration);
+    setRDrive(-acceleration + output);
     lError = encoderGet(driveL) - encoderGet(driveR);
-
-    delay(100);
+    delay(70);
+    if(acceleration - 5 <= 65){
+      acceleration += 5;
+    }
+    if(dL <= 200){
+      if(acceleration - 10 <= -30){
+        acceleration += 5;
+      }
+    }
+    if(millis() - start > breakout){
+      break;
+    }
+    //printf("Error: %d Output: %d\n\n",error,output);
   }
-  setDrive(-10, 10);
+  setDrive(10, 10);
   delay(200);
   setDrive(0, 0);
 }
@@ -136,21 +142,21 @@ void driveBackward(int distance,int breakout,double kP){
 void turnEncoder(int dist){
   encoderReset(driveL);
   encoderReset(driveR);
-  int turningSpeed = 70;
+  int turningSpeed = 60;
   setLDrive(turningSpeed * sgn(dist));
   setRDrive(turningSpeed * sgn(dist) * -1);
   int error = dist - encoderGet(driveL);
   while(error * sgn(dist) > 0){
       if(abs(error) < 200){
-        turningSpeed = 40;
+        turningSpeed = 30;
       }
       setLDrive(turningSpeed * sgn(dist));
       setRDrive(turningSpeed * sgn(dist) * -1);
       error = dist - encoderGet(driveL);
       delay(50);
   }
-  setDrive(-10 * sgn(dist), 10 * sgn(dist));
-  delay(75);
+  setDrive(-30 * sgn(dist), 30 * sgn(dist));
+  delay(150);
   setDrive(0, 0);
 }
 int sgn(int in){
@@ -177,79 +183,112 @@ void driveSlewRate(){
   if(abs(lR) > 5){
     setRDrive(motorGet(RDB) + lR * 0.25);
   }
-
 }
 
+void turnGyro(int x,int reset,int breakout){
+    int start = millis();
+    int dir = 1;
+    int lerr = 0;
+    if(reset == 1){gyroReset(gyro);}
+    int err = x - gyroGet(gyro);
+    int power = 30;
 
-//This deserves some space
-
-
-int lastE = 0;
-int change = 0;
-int encoderValue = 0;
-int lastMillis = 0;
-int currMillis = 0;
-double ticks = 0;
-int speed = 0;
-int rpm = 0;
-int error = 0;
-int drive = 0;
-float gain = 0.025;
-int prev_error = 1;
-int tbh = 0;
-int firstCross = 1;
-int flyWheelMethod = 1;
-int inte = 0;
-void flyWheelSpeedManager(){
-
-  encoderValue = encoderGet(flyWheel);
-  change = encoderValue - lastE;
-  //printf("%d change\n",change);
-  rpm = calcSpeed(change);
-
-  error = flyWheelTargetSpeed - rpm;
-  printf("%d\n",error);
-
-  //printf("Error: %d",error);
-  if(flyWheelTargetSpeed == 0){
-    setFlyWheel(0);
-  }
-  else{
-    if(flyWheelMethod == 0){
-      drive = drive + (error * gain);
-      if(sgn(error) != sgn(prev_error)){
-        if(firstCross == 1){
-          drive = 100;
-          tbh = drive;
-          firstCross = 0;
-        }
-        else{
-          drive = 0.5 * (drive + tbh);
-          tbh = drive;
+    if(err < 0){dir = -1;}
+    while(err * dir > 0){
+      //printf("Angle: %d",gyroGet(gyro));
+      err = x - gyroGet(gyro);
+    //  if(abs(err) > 15){power = 10;}
+  //    if(err > 0){dir = 1;}
+    //  else{dir = -1;}
+      if(abs(err) > 30){power = 20;}
+      if(abs(err) > 45){power = 20;}
+      if(abs(err) > 60){power = 35;}
+      if(abs(err) > 90){power = 35;}
+      setDrive(-dir*power,dir*power);
+      delay(25);
+      if(millis()-start > breakout){
+        break;
+      }
+    }
+    setDrive(dir * 10,-dir * 10);
+    delay(150);
+    setDrive(0,0);
+    err = x - gyroGet(gyro);
+    if(err > 0){dir = 1;}
+    if(err < 0){dir = -1;}
+    while(abs(err) > 2){
+        err = x - gyroGet(gyro);
+        if(abs(err) > 0){power = 15;}
+        if(abs(err) > 10){power = 15;}
+        if(abs(err) > 30){power = 20;}
+        setDrive(-dir*power,dir*power);
+        delay(25);
+        if(millis()-start > breakout){
+          break;
         }
       }
-      prev_error = error;
-      setFlyWheel(drive);
-    }
-    else if(flyWheelMethod == 1){
-      inte += error;
-      setFlyWheel(-motorGet(FWheelL) + error * 0.055 + inte * 0.05 + (error - prev_error) * 0.01);
-      prev_error = error;
+    setDrive(0,0);
+
+}
+
+
+
+
+int auton_goal = 300;
+int auton_angler_integral = 0;
+int auton_angler = 350;
+int puncher_crossed = 0;
+void anglerAuton(){
+  int angleError = analogRead(anglerE) - auton_angler;
+  if(abs(angleError) >= 250 || angleError == 0){auton_angler_integral = 0;}
+  auton_angler_integral += angleError;
+  setAngler(angleError * 0.05 + auton_angler_integral * 0.005);
+}
+void setAnglerAutonHeight(int h){
+  auton_angler = h;
+  auton_angler_integral = 0;
+}
+void puncherAuton(){
+  //printf("Puncher: %d\n\n",encoderGet(puncher));
+  if(auton_goal - encoderGet(puncher) >= 0){
+    if(puncher_crossed == 0){
+      setPuncher(127);
     }
   }
-
-  lastE = encoderValue;
+  else{
+    puncher_crossed = 1;
+    setPuncher(0);
+  }
 }
-int calcSpeed(int change){
-  currMillis = millis();
-  //printf("%d\n",currMillis - lastMillis);
-
-  speed = (1000.0 / 100) * change * 60.0 / (360) * 5;
-  //speed = ticks*5/360;
-  lastMillis = currMillis;
-  return speed;
+void autonShoot(int g){
+  auton_goal = g;
+  puncher_crossed = 0;
 }
-//ticks per ms = change/change in Ms
-//ticks per s = change/ (change in Ms/1000ms)
-//ticks per minute = change/(change in Ms/1000/60)
-//revolutions per minute = ticks per minute*5
+void wait_for(int n){
+  int init = millis();
+  while(millis() - init <= n){delay(25);}
+  return;
+}
+
+void driveOneWheelBack(int dist,char side){
+  encoderReset(driveL);
+  encoderReset(driveR);
+  if(side == 'L'){
+    int err = dist + encoderGet(driveL);
+    while(err > 0){
+      err = dist + encoderGet(driveL);
+      setLDrive(-25);
+      delay(50);
+    }
+    setDrive(0,0);
+  }
+  else{
+    int err = side + encoderGet(driveR);
+    while(err > 0){
+      err = side + encoderGet(driveR);
+      setRDrive(-25);
+      delay(50);
+    }
+    setDrive(0,0);
+  }
+}

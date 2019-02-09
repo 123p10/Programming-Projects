@@ -32,6 +32,9 @@
 extern "C" {
 #endif
 
+
+
+
 // A function prototype looks exactly like its declaration, but with a semicolon instead of
 // actual code. If a function does not match a prototype, compile errors will occur.
 
@@ -93,6 +96,58 @@ void initialize();
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl();
+
+
+
+//MOTORS
+#define intake 1
+#define RDB 2
+#define RDM 3
+#define RDF 4
+#define puncherM 5
+#define angler 6
+#define LDF 7
+#define LDM 8
+#define LDB 9
+
+//Sensors
+#define DRIVE_LEFT_TOP 1
+#define DRIVE_LEFT_BOTTOM 2
+#define DRIVE_RIGHT_TOP 3
+#define DRIVE_RIGHT_BOTTOM 4
+#define PUNCHER_TOP 5
+#define PUNCHER_BOTTOM 6
+
+#define anglerE 1
+
+Encoder driveL;
+Encoder driveR;
+Encoder puncher;
+Gyro gyro;
+
+
+
+void setLDrive(int speed);
+void setRDrive(int speed);
+void setDrive(int left,int right);
+void setPuncher(int speed);
+void setIntake(int speed);
+int joystick(int axis);
+int button(int btnGroup,char dir);
+int inchesToTicks(int inches);
+int cmToTicks(int cm);
+void initSensors();
+void driveForward(int distance,double kP);
+void puncherControl();
+void anglerControl();
+int sgn(int in);
+void turnGyro(int angle);
+void turnEncoder(int dist);
+void driveBackward(int distance,int breakout,double kP);
+int chassisTrueSpeed(int cmd);
+int lDriveGoal;
+int rDriveGoal;
+
 
 // End C++ export structure
 #ifdef __cplusplus
