@@ -1,9 +1,12 @@
+<a class = "btn btn-default btn-lg btn-danger"  href="index.php">Home</a><br><br>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 <style>
 img {
     image-orientation: from-image;
 }
 </style>
-<a href="index.php">Home</a>
 <?php
 include_once("../scripts/db_functions.php");
 $conn = getConnection();
