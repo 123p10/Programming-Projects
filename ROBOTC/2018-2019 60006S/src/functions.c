@@ -83,7 +83,7 @@ void driveForward(int distance, double kP,double kI, double kD){
     setRDrive(acceleration + output);
     lError = encoderGet(driveL) - encoderGet(driveR);
     delay(50);
-    if(acceleration - 5 <= 65){
+    if(acceleration - 5 <= 70){
       acceleration += 5;
     }
     if(dL <= 200){
@@ -142,20 +142,20 @@ void driveBackward(int distance,double kP,int breakout){
 void turnEncoder(int dist){
   encoderReset(driveL);
   encoderReset(driveR);
-  int turningSpeed = 60;
+  int turningSpeed = 50;
   setLDrive(turningSpeed * sgn(dist));
   setRDrive(turningSpeed * sgn(dist) * -1);
   int error = dist - encoderGet(driveL);
   while(error * sgn(dist) > 0){
-      if(abs(error) < 200){
-        turningSpeed = 30;
+      if(abs(error) < 300){
+        turningSpeed = 20;
       }
       setLDrive(turningSpeed * sgn(dist));
       setRDrive(turningSpeed * sgn(dist) * -1);
       error = dist - encoderGet(driveL);
       delay(50);
   }
-  setDrive(-30 * sgn(dist), 30 * sgn(dist));
+  setDrive(-10 * sgn(dist), 10 * sgn(dist));
   delay(150);
   setDrive(0, 0);
 }
@@ -191,7 +191,7 @@ void turnGyro(int x,int reset,int breakout){
     int lerr = 0;
     if(reset == 1){gyroReset(gyro);}
     int err = x - gyroGet(gyro);
-    int power = 30;
+    int power = 25;
 
     if(err < 0){dir = -1;}
     while(err * dir > 0){
@@ -200,8 +200,9 @@ void turnGyro(int x,int reset,int breakout){
     //  if(abs(err) > 15){power = 10;}
   //    if(err > 0){dir = 1;}
     //  else{dir = -1;}
-      if(abs(err) > 30){power = 20;}
-      if(abs(err) > 45){power = 20;}
+      if(abs(err) < 10){power = 20;}
+      if(abs(err) > 30){power = 25;}
+      if(abs(err) > 45){power = 25;}
       if(abs(err) > 60){power = 35;}
       if(abs(err) > 90){power = 35;}
       setDrive(-dir*power,dir*power);
@@ -210,23 +211,37 @@ void turnGyro(int x,int reset,int breakout){
         break;
       }
     }
-    setDrive(dir * 10,-dir * 10);
-    delay(150);
-    setDrive(0,0);
+    setDrive(dir * 5,-dir * 5);
+    delay(50);
+  //  setDrive(0,0);
     err = x - gyroGet(gyro);
     if(err > 0){dir = 1;}
     if(err < 0){dir = -1;}
-    while(abs(err) > 2){
-        err = x - gyroGet(gyro);
+    float k_i = 0.05;
+    float k_p = 0.75;
+    int turn_integral = 0;
+    int l_error = err;
+  /*  while(abs(err) > 0 && abs(err - l_error) > 1){
+      //  err = x - gyroGet(gyro);
+        if(err > 0){dir = 1;}
+        if(err < 0){dir = -1;}
+
         if(abs(err) > 0){power = 15;}
-        if(abs(err) > 10){power = 15;}
-        if(abs(err) > 30){power = 20;}
+        if(abs(err) > 10){power = 20;}
+        if(abs(err) > 30){power = 30;}
+        turn_integral += abs(err);
+        //power = 15 + abs(err) * k_p + (turn_integral * k_i);
         setDrive(-dir*power,dir*power);
+        l_error = err;
         delay(25);
         if(millis()-start > breakout){
           break;
         }
-      }
+        err = x - gyroGet(gyro);
+
+      }*/
+  //  setDrive(5*dir,-5*dir);
+    //delay(75);
     setDrive(0,0);
 
 }
@@ -238,13 +253,16 @@ int auton_goal = 300;
 int auton_angler_integral = 0;
 int auton_angler = 350;
 int puncher_crossed = 0;
+int last_puncher_error_auton = 0;
 void anglerAuton(){
   int angleError = analogRead(anglerE) - auton_angler;
   if(abs(angleError) >= 250 || angleError == 0){auton_angler_integral = 0;}
   auton_angler_integral += angleError;
-  setAngler(angleError * 0.05 + auton_angler_integral * 0.005);
+  setAngler(angleError * 0.09 + auton_angler_integral * 0.0 + (angleError - last_puncher_error_auton) * 0.05);
+  last_puncher_error_auton = angleError;
 }
 void setAnglerAutonHeight(int h){
+  last_puncher_error_auton = 0;
   auton_angler = h;
   auton_angler_integral = 0;
 }

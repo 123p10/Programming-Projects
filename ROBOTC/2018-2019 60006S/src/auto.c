@@ -35,8 +35,14 @@
 New Auton Runs
 
 1 red back tile left high flag, descore cap, platform attempt middle flag
+2 blue back tile right high flag descore cap platform attempt middle flag
+3 blue back tile right high flag descore cap platform attempt
+4 red front tile left high flag, descore cap middle flag platform attempt
+5 blue front tile right high flag, descore cap middle flag platform attempt
+
+6 skills
 */
-#define AUTON 2
+#define AUTON 5
 
 void autonomous() {
   initSensors();
@@ -46,6 +52,62 @@ void autonomous() {
   if(AUTON == 0){
   }
   if(AUTON == 1){
+    autonShoot(250);
+    setAnglerAutonHeight(2300);
+    wait_for(700);
+    autonShoot(360+80);
+    wait_for(700);
+    turnGyro(-86,1,5000);
+    wait_for(300);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    driveForward(cmToTicks(105),0.75,0,0);
+    autonShoot(360+250);
+    wait_for(1500);
+    setIntake(0);
+    driveBackward(cmToTicks(15), 0.8, 4000);
+    wait_for(400);
+    turnGyro(90,1,3000);
+    wait_for(300);
+    driveForward(cmToTicks(55),0.75,0,0);
+    wait_for(500);
+    setAnglerAutonHeight(1350);
+    turnGyro(-17,1,2500);
+    setIntake(127);
+    wait_for(750);
+    setIntake(0);
+    autonShoot(360*2+200);
+    wait_for(1200);
+  }
+  if(AUTON == 2){
+    setAnglerAutonHeight(2300);
+    wait_for(700);
+    autonShoot(360+80);
+    wait_for(700);
+    turnGyro(86,1,5000);
+    wait_for(300);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    driveForward(cmToTicks(90),0.75,0,0);
+    wait_for(1500);
+    setIntake(0);
+    driveBackward(cmToTicks(15), 0.8, 4000);
+    wait_for(400);
+    turnGyro(-90,1,3000);
+    wait_for(300);
+    driveForward(cmToTicks(65),0.75,0,0);
+    wait_for(500);
+    setAnglerAutonHeight(1250);
+    turnGyro(18,1,3000);
+    wait_for(300);
+    setIntake(127);
+    wait_for(750);
+    setIntake(0);
+    wait_for(500);
+    autonShoot(360*2+80);
+    wait_for(1000);
+  }
+  if(AUTON == 3){
     setAnglerAutonHeight(2300);
     wait_for(700);
     autonShoot(360+80);
@@ -63,45 +125,95 @@ void autonomous() {
     wait_for(300);
     driveForward(cmToTicks(60),0.75,0,0);
     wait_for(500);
-    setAnglerAutonHeight(1250);
-    turnGyro(20,1,3000);
-    wait_for(300);
-    setIntake(127);
+    turnGyro(-90,1,4000);
     wait_for(750);
-    setIntake(0);
-    wait_for(500);
-    autonShoot(360*2+80);
-    wait_for(1000);
+    driveForward(cmToTicks(50),0.75,0,0);
   }
-  if(AUTON == 2){
-    setAnglerAutonHeight(2300);
-    wait_for(700);
-    autonShoot(360+80);
-    wait_for(700);
-    turnGyro(88,1,5000);
+  if(AUTON == 4){
+    setAnglerAutonHeight(2600);
+    autonShoot(250);
     wait_for(300);
+    autonShoot(360+200);
+    wait_for(650);
     setIntake(127);
     setAnglerAutonHeight(315);
-    driveForward(cmToTicks(90),0.75,0,0);
-    wait_for(1500);
+    turnGyro(-90,1,3500);
+    wait_for(250);
+    driveForward(cmToTicks(105), 0.75, 0, 0);
+    wait_for(1100);
     setIntake(0);
-    driveBackward(cmToTicks(15), 0.8, 4000);
-    wait_for(400);
-    turnGyro(-90,1,3000);
+    driveBackward(cmToTicks(93), 0.75, 5000);
     wait_for(300);
-    driveForward(cmToTicks(60),0.75,0,0);
-    wait_for(500);
-    setAnglerAutonHeight(1250);
-    turnGyro(-20,1,3000);
+    turnGyro(76,1,4500);
     wait_for(300);
-    setIntake(127);
-    wait_for(750);
-    setIntake(0);
-    wait_for(500);
-    autonShoot(360*2+80);
-    wait_for(1000);
-
+    setAnglerAutonHeight(1700);
+    wait_for(350);
+    autonShoot(360*2+200);
+    wait_for(700);
+    driveBackward(cmToTicks(40), 0.75, 2500);
+    wait_for(200);
+    turnGyro(-90,1,3500);
+    wait_for(200);
+    driveForward(cmToTicks(75), 0.75, 0, 0);
   }
+  if(AUTON == 5){
+    setAnglerAutonHeight(2600);
+    autonShoot(250);
+    wait_for(300);
+    autonShoot(360+200);
+    wait_for(650);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    turnGyro(90,1,3500);
+    wait_for(250);
+    driveForward(cmToTicks(105), 0.75, 0, 0);
+    wait_for(1100);
+    setIntake(0);
+    driveBackward(cmToTicks(93), 0.75, 5000);
+    wait_for(300);
+    turnGyro(-76,1,4500);
+    wait_for(300);
+    setAnglerAutonHeight(1700);
+    wait_for(350);
+    autonShoot(360*2+200);
+    wait_for(700);
+    driveBackward(cmToTicks(40), 0.75, 2500);
+    wait_for(200);
+    turnGyro(90,1,3500);
+    wait_for(200);
+    driveForward(cmToTicks(75), 0.75, 0, 0);
+  }
+  if(AUTON == 6){
+    setAnglerAutonHeight(2600);
+    autonShoot(250);
+    wait_for(300);
+    autonShoot(360+200);
+    wait_for(650);
+    setIntake(127);
+    setAnglerAutonHeight(315);
+    turnGyro(-90,1,3500);
+    wait_for(250);
+    driveForward(cmToTicks(105), 0.75, 0, 0);
+    wait_for(1100);
+    setIntake(0);
+    driveBackward(cmToTicks(93), 0.75, 5000);
+    wait_for(300);
+    turnGyro(76,1,4500);
+    wait_for(300);
+    setAnglerAutonHeight(1700);
+    wait_for(350);
+    autonShoot(360*2+200);
+    wait_for(700);
+    driveForward(cmToTicks(90),0.8,0,0);
+    wait_for(200);
+    driveBackward(cmToTicks(36),0.75,4500);
+    wait_for(200);
+    turnGyro(-90,1,3500);
+    setIntake(-127);
+    wait_for(200);
+    driveForward(cmToTicks(45),0.75,0,0);
+  }
+
   taskDelete(anglerTask);
   taskDelete(puncherTask);
 }

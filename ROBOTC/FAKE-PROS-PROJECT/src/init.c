@@ -3,14 +3,12 @@
  *
  * This file should contain the user initialize() function and any functions related to it.
  *
- * Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/
- *
  * PROS contains FreeRTOS (http://www.freertos.org) whose source code may be
  * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
  */
 
 #include "main.h"
+
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
  * VEX Cortex is starting up. As the scheduler is still paused, most API functions will fail.
@@ -36,15 +34,4 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
-  setTeamName("60006X");
-  lcdInit(uart1);
-  lcdClear(uart1);
-  lcdSetText(uart1,1,"VEER & OWEN");
-  lcdSetText(uart1, 2, "OWN THE 6IX");
-  lcdSetBacklight(uart1, true);
-  driveL = encoderInit(DRIVE_LEFT_TOP, DRIVE_LEFT_BOTTOM, false);
-  driveR = encoderInit(DRIVE_RIGHT_TOP,DRIVE_RIGHT_BOTTOM,false);
-  puncher = encoderInit(PUNCHER_TOP,PUNCHER_BOTTOM,false);
-  gyro = gyroInit(GYRO_PORT,0);
-//  angler = encoderInit(ANGLER,false)
 }

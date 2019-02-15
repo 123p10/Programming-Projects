@@ -20,7 +20,7 @@ int angleChoice = 1;
 int angler_integral = 0;
 int lDCurrent = 0, rDCurrent = 0;
 float power,turn;
-int deadzone = 25;
+int deadzone = 30;
 float multiplier = (5.0/5.0);
 const int driveStyle = 0;
 int lD,rD;
@@ -39,9 +39,9 @@ void operatorControl() {
 const int driveMap[128] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		10,12,13,14,15,16,17,18,19,19,
-		20,21,22,21,22,24,25,27,28,29,
-		30,32,33,35,37,37,38,38,39,39,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		10,11,12,11,12,14,15,17,18,19,
+		20,23,26,27,29,30,35,36,37,39,
 		40,40,41,41,42,42,43,43,44,44,
 		45,45,46,46,47,47,48,48,49,49,
 		50,50,51,51,52,52,53,53,54,54,
@@ -129,6 +129,7 @@ void intakeControl(){
 		setIntake(0);
 	}
 }
+int last_angler_error = 0;
 void anglerControl(){
 	//Bottom Value 215
 	//Back Middle flag 1700
@@ -139,6 +140,7 @@ void anglerControl(){
 		angleChoice++;
 		if(angleChoice > 3){angleChoice = 3;}
 		angler_integral = 0;
+		last_angler_error = 0;
 		fiveUHeld = 1;
 	}
 	else if(!button(5,'U')){
@@ -148,6 +150,8 @@ void anglerControl(){
 		angleChoice--;
 		fiveDHeld = 1;
 		angler_integral = 0;
+		last_angler_error = 0;
+
 		if(angleChoice < 0){angleChoice = 0;}
 	}
 	else if(!button(5,'D')){
@@ -174,14 +178,15 @@ void anglerControl(){
 	}*/
 	if(angleChoice == 0){puncherAngle = 315;}
 	if(angleChoice == 1){puncherAngle = 1700;}
-	if(angleChoice == 2){puncherAngle = 2620;}
-	if(angleChoice == 3){puncherAngle = 2800;}
-	if(angleChoice == 4){puncherAngle = 3200;}
+	if(angleChoice == 2){puncherAngle = 2500;}
+	if(angleChoice == 3){puncherAngle = 3200;}
+
 	angleError = analogRead(anglerE) - puncherAngle;
-	if(abs(angleError) >= 250 || angleError == 0){angler_integral = 0;}
+	if(abs(angleError) >= 250 || abs(angleError) < 2){angler_integral = 0;}
 	angler_integral += angleError;
-	setAngler(angleError * 0.05 + angler_integral * 0.005);
+	setAngler(angleError * 0.09 + angler_integral * 0.001 + (angleError - last_angler_error) * 0.05);
 	//	setAngler(0);
+	last_angler_error = angleError;
 
 
 }
