@@ -36,7 +36,7 @@ void operatorControl() {
 		delay(25);
 	}
 }
-const int driveMap[128] = {
+/*const int driveMap[128] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -49,7 +49,20 @@ const int driveMap[128] = {
 		60,60,61,62,63,64,65,66,67,68,
 		69,70,71,72,73,74,75,76,77,78,
 		79,80,81,82,83,84,85,86,87,88,
-		89,90,91,92,94,96,127,127};
+		89,90,91,92,94,96,127,127};*/
+const int driveMap[128] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+10,11,12,11,12,14,15,17,18,19,
+20,22,23,24,25,26,27,28,30,31,
+32,33,34,35,36,37,38,39,40,42,
+43,44,45,46,47,48,49,48,49,49,
+50,50,51,51,52,52,53,53,54,54,
+55,55,56,56,57,57,58,58,59,59,
+60,60,61,62,63,64,65,66,67,68,
+69,70,71,72,73,74,75,76,77,78,
+79,80,81,82,83,84,85,86,87,88,
+89,90,91,92,94,96,127,127};
 
 void driveControl(){
 //	printf("Gyro Angle: %d\n\n",gyroGet(gyro));
@@ -130,15 +143,16 @@ void intakeControl(){
 	}
 }
 int last_angler_error = 0;
+double kI = 0.005;
 void anglerControl(){
 	//Bottom Value 215
 	//Back Middle flag 1700
 
 	//Max Pos 3200
-	//printf("Angler Pos: %d \n\n",analogRead(anglerE));
+//	printf("Angler Pos: %d \n\n",analogRead(anglerE));
 	if(button(5,'U') && fiveUHeld == 0){
 		angleChoice++;
-		if(angleChoice > 3){angleChoice = 3;}
+		if(angleChoice > 2){angleChoice = 2;}
 		angler_integral = 0;
 		last_angler_error = 0;
 		fiveUHeld = 1;
@@ -152,10 +166,16 @@ void anglerControl(){
 		angler_integral = 0;
 		last_angler_error = 0;
 
-		if(angleChoice < 0){angleChoice = 0;}
+		if(angleChoice < 1){angleChoice = 1;}
 	}
 	else if(!button(5,'D')){
 		fiveDHeld = 0;
+	}
+	if(button(7,'U')){
+		angleChoice = 3;
+	}
+	if(button(7,'D')){
+		angleChoice = 0;
 	}
 	/*if(button(5,'D')){
 		angleChoice = 0;
@@ -176,15 +196,16 @@ void anglerControl(){
 		angler_integral = 0;
 
 	}*/
-	if(angleChoice == 0){puncherAngle = 315;}
-	if(angleChoice == 1){puncherAngle = 1700;}
-	if(angleChoice == 2){puncherAngle = 2500;}
-	if(angleChoice == 3){puncherAngle = 3200;}
+	if(angleChoice == 0){puncherAngle = 350; kI = 0;}
+	else{kI = 0.0075;}
+	if(angleChoice == 1){puncherAngle = 1780;}
+	if(angleChoice == 2){puncherAngle = 2850;}
+	if(angleChoice == 3){puncherAngle = 2600;}
 
 	angleError = analogRead(anglerE) - puncherAngle;
-	if(abs(angleError) >= 250 || abs(angleError) < 2){angler_integral = 0;}
-	angler_integral += angleError;
-	setAngler(angleError * 0.09 + angler_integral * 0.001 + (angleError - last_angler_error) * 0.05);
+	if(abs(angleError) >= 350 || abs(angleError) < 10){angler_integral = 0;}
+	else{	angler_integral += angleError;}
+	setAngler(angleError * 0.09 + angler_integral * kI + (angleError - last_angler_error) * 0.005);
 	//	setAngler(0);
 	last_angler_error = angleError;
 
