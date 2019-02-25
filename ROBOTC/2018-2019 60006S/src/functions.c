@@ -256,12 +256,13 @@ int puncher_crossed = 0;
 int last_puncher_error_auton = 0;
 void anglerAuton(){
   int angleError = analogRead(anglerE) - auton_angler;
-  //printf("Puncher Angler: %d",angleError);
-  if(auton_angler == 350){auton_angler_integral = 0;}
-  if(abs(angleError) >= 350 || abs(angleError) < 20 ){auton_angler_integral = 0;}
-  else{	auton_angler_integral += angleError;}
-//  auton_angler_integral += angleError;
-  setAngler(angleError * 0.05 + auton_angler_integral * 0.0025 + (angleError - last_puncher_error_auton) * 0.005);
+//  printf("Puncher Angler: %d",angleError);
+  if(abs(angleError) > 40){
+		setAngler(angleError * 0.09 + auton_angler_integral * 0.001 + (angleError - last_puncher_error_auton) * 0.05);
+	}
+	else{
+		setAngler(0);
+	}
   last_puncher_error_auton = angleError;
 }
 void setAnglerAutonHeight(int h){

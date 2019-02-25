@@ -16,7 +16,7 @@ int fiveUHeld = 0;
 int fiveDHeld = 0;
 int puncherAngle = 315;
 int angleError = 0;
-int angleChoice = 1;
+int angleChoice = 2;
 int angler_integral = 0;
 int lDCurrent = 0, rDCurrent = 0;
 float power,turn;
@@ -66,7 +66,7 @@ const int driveMap[128] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 void driveControl(){
 //	printf("Gyro Angle: %d\n\n",gyroGet(gyro));
-printf("Puncher: %d\n\n",encoderGet(puncher));
+//printf("Puncher: %d\n\n",encoderGet(puncher));
 	//printf("Left Drive: %d Right Drive: %d \n\n",encoderGet(driveL),encoderGet(driveR));
 	if(driveStyle == 0){
 		if(abs(joystick(3)) > deadzone){
@@ -144,12 +144,13 @@ void intakeControl(){
 }
 int last_angler_error = 0;
 double kI = 0.005;
+
 void anglerControl(){
 	//Bottom Value 215
 	//Back Middle flag 1700
 
 	//Max Pos 3200
-//	printf("Angler Pos: %d \n\n",analogRead(anglerE));
+	printf("Angler Pos: %d \n\n",analogRead(anglerE));
 	if(button(5,'U') && fiveUHeld == 0){
 		angleChoice++;
 		if(angleChoice > 2){angleChoice = 2;}
@@ -196,16 +197,24 @@ void anglerControl(){
 		angler_integral = 0;
 
 	}*/
-	if(angleChoice == 0){puncherAngle = 350; kI = 0;}
-	else{kI = 0.0075;}
+	if(angleChoice == 0){puncherAngle = 230; kI = 0; angler_integral = 0;}
+	else{kI = 0.000;}
 	if(angleChoice == 1){puncherAngle = 1780;}
 	if(angleChoice == 2){puncherAngle = 2850;}
 	if(angleChoice == 3){puncherAngle = 2600;}
-
+	printf("Angler: %d",analogRead(anglerE));
 	angleError = analogRead(anglerE) - puncherAngle;
-	if(abs(angleError) >= 350 || abs(angleError) < 10){angler_integral = 0;}
-	else{	angler_integral += angleError;}
-	setAngler(angleError * 0.09 + angler_integral * kI + (angleError - last_angler_error) * 0.005);
+//	if(abs(angleError) > 20){
+	if(abs(angleError) > 40){
+		setAngler(angleError * 0.09 + angler_integral * 0.001 + (angleError - last_angler_error) * 0.05);
+	}
+	else{
+		setAngler(0);
+	}
+	//}
+//	else{
+//		setAngler(0);
+	//}
 	//	setAngler(0);
 	last_angler_error = angleError;
 
