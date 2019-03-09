@@ -1,22 +1,44 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 <?php
-include_once("../scripts/course_functions.php");
-include_once("../scripts/db_functions.php");
-include_once("../scripts/teacher_functions.php");
-include_once("../scripts/test_functions.php");
-
-$conn = getConnection();
-
-$sql = "SELECT CourseCode FROM Courses";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-
-      echo "<a href=\"teachers.php?CourseCode=" . rawurlencode($row["CourseCode"]) . "\" class=\"btn btn-default btn-block btn-lg\" style=\"font-size:30px\">" . $row["CourseCode"] . "</a>";
-    }
-} else {
-    echo "0 results";
+#echo getcwd();
+if(!isset($_GET['CURRDIR'])){
+	$currdir = '/resources/';
 }
+else{
+	$currdir = $_GET['CURRDIR'];
+}
+#print_r(scandir(getcwd()));
+$directories = glob($currdir . '/*' , GLOB_ONLYDIR);
+#print_r($directories);
+#print($currdir);
+if(sizeof($directories) > 0){
+	foreach($directories as $dir){
+	#	print(basename($dir) . "\n");
+		print("<a class = \"btn btn-default btn-block btn-lg\" href=index.php?CURRDIR=" . urlencode($currdir) . '/' . basename($dir) . ">" . basename($dir) ."</a><br>");
+	}
+
+}
+else{
+  $files = glob($currdir .  '/*.{jpg,png}', GLOB_BRACE);
+  #print_r($files);
+  foreach($files as $file)
+  {
+	echo "<img src=\"" . $file . "\" width=50%>";
+  }
+  $files = glob( $currdir  . '/*.{pdf,PDF}', GLOB_BRACE);
+  foreach($files as $file)
+  {
+	echo "<iframe src=\"{$file}\" width=\"100%\" style=\"height:100%\"></iframe>";
+  }
+
+
+}
+/*$path = scandir(getcwd());
+foreach($path as $e){
+	if($e[0] != '.'){
+		print $e;
+	}
+}*/
 ?>
