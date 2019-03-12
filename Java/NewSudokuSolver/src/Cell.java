@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+
+public class Cell {
+	int value;
+	ArrayList<Integer> possibleValues;
+	//	int possibleValues[] = {1,2,3,4,5,6,7,8,9};
+	public Cell(int iv) {
+		value = iv;
+		possibleValues = new ArrayList<Integer>();
+
+		for(int i = 1;i <= 9;i++) {
+			possibleValues.add(i);
+		}
+	}
+	public int getValue() {
+		return value;
+	}
+	public void setValue(int v) {
+		value = v;
+		possibleValues.clear();
+	}
+	public void checkValue() {
+		if(possibleValues.size() == 1) {
+			System.out.println("Checked Value: " + possibleValues.get(0));
+			setValue(possibleValues.get(0));
+
+		}
+	}
+	public void removePossibleValue(int i) {
+		possibleValues.remove(Integer.valueOf(i));
+	}
+	public int hasPossibleValue(int i ) {
+		if(possibleValues.contains(Integer.valueOf(i))) {
+			return 1;
+		}
+		return 0;
+	}
+}
