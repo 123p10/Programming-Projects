@@ -1,6 +1,18 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+ * Hidden Triples
+ * 	-Three doubles
+ * -One triple two doubles
+ * 
+ * Naked Triples
+ * 	-Three doubles
+ * 
+ * Hidden Doubles 
+ * 	-All of it
+ * */
+
 public class Container {
 	Cell cells[];
 	int i = 0;
@@ -19,6 +31,14 @@ public class Container {
 	public void checkCells() {
 		generalLoop();
 	}
+	public int checkSolution() {
+		ArrayList<Integer> vals = new ArrayList<Integer>();
+		for(int i = 0;i < 9;i++) {
+			if(vals.contains(cells[i].getValue())) {return 0;}
+			vals.add(cells[i].getValue());
+		}
+		return 1;
+	}
 	public void generalLoop() {
 		for(int a = 0;a < 9;a++) {
 			if(cells[a].getValue() != -1) {
@@ -34,15 +54,20 @@ public class Container {
 			}
 			
 		}
+		//Gonna be honest don't know why this is needed but it works
+		if(Board.lastChangedCounter > 2) {
+			specialNakedTriple();
+			searchHiddenTriple();
 
-		checkHiddenSingle();
-		Arrays.fill(hiddenS, 0);
-
-		for(int a = 0;a < 9;a++) {
-			hiddenSingle(a);
+			checkHiddenSingle();
+			
+			Arrays.fill(hiddenS, 0);
+	
+			for(int a = 0;a < 9;a++) {
+				hiddenSingle(a);
+			}
 		}
-		searchHiddenTriple();
-		specialNakedTriple();
+
 		nakedD.clear();
 		nakedT.clear();
 		Arrays.fill(hiddenS, 0);
@@ -71,7 +96,7 @@ public class Container {
 					if(cells[b].getValue() == -1) {
 						if(cells[b].hasPossibleValue(i) == 1) {
 							cells[b].setValue(i);
-							System.out.println("Hidden Single: " + i);
+							//System.out.println("Hidden Single: " + i);
 						}
 					}
 				}
@@ -168,7 +193,7 @@ public class Container {
 								}
 							}
 							if(count == 3) {
-							//	clearTriple(hT);
+							//clearTriple(hT);
 								//System.out.println("Found triple" + hT.getNth(0) + " " + hT.getNth(1) + " " +hT.getNth(2));
 								return;
 							}
@@ -177,6 +202,9 @@ public class Container {
 				}
 			}
 		}
+		//two threes one double
+		
+		//TODO THREE DOUBLES OR ONE THREE TWO DOUBLES
 		if(dS.size() > 0) {
 			for(int i = 0;i < tS.size();i++) {
 				for(int j = 0;j < tS.size();j++) {
@@ -193,9 +221,9 @@ public class Container {
 								}
 							}
 							if(count == 3) {
-								//clearTriple(hT);
+								clearTriple(hT);
 								if(hT.getNth(0) == 1 && hT.getNth(1) == 2 && hT.getNth(2) == 5) {
-									clearTriple(hT);
+								//	clearTriple(hT);
 									
 								}
 								
@@ -223,6 +251,9 @@ public class Container {
 		return;
 	}
 	public void specialNakedTriple() {
+		//if(nakedT.size() < 1) {return;}
+		//if(nakedD.size() < 1) {return;}
+		//TODO THREE DOUBLES <------------------------------------
 		//One triple two doubles
 		for(int i = 0;i < nakedT.size();i++) {
 			for(int j = 0;j < nakedD.size();j++) {
@@ -241,19 +272,66 @@ public class Container {
 									}
 									else if(cells[b].possibleValues.size() == 2) {
 										if(snt.numContains(cells[b].possibleValues) == 2) {
+
 											continue;
 										}
 									}
-									
-									cells[b].removePossibleValue(snt.getNth(0));
-									cells[b].removePossibleValue(snt.getNth(1));
-									cells[b].removePossibleValue(snt.getNth(2));
+									for(int m = 0;m < 3;m++) {
+										if(cells[b].hasPossibleValue(snt.getNth(m)) == 1) {
+								/*			System.out.println("Removed: " + snt.getNth(m) + " from:");
+											for(int l = 0;l < cells[b].possibleValues.size();l++) {
+												System.out.print(cells[b].possibleValues.get(l)+" ");
+											}
+											System.out.println();*/
+											cells[b].removePossibleValue(snt.getNth(m));
 
+										}
+									}
 									
 								}
-								break;
+								return;
 							}
 						}
+					}
+				}
+			}
+		}
+		//Two triples one double
+		for(int i = 0;i < nakedT.size();i++) {
+			if(nakedT.get(i).getCount() == 2) {
+				SpecialNakedTriple snt = new SpecialNakedTriple(nakedT.get(i).getFirst(),nakedT.get(i).getSecond(),nakedT.get(i).getThird());
+				for(int j = 0;j < nakedD.size();j++) {
+					if(snt.numContains(nakedD.get(j).x,nakedD.get(j).y) == 2) {
+						for(int b = 0;b < 9;b++) {
+							if(cells[b].getValue() != -1) {continue;}
+							if(cells[b].possibleValues.size() == 3) {
+								if(snt.numContains(cells[b].possibleValues) == 3) {
+									continue;
+								}
+							}
+							else if(cells[b].possibleValues.size() == 2) {
+								if(snt.numContains(cells[b].possibleValues) == 2) {
+
+									continue;
+								}
+							}
+							for(int m = 0;m < 3;m++) {
+								if(cells[b].hasPossibleValue(snt.getNth(m)) == 1) {
+								/*	System.out.println("Removed: " + snt.getNth(m) + " from:");
+									for(int l = 0;l < cells[b].possibleValues.size();l++) {
+										System.out.print(cells[b].possibleValues.get(l)+" ");
+									}
+									System.out.println();*/
+									cells[b].removePossibleValue(snt.getNth(m));
+
+								}
+							}
+
+
+							
+
+						}
+						return;
 					}
 				}
 			}

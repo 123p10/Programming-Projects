@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -19,6 +20,9 @@ public class Frame extends JFrame{
 	}
 	@Override
 	public void paint(Graphics g) {
+	//	g.setColor(Color.white);
+		//g.clearRect(0, 0, WID, HEI);
+		g.setColor(Color.BLACK);
 		board.draw(g);
 	}
 }

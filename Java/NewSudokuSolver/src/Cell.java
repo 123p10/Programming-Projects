@@ -18,10 +18,11 @@ public class Cell {
 	public void setValue(int v) {
 		value = v;
 		possibleValues.clear();
+		Board.lastChangedCounter = 0;
 	}
 	public void checkValue() {
 		if(possibleValues.size() == 1) {
-			System.out.println("Checked Value: " + possibleValues.get(0));
+		//	System.out.println("Checked Value: " + possibleValues.get(0));
 			setValue(possibleValues.get(0));
 
 		}
@@ -29,10 +30,18 @@ public class Cell {
 	public void removePossibleValue(int i) {
 		possibleValues.remove(Integer.valueOf(i));
 	}
+
 	public int hasPossibleValue(int i ) {
 		if(possibleValues.contains(Integer.valueOf(i))) {
 			return 1;
 		}
 		return 0;
+	}
+	public void resetCell() {
+		possibleValues.clear();
+		for(int i = 1;i <= 9;i++) {
+			possibleValues.add(i);
+		}
+
 	}
 }
