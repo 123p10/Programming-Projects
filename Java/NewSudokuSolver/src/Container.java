@@ -176,7 +176,7 @@ public class Container {
 		if(tS.size() < 2) {return;}
 		if(tS.size() == 2 && dS.size() < 1) {return;}
 		//Analyze all threes
-		//Analyze all threes and one double
+		//eg. 129 129 129
 		for(int i = 0;i < tS.size();i++) {
 			for(int j = 0;j < tS.size();j++) {
 				if(i != j) {
@@ -203,8 +203,8 @@ public class Container {
 			}
 		}
 		//two threes one double
-		
-		//TODO THREE DOUBLES OR ONE THREE TWO DOUBLES
+		// 129 129 12
+		//the nine is the double
 		if(dS.size() > 0) {
 			for(int i = 0;i < tS.size();i++) {
 				for(int j = 0;j < tS.size();j++) {
@@ -235,6 +235,10 @@ public class Container {
 				}
 			}
 		}
+		//129 12 19
+		//three ones two twos two nines
+		//12 19 29
+		//two ones two twos two nines
 	}
 	public void clearTriple(HiddenTriple hT) {
 		

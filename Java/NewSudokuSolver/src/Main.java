@@ -2,44 +2,27 @@
 public class Main {
  
 	public static void main(String[] args) {
-		
 		// TODO Auto-generated method stub
 		//One Test
 		Board myBoard = new Board();
 		Frame myFrame = new Frame();
+		KeyListener key = new KeyListener();
 		myFrame.addBoard(myBoard);
+		myFrame.addKeyListener(key);
 		myBoard.setBoardStyle(0);
+		while(!KeyListener.isSpacePressed()) {}
+		System.out.println("Broke out");
 		while(myBoard.isSolved() == 0) {
-			myBoard.scanBoard();
 			myFrame.repaint();
+
+			myBoard.scanBoard();
 
 		}
 		if(myBoard.checkSolution()==1) {
-			System.out.println("Properly Solved");
+			System.out.println("Properly Solved after " + myBoard.getElapsed()/1000000000.0 + " seconds");
 		}
 		else {
 			System.out.println("Improperly Solved");
-		}
-		
-		
-		//Loop Tests
-		/*for(int i = 2;i <= 4;i++) {
-			myBoard = new Board();
-			myFrame = new Frame();
-			myFrame.addBoard(myBoard);
-			myBoard.setBoardStyle(i);
-			while(myBoard.isSolved() == 0) {
-				myBoard.scanBoard();
-				myFrame.repaint();
-	
-			}
-			if(myBoard.checkSolution()==1) {
-				System.out.println("Properly Solved");
-			}
-			else {
-				System.out.println("Improperly Solved");
-			}
-	
-		}*/
+		}		
 	}
 }

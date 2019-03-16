@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class Cell {
 	int value;
+	int row;
+	int box;
+	int col;
+	int uid;
 	ArrayList<Integer> possibleValues;
 	//	int possibleValues[] = {1,2,3,4,5,6,7,8,9};
 	public Cell(int iv) {
@@ -44,4 +48,10 @@ public class Cell {
 		}
 
 	}
+	public void setRow(int r) {row = r;}
+	public void setCol(int c) {col = c;}
+	public void setBox(int b) {box = b;}
+	public int getRow() {return row;}
+	public int getBox() {return box;}
+	public int getCol() {return col;}
 }

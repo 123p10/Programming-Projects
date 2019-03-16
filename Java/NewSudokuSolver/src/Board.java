@@ -10,6 +10,9 @@ public class Board {
 	Box boxes[][];
 	Row rows[];
 	Column columns[];
+	long startTime = 0;
+	long elapsed = 0;
+	boolean firstScan = true;
 	public static boolean stop = false;
 	public static int lastChangedCounter = 0;
 	public Board() {
@@ -41,6 +44,10 @@ public class Board {
 		
 	}
 	public void scanBoard() {
+		if(firstScan == true) {
+			startTime = System.nanoTime();
+			firstScan = false;
+		}
 		//if(stop == true) {return;}
 		
 		for(int y = 0;y < 9;y++) {
@@ -67,6 +74,7 @@ public class Board {
 				}
 			}
 		}
+		elapsed = System.nanoTime() - startTime;
 		return 1;	
 	}
 	public int checkSolution() {
@@ -92,7 +100,13 @@ public class Board {
 		}
 		return 1;
 	}
+	public long getElapsed() {
+		return elapsed;
+	}
 	public void draw(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 1000, 1000);
+		g.setColor(Color.black);
 		for(int y = 0;y < 9;y++) {
 			for(int x = 0;x < 9;x++) {
 				g.drawRect(x*sizeCells, y*sizeCells+31, sizeCells, sizeCells);
@@ -169,7 +183,7 @@ public class Board {
 			cells[7][7].setValue(1);
 			cells[7][8].setValue(5);
 		}
-		//Expert
+		//Expert ABSURD requires pointing pairs and X-Cycles
 		if(option == 1) {
 			cells[0][2].setValue(9);
 			cells[0][5].setValue(2);
@@ -328,7 +342,83 @@ public class Board {
 			cells[8][7].setValue(7);
 
 		}
-		
+		//Hard websudoku.com
+		if(option == 5) {
+			cells[0][7].setValue(8);
+
+			cells[1][0].setValue(9);
+			cells[1][1].setValue(8);
+			cells[1][3].setValue(5);
+			cells[1][6].setValue(2);
+			cells[1][7].setValue(1);
+			cells[1][8].setValue(7);
+			
+			cells[2][2].setValue(6);
+			cells[2][3].setValue(7);
+			cells[2][7].setValue(5);
+
+			cells[3][4].setValue(7);
+			cells[3][7].setValue(2);
+			
+			cells[4][0].setValue(1);
+			cells[4][4].setValue(3);
+			cells[4][8].setValue(4);
+
+			
+			cells[5][1].setValue(3);
+			cells[5][4].setValue(4);
+
+			cells[6][1].setValue(1);
+			cells[6][5].setValue(2);
+			cells[6][6].setValue(7);
+
+			cells[7][0].setValue(5);
+			cells[7][1].setValue(4);
+			cells[7][2].setValue(2);
+			cells[7][5].setValue(7);
+			cells[7][7].setValue(3);
+			cells[7][8].setValue(9);
+
+			cells[8][1].setValue(9);
+
+		}
+		//Evil websudoku.com
+		if(option == 6) {
+			cells[0][2].setValue(3);
+			cells[0][6].setValue(7);
+			cells[0][7].setValue(9);
+
+			cells[1][4].setValue(5);
+			cells[1][7].setValue(3);
+			
+			cells[2][2].setValue(9);
+			cells[2][3].setValue(7);
+			cells[2][4].setValue(1);
+			cells[2][6].setValue(2);
+
+			cells[3][6].setValue(3);
+			cells[3][7].setValue(6);
+			
+			cells[4][3].setValue(6);
+			cells[4][5].setValue(7);
+
+			
+			cells[5][1].setValue(7);
+			cells[5][2].setValue(4);
+
+			cells[6][2].setValue(5);
+			cells[6][4].setValue(3);
+			cells[6][5].setValue(8);
+			cells[6][6].setValue(1);
+
+			cells[7][1].setValue(1);
+			cells[7][4].setValue(4);
+
+			cells[8][1].setValue(4);
+			cells[8][2].setValue(2);
+			cells[8][6].setValue(8);
+
+		}
 		
 		
 		
