@@ -1,21 +1,2 @@
 INDEX VERSION 1.130+C:\Users\obrak\Desktop\Programming-Projects\Java\.metadata\.plugins\org.eclipse.jdt.core
-3142784979.index
-2645667855.index
-761312360.index
 2585212193.index
-922642072.index
-1464175950.index
-3291002090.index
-22573762.index
-2440228952.index
-4194413612.index
-250501746.index
-3511893588.index
-3639609268.index
-523936729.index
-1184141847.index
-2952214306.index
-648437301.index
-2720348132.index
-2617301672.index
-2658370250.index

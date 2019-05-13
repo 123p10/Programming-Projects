@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1552708465603_3" label="SudokuSolver" name="SudokuSolver">
-<item elementID="=NewSudokuSolver" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-</workingSet>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1552708465603_3" label="SudokuSolver" name="SudokuSolver"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1521389744321_0" label="Window Working Set" name="Aggregate for window 1520641044230"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1521634719091_1" label="Window Working Set" name="Aggregate for window 1521634719091"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1522797447315_2" label="Window Working Set" name="Aggregate for window 1522797447315"/>
